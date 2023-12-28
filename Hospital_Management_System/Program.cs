@@ -1,3 +1,5 @@
+using Hospital_Management_System.Extension;
+
 namespace Hospital_Management_System
 {
     public class Program
@@ -15,6 +17,11 @@ namespace Hospital_Management_System
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });//
+
+            builder.Services.AddControllers().AddJsonOptions(options => 
+                options.JsonSerializerOptions.PropertyNamingPolicy = null);
+
+            builder.Services.AddAppSetting();
 
 
             var app = builder.Build();
@@ -37,7 +44,7 @@ namespace Hospital_Management_System
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Login}/{action=Login}/{id?}");
 
             app.Run();
         }

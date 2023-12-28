@@ -1,4 +1,5 @@
-﻿
+﻿using Hospital_Management_System.HospitalBussinessManager.BAL;
+using Hospital_Management_System.HospitalBussinessManager.IBAL;
 using Hospital_Management_System.HospitalDataManager.DAL;
 using Hospital_Management_System.HospitalDataManager.IDAL;
 using MySql.Data.MySqlClient;
@@ -11,8 +12,7 @@ namespace Hospital_Management_System.Extension
         public static IServiceCollection AddAppSetting(this IServiceCollection services)
         {
             services.AddScoped<IDBManager>(AddDBManager);
-            //services.AddScoped<IEmployeeBAL, EmployeeBAL>;
-            //services.AddScoped<IEmployeeBAL, EmployeeBAL>();
+            services.AddScoped<ILoginBAL, LoginBAL>();
 
             return services;
         }

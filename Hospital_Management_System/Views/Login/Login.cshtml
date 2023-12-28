@@ -1,0 +1,71 @@
+﻿<div class="container">
+    <div class="center">
+        <h1>Login</h1>
+        <form method="POST" action="">
+            <div class="txt_field">
+                <input type="email" id="_email" name="email" required>
+                <span></span>
+                <label>Email</label>
+            </div>
+            <div class="txt_field">
+                <input type="password" id="_password" name="password" required>
+                <span></span>
+                <label>Password</label>
+            </div>
+            <button type="button" class="submit-button" onclick="Login()">Sign Up</button>
+            <div class="signup_link">
+                Have an Account ? <a asp-controller="Login" asp-action="SignUp">Register Here</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+
+    function Login() {
+
+        var emailData = {
+            email: $("#_email").val()
+        }; 
+        
+        var passData = {
+            password: $("#_password").val()
+        };
+        debugger;
+        console.log(emailData);
+        console.log(passData);
+        var formData = new FormData();
+        formData.append("email", emailData.email);
+        formData.append("password", passData.password);
+        debugger;
+        $.ajax({
+            type: "POST",
+            url: "/Login/LoginPost",
+            data: formData,
+            contentType: false,
+            processData: false,
+            Cache: false,
+            success: function (data) {
+                if (data === 'Valid') {
+                    alert('Success!');
+                    window.location.href = "/DashBoard/AdminDashBoard";
+                } else {
+                    alert("Invalid Credential: Please try agein")
+                }
+                
+
+            },
+            error: function (error) {
+                console.log("Register Data Error: ", error);
+            },
+
+        });
+
+
+    }
+
+</script>
+
+
+           

@@ -12,8 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="HospitalBussinessManager\BAL\" />
-    <Folder Include="HospitalBussinessManager\IBAL\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 

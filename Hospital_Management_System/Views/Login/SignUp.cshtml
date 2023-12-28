@@ -1,0 +1,75 @@
+﻿ <div class="outer">
+    <div class="LoginWrapper">
+        <div class="container">
+            <div class="center">
+                <h1>Register</h1>
+                
+                <form>
+
+                    <div class="txt_field">
+                        <input type="text" id="_name" name="name" required>
+                        <span></span>
+                        <label>Name</label>
+                    </div>
+
+                    <div class="txt_field">
+                        <input type="email" id="_email" name="email" required>
+                        <span></span>
+                        <label>Email</label>
+                    </div>
+
+                    <div class="txt_field">
+                        <input type="password" id="_password" name="password" required>
+                        <span></span>
+                        <label>Password</label>
+                    </div>
+
+                    <button type="button" class="submit-button" onclick="Register()">Sign Up</button>
+
+                    <div class="signup_link">
+                        Have an Account ? <a asp-controller="Login" asp-action="Login">Login Here</a>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+ </div>
+
+<script>
+
+    function Register()
+    {
+        debugger;
+        var RegisterData = {
+            name: $('#_name').val(),
+            email: $('#_email').val(),
+            password: $('#_password').val(),
+        };
+
+        console.log(RegisterData);
+
+        var formData = new FormData();
+        formData.append("model", JSON.stringify(RegisterData));
+        debugger;
+
+        $.ajax({
+            type: "POST",
+            url: "/Login/SignUpPost",
+            data: formData,
+            contentType: false,
+            processData: false,
+            Cache: false,
+            success: function (data) {
+                alert('Success!');
+            },
+            error: function (error) {
+                console.log("Register Data Error: ", error);
+            },
+
+        });
+
+    }
+
+</script>
