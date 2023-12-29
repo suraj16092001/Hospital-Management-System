@@ -1,4 +1,5 @@
 ﻿using CRUDoperation.CommonCode;
+using Hospital_Management_System.CommonCode;
 using Hospital_Management_System.HospitalDataManager.IDAL;
 using Hospital_Management_System.Models;
 using MySql.Data.MySqlClient;
@@ -40,12 +41,14 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
 
         }
 
-        public UserModel SignUp(UserModel user)
+        public UserModel SignUp(UserModel user )
         {
+            
             _dBManager.InitDbCommandText("insert into loginUser (name,email,pass) values (@name,@email,@pass);");
             _dBManager.AddCMDParam("@name", user.name);
             _dBManager.AddCMDParam("@email", user.email);
             _dBManager.AddCMDParam("@pass", user.password);
+
 
             _dBManager.ExecuteNonQuery();
 
