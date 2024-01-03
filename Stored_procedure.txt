@@ -1,0 +1,54 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CheckEmailExist`(IN p_email VARCHAR(60))
+BEGIN
+    DECLARE emailExists BOOLEAN;
+    SELECT EXISTS(
+		SELECT 1 FROM loginuser WHERE email = p_email
+	) INTO emailExists;
+    SELECT emailExists AS IsExists;
+END
+
+
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ExistsEmail`(
+In email varchar(55)
+)
+begin
+declare temp_count int ;
+declare existEmail bool;
+select count(*) into temp_count from loginuser where email=email;
+
+  IF temp_count > 0 THEN
+		SET existEmail = 1;
+	else
+		SET existEmail = 0;
+	END IF;
+  
+select existEmail as isExist;
+end
+
+
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAllUser`()
+begin
+select * from loginuser;
+end
+
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertUser`(
+	IN p_name varchar(200),
+	IN p_email varchar(200),
+	IN p_pass varchar (55)
+)
+begin 
+  insert into loginuser (name,email,pass) values (p_name, p_email, MD5(p_pass));
+end
+
+
+
+id	int	NO	PRI		auto_increment
+name	varchar(200)	YES			
+email	varchar(200)	YES			
+pass	varchar(55)	YES			
