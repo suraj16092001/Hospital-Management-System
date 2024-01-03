@@ -7,9 +7,11 @@ using MySql.Data.MySqlClient;
 using System.Data;
 using System.Web;
 using System.Text.Json;
+using MySqlX.XDevAPI.Common;
 
 namespace Hospital_Management_System.Controllers 
 { 
+    
     public class LoginController : Controller
     {
         readonly ILoginBAL _ILoginBAL;
@@ -27,6 +29,7 @@ namespace Hospital_Management_System.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult LoginPost(string email,string password)
         {
@@ -43,13 +46,24 @@ namespace Hospital_Management_System.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult SignUpPost(string model)
         {
             UserModel user = JsonSerializer.Deserialize<UserModel>(model)!;
+            if (ModelState.IsValid)
+            {
+                var result = _ILoginBAL.SignUp(user);
 
-            _ILoginBAL.SignUp(user);
-            return Json("Login");
+                if (result == "exists")
+                {
+                    return Json( new { status = "warning", message = "Email Id Already Exists!" });
+                }
+                return Json(new { status = "success", message = "User register successfully!" });
+            }
+
+            return View();
+            
         }
     }
         

@@ -1,25 +1,32 @@
-﻿<div class="container">
+﻿@model UserModel;
+
+@section Styles
+{
+    <link rel="stylesheet" href="/css/SignUpOrLogin.css">
+}
+<div class="outer">
+<div class="container">
     <div class="center">
         <h1>Login</h1>
         <form method="POST" action="">
+                <div class="txt_field">
+                    <input type="email" class="input-field" id="email" asp-for="email" required>
+                    <span asp-validation-for="email" class="text-danger"></span>
+                    <label>Email</label>
+                </div>
             <div class="txt_field">
-                <input type="email" id="_email" name="email" required>
-                <span></span>
-                <label>Email</label>
+                    <input type="password" id="_password" name="password" required>
+                    <span></span>
+                    <label>Password</label>
             </div>
-            <div class="txt_field">
-                <input type="password" id="_password" name="password" required>
-                <span></span>
-                <label>Password</label>
-            </div>
-            <button type="button" class="submit_button" onclick="Login()">Sign Up</button>
+            <button type="button" class="submit_button" onclick="Login()">Login</button>
             <div class="signup_link">
                 Have an Account ? <a asp-controller="Login" asp-action="SignUp">Register Here</a>
             </div>
         </form>
-    </div>
+    </div>   
 </div>
-
+</div>
 
 <script>
 

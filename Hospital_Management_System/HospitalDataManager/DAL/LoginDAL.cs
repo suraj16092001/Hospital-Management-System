@@ -44,10 +44,10 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
         public UserModel SignUp(UserModel user )
         {
             
-            _dBManager.InitDbCommandText("insert into loginUser (name,email,pass) values (@name,@email,@pass);");
-            _dBManager.AddCMDParam("@name", user.name);
-            _dBManager.AddCMDParam("@email", user.email);
-            _dBManager.AddCMDParam("@pass", user.password);
+            _dBManager.InitDbCommand("InsertUser");
+            _dBManager.AddCMDParam("@p_name", user.name);
+            _dBManager.AddCMDParam("@p_email", user.email);
+            _dBManager.AddCMDParam("@p_pass", user.password);
 
 
             _dBManager.ExecuteNonQuery();
@@ -55,6 +55,17 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             return user;
         }
 
+        public bool CheckEmailExistence(string email)
+        {
+            _dBManager.InitDbCommand("CheckEmailExist")
+                .AddCMDParam("@p_email",email);
+
+            var result = _dBManager.ExecuteScalar();
+
+            bool emailExists = Convert.ToBoolean(result);
+
+            return emailExists;
+        }
         public string Login(string email)
         {
             string existingPass = null;

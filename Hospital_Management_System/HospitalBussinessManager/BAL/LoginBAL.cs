@@ -17,10 +17,18 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
             _ILoginDAL = new LoginDAL(dBManager);
         }
 
-        public UserModel SignUp(UserModel user)
+        public string SignUp(UserModel user)
         {
-            user.password = MD5Hash.GetMd5Hash(user.password);
-            return _ILoginDAL.SignUp(user);
+            bool emailExists = _ILoginDAL.CheckEmailExistence(user.email);
+
+            if (emailExists)
+            {
+                return "exists";
+            } 
+            
+            _ILoginDAL.SignUp(user);
+
+            return "success";
         }
 
         public List<UserModel> UserList()

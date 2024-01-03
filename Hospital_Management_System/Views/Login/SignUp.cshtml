@@ -1,30 +1,50 @@
-﻿ <div class="outer">
+﻿@model UserModel;
+
+@section Styles {
+    <link rel="stylesheet" href="/css/SignUpOrLogin.css">
+}
+
+<div class="outer">
     <div class="LoginWrapper">
         <div class="container">
             <div class="center">
                 <h1>Register</h1>
                 
-                <form>
+                <form method="post" id="signup_form">
 
                     <div class="txt_field">
-                        <input type="text" id="_name" name="name" required>
-                        <span></span>
+                        <input type="text" class="input-field" id="name" asp-for="name" required>
+                        <span asp-validation-for="name" class="text-danger"></span>
                         <label>Name</label>
+                         @* @Html.EditorFor(model => model.name, new { htmlAttributes = new {  @class="input-field", autocomplete = "off" } }) *@
                     </div>
+                    @* @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" }) *@
 
                     <div class="txt_field">
-                        <input type="email" id="_email" name="email" required>
-                        <span></span>
+                        <input type="email" class="input-field" id="email" asp-for="email" required>
+                        <span asp-validation-for="email" class="text-danger"></span>
                         <label>Email</label>
+                       @*  @Html.EditorFor(model => model.email, new { htmlAttributes = new { autocomplete = "off" } }) *@
                     </div>
+                    @* @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" }) *@
 
                     <div class="txt_field">
-                        <input type="password" id="_password" name="password" required>
-                        <span></span>
+                        <input type="password" class="input-field" id="password" asp-for="password" required>
+                        <span asp-validation-for="password" class="text-danger"></span>
                         <label>Password</label>
+                        @* @Html.PasswordFor(model => model.password, new  { autocomplete = "off" } ) *@
                     </div>
+                    @* @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" }) *@
 
-                    <button type="button" class="submit_button" onclick="Register()">Sign Up</button>
+                    <div class="txt_field">
+                        <input type="password" class="input-field" id="confirm_password" asp-for="confirm_password" required> 
+                        <span asp-validation-for="confirm_password" class="text-danger"></span>
+                        <label>Confirm Password</label>
+                        @* @Html.PasswordFor(model => model.confirm_password, new {  autocomplete = "off" } ) *@
+                    </div>
+                    @* @Html.ValidationMessageFor(model => model.confirm_password, "", new { @class = "text-danger" }) *@
+
+                    <div><button type="button" class="submit_button" onclick="Register()">Sign Up</button></div>
 
                     <div class="signup_link">
                         Have an Account ? <a asp-controller="Login" asp-action="Login">Login Here</a>
@@ -32,20 +52,28 @@
 
                 </form>
 
+
             </div>
         </div>
     </div>
  </div>
 
+ @section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+ }
 <script>
-
+   
     function Register()
     {
         debugger;
+        if ($('#signup_form').valid()){ 
         var RegisterData = {
-            name: $('#_name').val(),
-            email: $('#_email').val(),
-            password: $('#_password').val(),
+                name: $('#name').val(),
+                email: $('#email').val(),
+                password: $('#password').val(),
+                confirm_password: $('#confirm_password').val(),
         };
 
         console.log(RegisterData);
@@ -62,15 +90,22 @@
             processData: false,
             Cache: false,
             success: function (data) {
-                alert('Success!');
-                window.location.href = "/Login/Login";
+
+                if (data.status === "success") {
+                    alert(data.message);
+                    window.location.href = "/Login/Login";
+                } 
+                else if (data.status === "warning") {
+                    alert(data.message);
+                }
+
+                
             },
             error: function (error) {
                 console.log("Register Data Error: ", error);
             },
-
         });
-
+      }
     }
 
 </script>

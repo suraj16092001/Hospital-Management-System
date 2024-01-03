@@ -6,7 +6,7 @@ namespace Hospital_Management_System.HospitalBussinessManager.IBAL
     public interface ILoginBAL
     {
         public List<UserModel> UserList();
-        public UserModel SignUp(UserModel user);
+        public string SignUp(UserModel user);
 
         public string LoginPost(string email, string password);
     }

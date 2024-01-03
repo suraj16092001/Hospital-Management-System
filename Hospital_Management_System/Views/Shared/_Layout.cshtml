@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Hospital_Management_System</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/SignUpOrLogin.css"/>
     <link rel="stylesheet" href="~/Hospital_Management_System.styles.css" asp-append-version="true" />
+    @RenderSection("Styles",required: false)
 </head>
 <body>
-    <header>
+    <header id="main-header">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-transparent">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Hospital_Management_System</a>
@@ -36,12 +37,12 @@
             @RenderBody()
         </main>
     </div>
-@* 
-    <footer class="border-top footer text-muted">
+ 
+    <footer id="main-footer" class="border-top footer text-muted">
         <div class="container">
             &copy; 2023 - Hospital_Management_System - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
-    </footer> *@
+    </footer> 
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
