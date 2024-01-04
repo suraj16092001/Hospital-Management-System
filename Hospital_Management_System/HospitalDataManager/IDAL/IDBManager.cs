@@ -22,5 +22,7 @@ namespace Hospital_Management_System.HospitalDataManager.IDAL
         Task<int> ExecuteNonQueryAsync();
         HospitalDataManager.DAL.DBManager InitDbCommandText(string cmd);
 
+        public string GetSalt(); //get salt key from appsetting.json
+
     }
 }

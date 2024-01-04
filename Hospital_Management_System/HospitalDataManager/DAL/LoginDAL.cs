@@ -10,7 +10,6 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
     internal class LoginDAL : ILoginDAL
     {
         private IDBManager _dBManager;
-
         public LoginDAL(IDBManager dBManager)
         {
             _dBManager = dBManager;
@@ -20,7 +19,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             
             List<UserModel> userList = new List<UserModel>();
 
-            _dBManager.InitDbCommandText("select * from loginUser;");
+            _dBManager.InitDbCommand("GetAllUser");
 
             DataSet ds = _dBManager.ExecuteDataSet();
 
@@ -43,7 +42,8 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
 
         public UserModel SignUp(UserModel user )
         {
-            
+            user.password = user.password + _dBManager.GetSalt();
+
             _dBManager.InitDbCommand("InsertUser");
             _dBManager.AddCMDParam("@p_name", user.name);
             _dBManager.AddCMDParam("@p_email", user.email);
@@ -84,8 +84,9 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
 
         }
 
-        public string getPassword(string password)
+        public string verifiedPassword(string password)
         {
+            password = password + _dBManager.GetSalt();
             _dBManager.InitDbCommand("getPassword")
                 .AddCMDParam ("p_password", password);
 

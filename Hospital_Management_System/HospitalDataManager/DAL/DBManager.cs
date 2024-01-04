@@ -8,13 +8,20 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
     public class DBManager : IDisposable, IDBManager
     {
         private readonly DbConnection _DbConnection;
+        private readonly string _salt;
         private string _DBCmd;
         private CommandType _CommandType;
         private List<DBParam> _InputParam;
         private List<DBParam> _OutParam;
-        public DBManager(DbConnection dbcon)
+        public DBManager(DbConnection dbcon, string salt)
         {
             _DbConnection = dbcon;
+            _salt = salt;
+        }
+
+        public string GetSalt()
+        {
+            return _salt;
         }
 
         void Open()

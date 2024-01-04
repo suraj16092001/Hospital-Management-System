@@ -38,7 +38,7 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
 
         public string LoginPost(string email, string password)
         {
-            string getPassword =_ILoginDAL.getPassword(password);
+            string getPassword =_ILoginDAL.verifiedPassword(password);
             string dbPassword = _ILoginDAL.Login(email);
 
             if (getPassword != dbPassword)

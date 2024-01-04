@@ -21,14 +21,15 @@ namespace Hospital_Management_System.Extension
             IConfiguration Configuration = serviceProvider.GetRequiredService<IConfiguration>();
 
             string dbconstr = Configuration.GetConnectionString("DefaultConnection");
-            return GetDBManager(dbconstr);
+            string salt = Configuration["salt"];
+            return GetDBManager(dbconstr, salt);
 
 
         }
-        public static IDBManager GetDBManager(string connectionString)
+        public static IDBManager GetDBManager(string connectionString,string salt)
         {
             DbConnection dbconn = new MySqlConnection(connectionString);
-            return new DBManager(dbconn);
+            return new DBManager(dbconn,salt);
         }
     }
 }
