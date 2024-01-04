@@ -38,15 +38,16 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
 
         public string LoginPost(string email, string password)
         {
-            string existingPass = _ILoginDAL.Login(email);
-            bool result = MD5Hash.verifyPassword(existingPass, password);
-            if (result)
+            string getPassword =_ILoginDAL.getPassword(password);
+            string dbPassword = _ILoginDAL.Login(email);
+
+            if (getPassword != dbPassword)
             {
-                return "Valid";
+                return "Invalid Password";
             }
             else
             {
-                return "Invalid";
+                return "Valid Password";
             }
         }
     }

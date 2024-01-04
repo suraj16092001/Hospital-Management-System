@@ -11,5 +11,7 @@ namespace Hospital_Management_System.HospitalDataManager.IDAL
         public string Login(string email);
 
         public bool CheckEmailExistence(string email);
+
+        public string getPassword(string password);
     }
 }

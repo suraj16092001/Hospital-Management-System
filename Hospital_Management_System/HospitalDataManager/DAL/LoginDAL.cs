@@ -70,8 +70,8 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
         {
             string existingPass = null;
 
-            _dBManager.InitDbCommandText("Select pass from loginUser where email=@email")
-                .AddCMDParam("@email", email);
+            _dBManager.InitDbCommand("getUserPassword")
+                .AddCMDParam("@p_email", email);
 
             DataSet ds = _dBManager.ExecuteDataSet();
 
@@ -80,8 +80,20 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 existingPass = item["pass"].ConvertDBNullToString();
 
             }
-                return existingPass;
+            return existingPass;
 
+        }
+
+        public string getPassword(string password)
+        {
+            _dBManager.InitDbCommand("getPassword")
+                .AddCMDParam ("p_password", password);
+
+            var result = _dBManager.ExecuteScalar();
+
+            string passwordExixts = Convert.ToString(result);
+
+            return passwordExixts;
         }
     }
 }

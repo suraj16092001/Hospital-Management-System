@@ -5,72 +5,81 @@
     <link rel="stylesheet" href="/css/SignUpOrLogin.css">
 }
 <div class="outer">
-<div class="container">
-    <div class="center">
-        <h1>Login</h1>
-        <form method="POST" action="">
+    <div class="container">
+        <div class="center">
+            <h1>Login</h1>
+            <form method="POST" id="login_form">
+
                 <div class="txt_field">
                     <input type="email" class="input-field" id="email" asp-for="email" required>
-                    <span asp-validation-for="email" class="text-danger"></span>
                     <label>Email</label>
                 </div>
-            <div class="txt_field">
-                    <input type="password" id="_password" name="password" required>
-                    <span></span>
+                <span asp-validation-for="email" class="text-danger"></span>
+
+                <div class="txt_field">
+                    <input type="password" class="input-field" id="password" asp-for="password" required>
                     <label>Password</label>
-            </div>
-            <button type="button" class="submit_button" onclick="Login()">Login</button>
-            <div class="signup_link">
-                Have an Account ? <a asp-controller="Login" asp-action="SignUp">Register Here</a>
-            </div>
-        </form>
-    </div>   
+                </div>
+                <span asp-validation-for="password" class="text-danger"></span>
+
+                <button type="button" class="submit_button" onclick="Login()">Login</button>
+                <div class="signup_link">
+                    Have an Account ? <a asp-controller="Login" asp-action="SignUp">Register Here</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
-</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
 
 <script>
 
     function Login() {
+        if ($('#login_form').valid()) {
+            var emailData = {
+                email: $("#email").val()
+            };
 
-        var emailData = {
-            email: $("#_email").val()
-        }; 
-        
-        var passData = {
-            password: $("#_password").val()
-        };
-        debugger;
-        console.log(emailData);
-        console.log(passData);
-        var formData = new FormData();
-        formData.append("email", emailData.email);
-        formData.append("password", passData.password);
-        debugger;
-        $.ajax({
-            type: "POST",
-            url: "/Login/LoginPost",
-            data: formData,
-            contentType: false,
-            processData: false,
-            Cache: false,
-            success: function (data) {
-                if (data === 'Valid') {
-                    alert('Success!');
-                    window.location.href = "/DashBoard/AdminDashBoard";
-                } else {
-                    alert("Invalid Credential: Please try agein")
-                }
-            },
-            error: function (error) {
-                console.log("Register Data Error: ", error);
-            },
+            var passData = {
+                password: $("#password").val()
+            };
+            debugger;
+            console.log(emailData);
+            console.log(passData);
+            var formData = new FormData();
+            formData.append("email", emailData.email);
+            formData.append("password", passData.password);
+            debugger;
+            $.ajax({
+                type: "POST",
+                url: "/Login/LoginPost",
+                data: formData,
+                contentType: false,
+                processData: false,
+                Cache: false,
+                success: function (data) {
+                    if (data.status === "warning") {
+                        alert(data.message);
+                    }
+                    else if (data.status === "success") {
+                        alert(data.message);
+                        window.location.href = "/DashBoard/AdminDashBoard";
+                    }
+                },
+                error: function (error) {
+                    console.log("Register Data Error: ", error);
+                },
 
-        });
+            });
 
-
+        }
     }
 
 </script>
 
 
-           

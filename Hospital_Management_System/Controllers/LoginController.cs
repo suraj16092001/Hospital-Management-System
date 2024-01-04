@@ -34,13 +34,12 @@ namespace Hospital_Management_System.Controllers
         public IActionResult LoginPost(string email,string password)
         {
             var result =_ILoginBAL.LoginPost(email,password);
-            if(result== "Valid")
+            if(result == "Invalid Password")
             {
-                return Json("Valid");
+                return Json(new { status = "warning", message = "Invalid Password" });
             }
-            return Json("Invalid Credential!");
+            return Json(new { status = "success", message = "User login successfully!" });
         }
-
 
         public IActionResult SignUp()
         {
