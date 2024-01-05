@@ -9,9 +9,9 @@ using System.Web;
 using System.Text.Json;
 using MySqlX.XDevAPI.Common;
 
-namespace Hospital_Management_System.Controllers 
-{ 
-    
+namespace Hospital_Management_System.Controllers
+{
+
     public class LoginController : Controller
     {
         readonly ILoginBAL _ILoginBAL;
@@ -31,12 +31,20 @@ namespace Hospital_Management_System.Controllers
         }
 
         [HttpPost]
-        public IActionResult LoginPost(string email,string password)
+        public IActionResult LoginPost(string email, string password)
         {
-            var result =_ILoginBAL.LoginPost(email,password);
-            if(result == "Invalid Password")
+            if (ModelState.IsValid)
             {
-                return Json(new { status = "warning", message = "Invalid Password" });
+                var result = _ILoginBAL.LoginPost(email, password);
+
+                if (result == "not exists")
+                {
+                    return Json(new { status = "warning", message = "Email doesn't exists." });
+                }
+                else if (result == "Invalid Password")
+                {
+                    return Json(new { status = "warning", message = "Invalid Password" });
+                }
             }
             return Json(new { status = "success", message = "User login successfully!" });
         }
@@ -56,14 +64,14 @@ namespace Hospital_Management_System.Controllers
 
                 if (result == "exists")
                 {
-                    return Json( new { status = "warning", message = "Email Id Already Exists!" });
+                    return Json(new { status = "warning", message = "Email Id Already Exists!" });
                 }
                 return Json(new { status = "success", message = "User register successfully!" });
             }
 
             return View();
-            
+
         }
     }
-        
+
 }

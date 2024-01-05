@@ -38,10 +38,17 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
 
         public string LoginPost(string email, string password)
         {
+            bool emailExists = _ILoginDAL.CheckEmailExistence(email);
+
             string getPassword =_ILoginDAL.verifiedPassword(password);
+
             string dbPassword = _ILoginDAL.Login(email);
 
-            if (getPassword != dbPassword)
+            if(!emailExists)
+            {
+                return "not exists";
+            }
+            else if (getPassword != dbPassword)
             {
                 return "Invalid Password";
             }

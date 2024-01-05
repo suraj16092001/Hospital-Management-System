@@ -1,0 +1,27 @@
+﻿.sidebar {
+    position: fixed; /* Keeps the sidebar in place */
+    top: 100px; /* Adjust for navbar height */
+    left: 0;
+    width: 250px; /* Adjust as desired */
+    height: 100vh; /* Full height of the viewport */
+    background-color: #f0f0f0; /* Light gray background */
+    padding: 20px;
+    overflow-y: auto; /* Enable scrolling for long content */
+}
+.sidebar-content {
+    /* Styles for content within the sidebar */
+}
+
+.sidebar-links {
+    list-style: none;
+    padding: 0;
+}
+
+    .sidebar-links li {
+        margin-bottom: 10px;
+    }
+
+    .sidebar-links a {
+        text-decoration: none;
+        color: black;
+    }
