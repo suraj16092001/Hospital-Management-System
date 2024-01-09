@@ -8,10 +8,11 @@ using System.Data;
 using System.Web;
 using System.Text.Json;
 using MySqlX.XDevAPI.Common;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Hospital_Management_System.Controllers
 {
-
+  
     public class LoginController : Controller
     {
         readonly ILoginBAL _ILoginBAL;

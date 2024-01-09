@@ -35,15 +35,23 @@
                         <label>Confirm Password</label>
                     </div>
                     <span asp-validation-for="confirm_password" class="text-danger"></span>
-
+@* 
                     <div class="txt_field">
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Role</option>
+                        <select id="role" name="role" asp-items="@ViewBag.role" class="form-select" aria-label="Default select example">
+                            <option value="">Role</option>
                             <option value="1">Admin</option>
                             <option value="2">Patient</option>
                             <option value="3">Doctor</option>
+                            @Html.DropDownListFor("role",ViewBag.role,
+                            "Select Role",new{@class="form-control"})
                         </select>
                     </div>
+                    <span asp-validation-for="role" class="text-danger"></span> *@
+
+                    <div class="txt_field">
+                            @Html.DropDownListFor(model => model.role, new SelectList(new List<string>() { "Admin", "Patient" ,"Doctor" }), "Select Role", new { @class = "w-100 border-0" })
+                    </div>
+                    <span asp-validation-for="role" class="text-danger"></span>
 
 
                     <div><button type="button" class="submit_button" onclick="Register()">Sign Up</button></div>
@@ -75,6 +83,7 @@
                 email: $('#email').val(),
                 password: $('#password').val(),
                 confirm_password: $('#confirm_password').val(),
+                role: $('#role').val(),
             };
 
             console.log(RegisterData);

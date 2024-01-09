@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Hospital_Management_System.Controllers;
+using System.ComponentModel.DataAnnotations;
 
 namespace Hospital_Management_System.Models
 {
@@ -23,5 +24,9 @@ namespace Hospital_Management_System.Models
         [Required(ErrorMessage = "Please re-enter your password.")]
         [Compare(nameof(password), ErrorMessage = "Passwords do not match")]
         public string confirm_password { get; set; }
+
+
+        [Required]
+        public string role { get; set; }
     }
 }
