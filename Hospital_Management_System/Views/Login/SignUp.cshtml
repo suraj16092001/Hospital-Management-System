@@ -36,6 +36,16 @@
                     </div>
                     <span asp-validation-for="confirm_password" class="text-danger"></span>
 
+                    <div class="txt_field">
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Role</option>
+                            <option value="1">Admin</option>
+                            <option value="2">Patient</option>
+                            <option value="3">Doctor</option>
+                        </select>
+                    </div>
+
+
                     <div><button type="button" class="submit_button" onclick="Register()">Sign Up</button></div>
 
                     <div class="signup_link">
