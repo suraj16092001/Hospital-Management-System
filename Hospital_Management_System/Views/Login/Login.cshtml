@@ -67,9 +67,17 @@
                     if (data.status === "warning") {
                         alert(data.message);
                     }
-                    else if (data.status === "success") {
+                    else if (data.status === "success" && data.role=== "Admin") {
                         alert(data.message);
                         window.location.href = "/AdminDashBoard/AdminDashBoard";
+                    }
+                    else if (data.status === "success" && data.role === "Patient") {
+                        alert(data.message);
+                        window.location.href = "/PatientDashboard/PatientDashboard";
+                    }
+                    else if (data.status === "success" && data.role === "Doctor") {
+                        alert(data.message);
+                        window.location.href = "/DoctorDashboard/DoctorDashboard";
                     }
                 },
                 error: function (error) {

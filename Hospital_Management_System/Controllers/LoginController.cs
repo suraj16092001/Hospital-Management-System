@@ -34,20 +34,22 @@ namespace Hospital_Management_System.Controllers
         [HttpPost]
         public IActionResult LoginPost(string email, string password)
         {
+            LoginModel login = new LoginModel();
+            
             if (ModelState.IsValid)
             {
-                var result = _ILoginBAL.LoginPost(email, password);
+               login = _ILoginBAL.LoginPost(email, password);
 
-                if (result == "not exists")
+                if (!login.EmailExists)
                 {
                     return Json(new { status = "warning", message = "Email doesn't exists." });
                 }
-                else if (result == "Invalid Password")
+                else if (login.GetPassword != login.DbPassword)
                 {
                     return Json(new { status = "warning", message = "Invalid Password" });
                 }
             }
-            return Json(new { status = "success", message = "User login successfully!" });
+            return Json(new { role=login.GetRole , status = "success", message = "login successfully!" });
         }
 
         public IActionResult SignUp()

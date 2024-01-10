@@ -36,26 +36,36 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
             return _ILoginDAL.UserList();
         }
 
-        public string LoginPost(string email, string password)
+        public LoginModel LoginPost(string email, string password)
         {
-            bool emailExists = _ILoginDAL.CheckEmailExistence(email);
+            LoginModel login= new LoginModel();
+          login.EmailExists = _ILoginDAL.CheckEmailExistence(email);
 
-            string getPassword =_ILoginDAL.verifiedPassword(password);
+          login.GetPassword = _ILoginDAL.verifiedPassword(password);
 
-            string dbPassword = _ILoginDAL.Login(email);
+          login.GetRole = _ILoginDAL.getRole(email);
 
-            if(!emailExists)
-            {
-                return "not exists";
-            }
-            else if (getPassword != dbPassword)
-            {
-                return "Invalid Password";
-            }
-            else
-            {
-                return "Valid Password";
-            }
+          login.DbPassword = _ILoginDAL.Login(email);
+
+            return login;
+          
         }
     }
 }
+
+
+// return new { EmailExists = emailExists, GetPassword = getPassword, GetRole = getRole };
+
+//if (!emailExists)
+//{
+//    return "not exists";
+//}
+//else if (getPassword != dbPassword)
+//{
+//    return "Invalid Password";
+//}
+//else if (getRole)
+//{
+//    return "Valid Password";
+//}
+//return "Valid Password";

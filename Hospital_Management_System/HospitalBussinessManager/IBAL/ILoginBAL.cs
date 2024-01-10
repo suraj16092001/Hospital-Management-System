@@ -8,6 +8,7 @@ namespace Hospital_Management_System.HospitalBussinessManager.IBAL
         public List<UserModel> UserList();
         public string SignUp(UserModel user);
 
-        public string LoginPost(string email, string password);
+
+        public LoginModel LoginPost(string email, string password);
     }
 }

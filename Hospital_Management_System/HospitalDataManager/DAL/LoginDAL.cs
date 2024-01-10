@@ -55,7 +55,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
 
             return user;
         }
-
+        //check email from datatbase is same as input email or not and return bool value
         public bool CheckEmailExistence(string email)
         {
             _dBManager.InitDbCommand("CheckEmailExist")
@@ -67,10 +67,22 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
 
             return emailExists;
         }
+
+        //retrieve role by emailID from database
+        public string getRole(string email)
+        {
+            _dBManager.InitDbCommand("getRole")
+                .AddCMDParam("@p_email", email);
+            var result = _dBManager.ExecuteScalar();
+
+            string role= Convert.ToString(result);
+            return role;
+        }
+
         public string Login(string email)
         {
             string existingPass = null;
-
+            //Retrive password from database by emailID
             _dBManager.InitDbCommand("getUserPassword")
                 .AddCMDParam("@p_email", email);
 
@@ -85,6 +97,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
 
         }
 
+        // use to adding salt key and then convet into hash return hash value to bal
         public string verifiedPassword(string password)
         {
             password = password + _dBManager.GetSalt();
