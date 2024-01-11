@@ -39,6 +39,7 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
         public LoginModel LoginPost(string email, string password)
         {
             LoginModel login= new LoginModel();
+
           login.EmailExists = _ILoginDAL.CheckEmailExistence(email);
 
           login.GetPassword = _ILoginDAL.verifiedPassword(password);

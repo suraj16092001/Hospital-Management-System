@@ -5,49 +5,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Hospital_Management_System</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Hospital_Management_System.styles.css" asp-append-version="true" />
-    @RenderSection("Styles",required: false)
+    @RenderSection("Styles", required: false)
 </head>
+
 <body>
-    <header id="main-header">
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-transparent">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Hospital_Management_System</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+    <header id="main-header" class="navbar navbar-dark bg-light sticky-top  flex-md-nowrap p-0 shadow" style="background-color:cadetblue">
+        <a class="navbar-brand bg-dark fas fa-clinic-medical col-md-3 col-lg-2 me-0 px-3" href="#">
+            Medi Home
+        </a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
     </header>
 
     <div class="container-fluid">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
- 
-    <footer id="main-footer" class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - Hospital_Management_System - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="row">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse" style="background-color:cadetblue">
+                <div class="position-sticky pt-3">
+
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">
+                                <span data-feather="codesandbox"></span>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Admin_PatientPage" asp-action="Admin_Patient">
+                                <span class="fa-solid fa-user"></span>
+                                Patient
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Admin_DoctorPage" asp-action="Admin_Doctor">
+                                <span class="fa-solid fa-user-doctor"></span>
+                                Doctor
+                            </a>
+                        </li>
+                     @*    <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span class="fa-solid fa-calendar-check"></span>
+                                Appointment List
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span class="fa-regular fa-calendar-check"></span>
+                                Book Appointment
+                            </a>
+                        </li> *@
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span data-feather="log-out"></span>
+                                Logout
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </nav>
+
+
+            <main role="main" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                @RenderBody()
+            </main>
+
         </div>
-    </footer> 
+    </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.1/feather.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        feather.replace();
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>

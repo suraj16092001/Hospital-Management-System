@@ -110,5 +110,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
 
             return passwordExixts;
         }
+
+       
     }
 }

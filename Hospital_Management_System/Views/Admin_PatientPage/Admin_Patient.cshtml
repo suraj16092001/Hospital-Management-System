@@ -1,0 +1,158 @@
+﻿@*
+
+<h1>Patient</h1> *@
+
+<p>
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Patient</button>
+</p>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="firstname" class="form-label">First Name : </label>
+                                <input id="firstname" type="text" name="firstname" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="lastname" class="form-label">Last Name : </label>
+                                <input id="lastName" type="text" name="lastname" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Id : </label>
+                        <input id="email" type="email" name="email" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone Number : </label>
+                        <input id="phoneNo" type="text" name="phone" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="age" class="form-label">Age : </label>
+                        <input id="age" type="number" name="age" class="form-control" />
+                    </div>
+
+                    @*   <div class="mb-3">
+                    <label for="gender" class="form-label">Phone Number : </label>
+                    <input id="gender" type="text" name="gender" class="form-control" />
+                    </div> *@
+
+                    <div class="mb-3">
+                        <label for="disease" class="form-label">Disease :</label>
+                        <input id="disease" type="text" name="disease" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Address : </label>
+                        <input id="address" type="text" name="address" class="form-control" />
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" onclick="AddPatient()" class="btn btn-primary">Save changes</button>
+                    </div>
+
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<table class="table table-striped" id="myTable" style="width:100% !important">
+    <thead class="table-dark">
+        <tr>
+            @*  <th>#</th> *@
+            <th>id</th>
+            <th>firstname</th>
+            <th>lastname</th>
+            <th>email</th>
+            <th>phone</th>
+            <th>age</th>
+            <th>gender</th>
+            <th>disease</th>
+            <th>address</th>
+        </tr>
+
+    </thead>
+
+</table>
+
+<script>
+
+    // $(document).ready(function () {
+    //     debugger;
+    //     get();
+    // });
+
+    // function get() {
+
+
+
+    //     $.ajax({
+    //         type: "GET",
+    //         url: "",
+    //         sucees
+
+
+    //     })
+
+    // }
+
+
+
+    function AddPatient() {
+        var oModel = {
+            firstname: $('#firstname').val(),
+            lastname: $('#lastName').val(),
+            email: $('#email').val(),
+            phone: $('#phoneNo').val(),
+            age: $('#age').val(),
+            // gender: $('#lastname').val(),
+            disease: $('#disease').val(),
+            address: $('#address').val(),
+        }
+
+        var formdata = new FormData();
+        formdata.append("model", JSON.stringify(oModel));
+            
+        $.ajax({
+            type="POST",
+            url="/Admin_PatientPage/AddPatient",
+            data: formData,
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function (data) { 
+            
+                alert("Patient Added Successfully!");
+            
+            },
+            error: function (error) {
+              
+                alert("Oops", "An error occurred while saving your data, Please try again later.", "error");
+            }
+        })
+
+    }
+
+
+</script>

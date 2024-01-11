@@ -2,7 +2,7 @@
 
 namespace Hospital_Management_System.Controllers
 {
-    public class DoctorDashBoard : Controller
+    public class DoctorDashBoardController : Controller
     {
         public IActionResult DoctorDashboard()
         {

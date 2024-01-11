@@ -18,13 +18,15 @@ namespace Hospital_Management_System
                 options.Cookie.IsEssential = true;
             });//
 
-            builder.Services.AddControllers().AddJsonOptions(options => 
+            builder.Services.AddControllers().AddJsonOptions(options =>
                 options.JsonSerializerOptions.PropertyNamingPolicy = null);
 
             builder.Services.AddAppSetting();
-
+            builder.Services.AddSession();
 
             var app = builder.Build();
+
+            app.UseSession();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

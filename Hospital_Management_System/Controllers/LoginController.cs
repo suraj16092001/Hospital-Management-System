@@ -9,6 +9,8 @@ using System.Web;
 using System.Text.Json;
 using MySqlX.XDevAPI.Common;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Hospital_Management_System.Controllers
 {
@@ -31,6 +33,8 @@ namespace Hospital_Management_System.Controllers
             return View();
         }
 
+
+       
         [HttpPost]
         public IActionResult LoginPost(string email, string password)
         {
@@ -49,6 +53,17 @@ namespace Hospital_Management_System.Controllers
                     return Json(new { status = "warning", message = "Invalid Password" });
                 }
             }
+            //if (login != null)
+            //{
+            //    HttpContext.Session.SetString("role", login.GetRole);
+            //    HttpContext.Session.SetString("email", email);
+            //    HttpContext.Session.SetString("password", password);
+            //}
+            //else
+            //{
+            //    ViewBag.Message = "Login failed";
+            //    return View();
+            //}
             return Json(new { role=login.GetRole , status = "success", message = "login successfully!" });
         }
 

@@ -1,8 +1,8 @@
-﻿@model UserModel;
-
-@section Styles {
-    <link rel="stylesheet" href="/css/SignUpOrLogin.css">
+﻿@{
+    Layout = "_BlankLayout";
 }
+
+@model UserModel;
 
 <div class="outer">
     <div class="LoginWrapper">
@@ -61,6 +61,7 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+
 <script>
 
     function Register() {
