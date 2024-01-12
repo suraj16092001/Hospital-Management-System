@@ -13,6 +13,7 @@ namespace Hospital_Management_System.Extension
         {
             services.AddScoped<IDBManager>(AddDBManager);
             services.AddScoped<ILoginBAL, LoginBAL>();
+            services.AddScoped<IAdmin_PatientPageBAL, Admin_PatientPageBAL>();
 
             return services;
         }

@@ -6,6 +6,11 @@ namespace Hospital_Management_System.HospitalDataManager.IDAL
 {
     public interface IAdmin_PatientPageDAL
     {
+        public List<Admin_PatientPageModel> GetPatientList();
         public Admin_PatientPageModel AddPatient(Admin_PatientPageModel patient);
+
+        public Admin_PatientPageModel GetPatientByID(int id);
+        public Admin_PatientPageModel UpdatePatient(Admin_PatientPageModel patient, int Id);
+        public void DeletePatient(int id);
     }
 }
