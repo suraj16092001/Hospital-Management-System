@@ -12,7 +12,7 @@ namespace Hospital_Management_System.Controllers
     {
         IAdmin_PatientPageBAL _IAdmin_PatientPageBAL;
 
-        public Admin_PatientPageController(IConfiguration configuration, IAdmin_PatientPageBAL admin_PatientPageBAL)
+        public Admin_PatientPageController( IAdmin_PatientPageBAL admin_PatientPageBAL)
         {
             _IAdmin_PatientPageBAL = admin_PatientPageBAL;
         }

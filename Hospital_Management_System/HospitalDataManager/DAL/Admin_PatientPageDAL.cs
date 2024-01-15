@@ -32,10 +32,10 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 admin_PatientPageModel.firstname= item["firstname"].ConvertDBNullToString();
                 admin_PatientPageModel.lastname= item["lastname"].ConvertDBNullToString();
                 admin_PatientPageModel.email= item["email"].ConvertDBNullToString();
+                admin_PatientPageModel.phone= item["phone"].ConvertDBNullToString();
                 admin_PatientPageModel.age= item["age"].ConvertDBNullToString();
                 admin_PatientPageModel.gender= item["gender"].ConvertDBNullToString();
                 admin_PatientPageModel.disease= item["disease"].ConvertDBNullToString();
-                admin_PatientPageModel.phone= item["phone"].ConvertDBNullToString();
                 admin_PatientPageModel.address= item["address"].ConvertDBNullToString();
 
                 patientList.Add(admin_PatientPageModel);
@@ -51,10 +51,10 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             _dBManager.AddCMDParam("@p_firstname", patient.firstname);
             _dBManager.AddCMDParam("@p_lastname", patient.lastname);
             _dBManager.AddCMDParam("@p_email", patient.email);
+            _dBManager.AddCMDParam("@p_phone", patient.phone);
             _dBManager.AddCMDParam("@p_age", patient.age);
             _dBManager.AddCMDParam("@p_gender", patient.gender);
             _dBManager.AddCMDParam("@p_disease", patient.disease);
-            _dBManager.AddCMDParam("@p_phone", patient.phone);
             _dBManager.AddCMDParam("@p_address", patient.address);
 
             _dBManager.ExecuteNonQuery();

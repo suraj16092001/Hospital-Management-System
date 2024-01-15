@@ -91,13 +91,11 @@
 
                 </form>
             </div>
-
-
         </div>
     </div>
 </div>
 
-
+@* update and populate data  *@
 <div class="modal fade" id="updatemodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
     <div class="modal-dialog">
@@ -110,7 +108,9 @@
             <div class="modal-body">
 
                 <form id="updateform">
+
                     <input hidden id="update_id" />
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -145,13 +145,13 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="u_age" class="form-label">Age : </label>
-                                <input id="u_age" type="number" name="age" class="form-control" />
+                                <input id="u_age" type="text" name="age" class="form-control" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="u_gender" class="form-label">Gender:</label>
-                                <select id="u_gender" name="gender" class="form-control">
+                                <label for="gender" class="form-label">Gender:</label>
+                                <select id="u_gender" type="text" name="gender" class="form-control">
                                     <option value="">Please select one…</option>
                                     <option value="female">Female</option>
                                     <option value="male">Male</option>
@@ -189,14 +189,102 @@
     </div>
 </div>
 
+@* view patient details *@
+<div class="modal fade" id="ViewModal" tabindex="-1" aria-labelledby="ViewModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ViewModalLabel">Add Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <form id="updateform">
+                    <input hidden id="view_id" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="u_firstname" class="form-label">First Name : </label>
+                                <input id="view_firstname" type="text" name="firstname" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="u_lastname" class="form-label">Last Name : </label>
+                                <input id="view_lastname" type="text" name="lastname" class="form-control" readonly />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="u_email" class="form-label">Email Id : </label>
+                                <input id="view_email" type="email" name="email" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="u_phone" class="form-label">Phone Number : </label>
+                                <input id="view_phone" type="text" name="phone" class="form-control" readonly />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="u_age" class="form-label">Age : </label>
+                                <input id="view_age" type="text" name="age" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="u_gender" class="form-label">Gender:</label>
+                                <select id="view_gender" name="gender" class="form-control" readonly>
+                                    <option value="">Please select one…</option>
+                                    <option value="female">Female</option>
+                                    <option value="male">Male</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="disease" class="form-label">Disease :</label>
+                                <input id="view_disease" type="text" name="disease" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address : </label>
+                                <input id="view_address" type="text" name="address" class="form-control" readonly />
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
 <table class="table table-striped" id="myTable" style="width:100% !important">
     <thead class="table-dark">
         <tr>
             <th>id</th>
-            <th>firstname</th>
-            <th>phone</th>
-            <th>disease</th>
-            <th>address</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Disease</th>
+            <th>Address</th>
             <th>Action</th>
         </tr>
 
@@ -236,7 +324,7 @@
                         {
                             data: null,
                             render: function (data, type, row) {
-                                return ` <button type="button" onclick="popupdatedata(` + row.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updatemodal">edit</button>|<button type="button" onclick="viewdata(` + row.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#viewmodal">view</button>|<button type="button" onclick="DeletePatient(` + row.id + `)" class="btn btn-primary" >delete</button>`;
+                                return ` <div class="btn-group" role="group" aria-label="Basic example"><button type="button" onclick="popupdatedata(` + row.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updatemodal">edit</button><button type="button" onclick="ViewModal(` + row.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ViewModal">view</button><button type="button" onclick="DeletePatient(` + row.id + `)" class="btn btn-primary" >delete</button></div>`;
                             }
                         }
                     ]
@@ -251,22 +339,25 @@
 
     // Add patient function
     function AddPatient() {
-
+      
+        ClearForm();
+        debugger;
         var oModel = {
+            
             firstname: $('#firstname').val(),
             lastname: $('#lastname').val(),
             email: $('#email').val(),
             phone: $('#phone').val(),
             age: $('#age').val(),
-            // gender: $('#lastname').val(),
             disease: $('#disease').val(),
             address: $('#address').val(),
             gender: $('#gender').val()
         }
+        debugger;
 
         var formData = new FormData();
         formData.append("model", JSON.stringify(oModel));
-
+        debugger;
         $.ajax({
             type: "POST",
             url: "/Admin_PatientPage/AddPatient",
@@ -275,14 +366,14 @@
             contentType: false,
             cache: false,
             success: function (data) {
-                $('#exampleModal').modal('hide');
+                ClearForm();
                 Swal.fire({
                     title: "Good job!",
                     text: "Employee saved successfully!",
                     icon: "success",
                     button: "Ok",
                 });
-
+                $('#exampleModal').modal('hide');
                 get();
             },
             error: function (error) {
@@ -353,6 +444,9 @@
 
     function updatePatient() {
         debugger;
+
+        ClearForm();
+
         var employeeID = {
             id: $('#update_id').val()
         }
@@ -383,7 +477,7 @@
             contentType: false,
             cache: false,
             success: function (data) {
-
+                $('#exampleModal').modal('hide');
                 Swal.fire({
                     title: "Good job!",
                     text: "Employee update successfully!",
@@ -399,8 +493,42 @@
                 });
             }
         });
+       
     }
 
-    
+    function ViewModal(id) {
+        debugger;
+
+        $.ajax({
+            type: "POST",
+            url: "/Admin_PatientPage/GetPatientByID/" + id,
+            success: function (data) {
+                $('#view_id').val(data.id),
+                    $('#view_firstname').val(data.firstname),
+                    $('#view_lastname').val(data.lastname),
+                    $('#view_email').val(data.email),
+                    $('#view_phone').val(data.phone),
+                    $('#view_age').val(data.age),
+                    $('#view_disease').val(data.disease),
+                    $('#view_address').val(data.address),
+                    $('#view_gender').val(data.gender)
+            }
+
+        });
+    }
+
+    function ClearForm() {
+
+        $('#u_firstname').val('');
+        $('#u_lastname').val('');
+        $('#u_email').val('');
+        $('#u_phone').val('');
+        $('#u_age').val('');
+        $('#u_disease').val('');
+        $('#u_address').val('');
+        $('#u_gender').val('');
+
+    }
+
 
 </script>

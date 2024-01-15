@@ -14,7 +14,8 @@ namespace Hospital_Management_System.Extension
             services.AddScoped<IDBManager>(AddDBManager);
             services.AddScoped<ILoginBAL, LoginBAL>();
             services.AddScoped<IAdmin_PatientPageBAL, Admin_PatientPageBAL>();
-
+            services.AddScoped<IAdmin_DoctorPageBAL, Admin_DoctorPageBAL>();
+;
             return services;
         }
         internal static IDBManager AddDBManager(IServiceProvider serviceProvider)
