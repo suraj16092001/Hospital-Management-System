@@ -67,8 +67,8 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
 
         public Admin_DoctorPageModel GetDoctorByID(int id)
         {
-            Admin_DoctorPageModel doctor = null;
             _dBManager.InitDbCommand("GetDoctorByID");
+            Admin_DoctorPageModel doctor = null;
             _dBManager.AddCMDParam("@p_id", id);
             _dBManager.ExecuteNonQuery();
             DataSet ds = _dBManager.ExecuteDataSet();
@@ -90,6 +90,23 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             }
 
             return doctor;
+        }
+
+        public Admin_DoctorPageModel UpdateDoctor(int Id, Admin_DoctorPageModel model)
+        {
+            _dBManager.InitDbCommand("UpdateDoctorData");
+            _dBManager.AddCMDParam("@p_id", Id);
+            _dBManager.AddCMDParam("@p_name", model.name);
+            _dBManager.AddCMDParam("@p_qualification", model.qualification);
+            _dBManager.AddCMDParam("@p_specialist", model.specialist);
+            _dBManager.AddCMDParam("@p_gender", model.gender);
+            _dBManager.AddCMDParam("@p_phone", model.phone);
+            _dBManager.AddCMDParam("@p_email", model.email);
+            _dBManager.AddCMDParam("@p_age", model.age);
+            _dBManager.AddCMDParam("@p_address", model.address);
+
+            _dBManager.ExecuteNonQuery();
+            return model;
         }
     }
 }

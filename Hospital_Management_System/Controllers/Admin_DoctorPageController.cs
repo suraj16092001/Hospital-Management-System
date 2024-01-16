@@ -46,5 +46,14 @@ namespace Hospital_Management_System.Controllers
             return Json(_IAdmin_DoctorPageBAL.GetDoctorByID(id));
            
         }
+
+        [HttpPost]
+        public IActionResult UpdateDoctor(string model, int Id)
+        {
+            Admin_DoctorPageModel admin_DoctorPage = JsonSerializer.Deserialize<Admin_DoctorPageModel>(model);
+            _IAdmin_DoctorPageBAL.UpdateDoctor(admin_DoctorPage, Id);
+            return Json("DoctorList");
+        }
+
     }
 }

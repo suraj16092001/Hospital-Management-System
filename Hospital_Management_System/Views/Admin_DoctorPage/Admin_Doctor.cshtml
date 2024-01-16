@@ -98,7 +98,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="UpdateDoctorModalLabel">Add Details</h5>
+                <h5 class="modal-title" id="UpdateDoctorModalLabel">Edit Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -175,7 +175,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" onclick="AddDoctor()" class="btn btn-primary">Save changes</button>
+                        <button type="button" onclick="UpdateDoctor()" class="btn btn-primary">Save changes</button>
                     </div>
 
                 </form>
@@ -183,6 +183,92 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="ViewDoctorModal" tabindex="-1" aria-labelledby="ViewDoctorModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ViewDoctorModalLabel">Edit Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <form>
+
+                    <input hidden id="v_id" />
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name : </label>
+                                <input id="v_name" type="text" name="name" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Id : </label>
+                                <input id="v_email" type="email" name="email" class="form-control" readonly />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone Number : </label>
+                                <input id="v_phone" type="text" name="phone" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="specialist" class="form-label">Specialist :</label>
+                                <input id="v_specialist" type="text" name="specialist" class="form-control" readonly />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="gender" class="form-label">Gender:</label>
+                                <select id="v_gender" name="gender" class="form-control" readonly>
+                                    <option value="">Please select one…</option>
+                                    <option value="female">Female</option>
+                                    <option value="male">Male</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="qualification" class="form-label">Qualification :</label>
+                                <input id="v_qualification" type="text" name="qualification" class="form-control" readonly />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="age" class="form-label">Age : </label>
+                                <input id="v_age" type="number" name="age" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address : </label>
+                                <input id="v_address" type="text" name="address" class="form-control" readonly />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <table class="table table-striped" id="DrTable" style="width:100% !important">
@@ -228,7 +314,7 @@
                         {
                             data: null,
                             render: function (data, type, row) {
-                                return ` <button type="button" onclick="popupdatedata(` + row.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updatemodal">edit</button>|<button type="button" onclick="ViewModal(` + row.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ViewModal">view</button>|<button type="button" onclick="DeleteDoctor(` + row.id + `)" class="btn btn-primary" >delete</button>`;
+                                return ` <button type="button" onclick="popupdatedata(` + row.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#UpdateDoctorModal">edit</button>|<button type="button" onclick="Viewdata(` + row.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ViewDoctorModal">view</button>|<button type="button" onclick="DeleteDoctor(` + row.id + `)" class="btn btn-primary" >delete</button>`;
                             }
                         }
                     ]
@@ -325,21 +411,94 @@
 
         $.ajax({
             type: "POST",
-            url: "/Admin_PatientPage/GetDoctorByID/" + id,
+            url: "/Admin_DoctorPage/GetDoctorByID/" + id,
             success: function (data) {
                 $('#u_id').val(data.id),
                     $('#u_name').val(data.name),
                     $('#u_email').val(data.email),
                     $('#u_phone').val(data.phone),
-                    $('#u_specialist').val(data.age),
-                    $('#u_gender').val(data.disease),
-                    $('#u_qualification').val(data.address),
-                    $('#u_age').val(data.gender),
-                    $('#u_address').val(data.gender)
+                    $('#u_specialist').val(data.specialist),
+                    $('#u_gender').val(data.gender),
+                    $('#u_qualification').val(data.qualification),
+                    $('#u_age').val(data.age),
+                    $('#u_address').val(data.address)
             }
 
         });
     }
 
 
+    function UpdateDoctor()
+    {
+       
+
+        var employeeID = {
+            id: $('#u_id').val()
+        }
+
+        var updatedModel = {
+
+            name: $('#u_name').val(),
+            email: $('#u_email').val(),
+            phone: $('#u_phone').val(),
+            specialist: $('#u_specialist').val(),
+            gender: $('#u_gender').val(),
+            qualification: $('#u_qualification').val(),
+            age: $('#u_age').val(),
+            address: $('#u_address').val(),
+        };
+
+        var formData = new FormData();
+        formData.append("Id", employeeID.id);
+        formData.append("model", JSON.stringify(updatedModel));
+
+        debugger;
+
+        $.ajax({
+            type: "POST",
+            url: "/Admin_DoctorPage/UpdateDoctor",
+            data: formData,
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function (data) {
+                $('#UpdateDoctorModal').modal('hide');
+                Swal.fire({
+                    title: "Good job!",
+                    text: "Employee update successfully!",
+                    icon: "success",
+                    button: "Ok",
+                });
+            },
+            error: function () {
+                Swal.fire({
+                    title: "Error while updating!",
+                    text: "close",
+                    icon: "error"
+                });
+            }
+        });
+
+    }
+
+    function Viewdata(id) {
+        debugger;
+
+        $.ajax({
+            type: "GET",
+            url: "/Admin_DoctorPage/GetDoctorByID/" + id,
+            success: function (data) {
+                $('#v_id').val(data.id),
+                    $('#v_name').val(data.name),
+                    $('#v_email').val(data.email),
+                    $('#v_phone').val(data.phone),
+                    $('#v_specialist').val(data.specialist),
+                    $('#v_gender').val(data.gender),
+                    $('#v_qualification').val(data.qualification),
+                    $('#v_age').val(data.age),
+                    $('#v_address').val(data.address)
+            }
+
+        });
+    }
 </script>

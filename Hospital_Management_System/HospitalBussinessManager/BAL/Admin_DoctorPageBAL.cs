@@ -35,5 +35,11 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
         {
             return _IAdmin_DoctorPageDAL.GetDoctorByID(id);
         }
+
+        public string UpdateDoctor(Admin_DoctorPageModel model, int Id)
+        {
+            _IAdmin_DoctorPageDAL.UpdateDoctor(Id, model);
+            return ("DoctorList");
+        }
     }
 }
