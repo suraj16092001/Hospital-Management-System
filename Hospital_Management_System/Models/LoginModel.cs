@@ -2,6 +2,8 @@
 {
     public class LoginModel
     {
+     
+
         public bool EmailExists { get; set; }
         public string GetPassword { get; set; }
         public string GetRole { get; set; }

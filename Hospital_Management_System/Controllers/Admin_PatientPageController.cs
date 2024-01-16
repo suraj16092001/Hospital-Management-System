@@ -27,6 +27,8 @@ namespace Hospital_Management_System.Controllers
             return Json(_IAdmin_PatientPageBAL.GetPatientList());
         }
 
+
+
         // view Create for Adding patient by admin
         public IActionResult AddPatient()
         {
@@ -48,18 +50,48 @@ namespace Hospital_Management_System.Controllers
             return RedirectToAction("PatientList");
         }
 
+
         public IActionResult GetPatientByID(int id)
         {
-          return Json(_IAdmin_PatientPageBAL.GetPatientByID(id));
-           
+            return Json(_IAdmin_PatientPageBAL.GetPatientByID(id));
+
         }
 
         [HttpPost]
-        public IActionResult UpdatePatient(string model,int Id)
+        public IActionResult UpdatePatient(string omodel, int Id)
         {
-            Admin_PatientPageModel admin_PatientPage = JsonSerializer.Deserialize<Admin_PatientPageModel>(model);
-            _IAdmin_PatientPageBAL.UpdatePatient(admin_PatientPage, Id);
-            return Json("PatientList");
+            UserModel model = JsonSerializer.Deserialize<UserModel>(omodel);
+            if (ModelState.IsValid)
+            {
+                var result = _IAdmin_PatientPageBAL.UpdatePatient(model, Id);
+                if (result == "exists")
+                {
+                    return Json(new { status = "warning", message = "Email Id Already Exists!" });
+                }
+            }
+
+            return Json(new { status = "success", message = "Patient Updated successfully!" });
+        }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult RegisterPatient(string model)
+        {
+            UserModel user = JsonSerializer.Deserialize<UserModel>(model)!;
+            if (ModelState.IsValid)
+            {
+                var result = _IAdmin_PatientPageBAL.RegisterPatient(user);
+
+                if (result == "exists")
+                {
+                    return Json(new { status = "warning", message = "Email Id Already Exists!" });
+                }
+            }
+            return Json(new { status = "success", message = "Patient register successfully!" });
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
 
         }
 
-        List<Admin_PatientPageModel> IAdmin_PatientPageBAL.GetPatientList()
+        List<UserModel> IAdmin_PatientPageBAL.GetPatientList()
         {
             return _IAdmin_PatientPageDAL.GetPatientList();
         }
@@ -25,14 +25,18 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
         {
             return _IAdmin_PatientPageDAL.AddPatient(model);
         }
-
-        public Admin_PatientPageModel GetPatientByID(int id)
+        public UserModel GetPatientByID(int id)
         {
             return _IAdmin_PatientPageDAL.GetPatientByID(id);
         }
 
-        public string UpdatePatient(Admin_PatientPageModel model,int Id)
+        public string UpdatePatient(UserModel model, int Id)
         {
+            bool emailExists = _IAdmin_PatientPageDAL.CheckEmailExistence(model.email);
+            if (emailExists)
+            {
+                return "exists";
+            }
             _IAdmin_PatientPageDAL.UpdatePatient(model, Id);
             return "Success";
         }
@@ -43,6 +47,19 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
             
         }
 
-       
+        public string RegisterPatient(UserModel user)
+        {
+            bool emailExists = _IAdmin_PatientPageDAL.CheckEmailExistence(user.email);
+
+            if (emailExists)
+            {
+                return "exists";
+            }
+
+            _IAdmin_PatientPageDAL.RegisterPatient(user);
+
+            return "success";
+        }
+
     }
 }

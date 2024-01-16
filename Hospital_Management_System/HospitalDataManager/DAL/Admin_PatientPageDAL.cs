@@ -17,9 +17,10 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
 
         }
 
-        public List<Admin_PatientPageModel> GetPatientList()
+
+        public List<UserModel> GetPatientList()
         {
-            List<Admin_PatientPageModel> patientList = new List<Admin_PatientPageModel>();
+            List<UserModel> patientList = new List<UserModel>();
 
             _dBManager.InitDbCommand("GetPatientData");
 
@@ -27,22 +28,18 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
 
             foreach (DataRow item in ds.Tables[0].Rows)
             {
-                Admin_PatientPageModel admin_PatientPageModel = new Admin_PatientPageModel();
-                admin_PatientPageModel.id = item["id"].ConvertDBNullToInt();
-                admin_PatientPageModel.firstname= item["firstname"].ConvertDBNullToString();
-                admin_PatientPageModel.lastname= item["lastname"].ConvertDBNullToString();
-                admin_PatientPageModel.email= item["email"].ConvertDBNullToString();
-                admin_PatientPageModel.phone= item["phone"].ConvertDBNullToString();
-                admin_PatientPageModel.age= item["age"].ConvertDBNullToString();
-                admin_PatientPageModel.gender= item["gender"].ConvertDBNullToString();
-                admin_PatientPageModel.disease= item["disease"].ConvertDBNullToString();
-                admin_PatientPageModel.address= item["address"].ConvertDBNullToString();
+                UserModel model = new UserModel();
+                model.id = item["id"].ConvertDBNullToInt();
+                model.name = item["name"].ConvertDBNullToString();
+                model.email = item["email"].ConvertDBNullToString();
+               
 
-                patientList.Add(admin_PatientPageModel);
+                patientList.Add(model);
             }
 
             return patientList;
         }
+
 
 
         public Admin_PatientPageModel AddPatient(Admin_PatientPageModel patient)
@@ -71,48 +68,65 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             _dBManager.ExecuteNonQuery();
         }
 
-        public Admin_PatientPageModel GetPatientByID(int id)
+
+        public UserModel GetPatientByID(int id)
         {
-           
-            _dBManager.InitDbCommand("GetPatientByID");
-            Admin_PatientPageModel admin_PatientPageModel = null;
+
+            _dBManager.InitDbCommand("GetSignuUpPatientByID");
+            UserModel model = null;
             _dBManager.AddCMDParam("@p_id", id);
             DataSet ds = _dBManager.ExecuteDataSet();
 
             foreach (DataRow item in ds.Tables[0].Rows)
             {
-                admin_PatientPageModel = new Admin_PatientPageModel();
+                model = new UserModel();
 
-                admin_PatientPageModel.id = item["id"].ConvertDBNullToInt();
-                admin_PatientPageModel.firstname = item["firstname"].ConvertDBNullToString();
-                admin_PatientPageModel.lastname = item["lastname"].ConvertDBNullToString();
-                admin_PatientPageModel.email = item["email"].ConvertDBNullToString();
-                admin_PatientPageModel.age = item["age"].ConvertDBNullToString();
-                admin_PatientPageModel.gender = item["gender"].ConvertDBNullToString();
-                admin_PatientPageModel.disease = item["disease"].ConvertDBNullToString();
-                admin_PatientPageModel.phone = item["phone"].ConvertDBNullToString(); 
-                admin_PatientPageModel.address = item["address"].ConvertDBNullToString(); 
+                model.id = item["id"].ConvertDBNullToInt();
+                model.name = item["name"].ConvertDBNullToString();
+                model.email = item["email"].ConvertDBNullToString();
 
             }
-            return admin_PatientPageModel;
+            return model;
         }
 
 
-        public Admin_PatientPageModel UpdatePatient(Admin_PatientPageModel patient,int Id)
+        public UserModel UpdatePatient(UserModel patient, int Id)
         {
-            _dBManager.InitDbCommand("UpdatePatientData");
+            _dBManager.InitDbCommand("UpdatePatient");
             _dBManager.AddCMDParam("@p_id", Id);
-            _dBManager.AddCMDParam("@p_firstname", patient.firstname);
-            _dBManager.AddCMDParam("@p_lastname", patient.lastname);
+            _dBManager.AddCMDParam("@p_name", patient.name);
             _dBManager.AddCMDParam("@p_email", patient.email);
-            _dBManager.AddCMDParam("@p_age", patient.age);
-            _dBManager.AddCMDParam("@p_gender", patient.gender);
-            _dBManager.AddCMDParam("@p_disease", patient.disease);
-            _dBManager.AddCMDParam("@p_phone", patient.phone);
-            _dBManager.AddCMDParam("@p_address", patient.address);
 
             _dBManager.ExecuteNonQuery();
             return patient;
         }
+        public UserModel RegisterPatient(UserModel user)
+        {
+            user.password = user.password + _dBManager.GetSalt();
+
+            _dBManager.InitDbCommand("InsertUser");
+            _dBManager.AddCMDParam("@p_name", user.name);
+            _dBManager.AddCMDParam("@p_email", user.email);
+            _dBManager.AddCMDParam("@p_pass", user.password);
+            _dBManager.AddCMDParam("@p_role", user.role);
+
+
+            _dBManager.ExecuteNonQuery();
+
+            return user;
+        }
+
+        public bool CheckEmailExistence(string email)
+        {
+            _dBManager.InitDbCommand("CheckEmailExist")
+                .AddCMDParam("@p_email", email);
+
+            var result = _dBManager.ExecuteScalar();
+
+            bool emailExists = Convert.ToBoolean(result);
+
+            return emailExists;
+        }
+
     }
 }

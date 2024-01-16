@@ -15,8 +15,8 @@
 </head>
 
 <body>
-    <header id="main-header" class="navbar navbar-dark bg-light sticky-top  flex-md-nowrap p-0 shadow" style="background-color:cadetblue">
-        <a class="navbar-brand bg-dark fas fa-clinic-medical col-md-3 col-lg-2 me-0 px-3" href="#">
+    <header id="main-header" class="navbar navbar-dark sticky-top flex-md-nowrap p-0 shadow " style="background:cadetblue">
+        <a class="navbar-brand fas fa-clinic-medical col-md-3 col-lg-2 me-0 px-3" href="#" style="background:cadetblue">
             Medi Home
         </a>
         <button class="navbar-toggler position-absolute d-md-none collapsed bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,24 +26,24 @@
 
     <div class="container-fluid">
         <div class="row">
-            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse" style="background-color:cadetblue">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse" style="background:cadetblue">
                 <div class="position-sticky pt-3">
 
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" asp-controller="AdminDashBoard" asp-action="AdminDashBoard">
+                            <a class="nav-link text-white" asp-controller="AdminDashBoard" asp-action="AdminDashBoard">
                                 <span data-feather="codesandbox"></span>
                                 Dashboard
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Admin_PatientPage" asp-action="Admin_Patient">
+                            <a class="nav-link text-white" asp-controller="Admin_PatientPage" asp-action="Admin_Patient">
                                 <span class="fa-solid fa-user"></span>
                                 Patient
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Admin_DoctorPage" asp-action="Admin_Doctor">
+                            <a class="nav-link text-white" asp-controller="Admin_DoctorPage" asp-action="Admin_Doctor">
                                 <span class="fa-solid fa-user-doctor"></span>
                                 Doctor
                             </a>
@@ -61,7 +61,7 @@
                             </a>
                         </li> *@
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link text-white" href="#">
                                 <span data-feather="log-out"></span>
                                 Logout
                             </a>
@@ -72,7 +72,7 @@
             </nav>
 
 
-            <main role="main" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <main role="main" class="col-md-9 ms-sm-auto col-lg-10 px-md-4 p-2">
                 @RenderBody()
             </main>
 

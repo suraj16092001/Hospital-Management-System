@@ -2,12 +2,21 @@
 
 <h1>Patient</h1> *@
 @model IEnumerable<Hospital_Management_System.Models.Admin_PatientPageModel>
+<div class="col-xl-12" style=" display: flex; justify-content: space-between;">
+    <h3>Patient Details</h3>
 
-<p>
-    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Patient</button>
-</p>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <p>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#RegisterModal">Register New Patient</button>
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="modal fade" id="RegisterModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
     <div class="modal-dialog">
         <div class="modal-content">
@@ -18,84 +27,42 @@
 
             <div class="modal-body">
 
-                <form>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="firstname" class="form-label">First Name : </label>
-                                <input id="firstname" type="text" name="firstname" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="lastname" class="form-label">Last Name : </label>
-                                <input id="lastname" type="text" name="lastname" class="form-control" />
-                            </div>
-                        </div>
+                <form id="RegisterPatient_id">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name : </label>
+                        <input id="r_name" type="text" name="name" class="form-control" />
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email Id : </label>
-                                <input id="email" type="email" name="email" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="phone" class="form-label">Phone Number : </label>
-                                <input id="phone" type="text" name="phone" class="form-control" />
-                            </div>
-                        </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Id : </label>
+                        <input id="r_email" type="email" name="email" class="form-control" />
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="age" class="form-label">Age : </label>
-                                <input id="age" type="number" name="age" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="gender" class="form-label">Gender:</label>
-                                <select id="gender" name="gender" class="form-control">
-                                    <option value="">Please select one…</option>
-                                    <option value="female">Female</option>
-                                    <option value="male">Male</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-                        </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password : </label>
+                        <input id="r_password" type="password" name="password" class="form-control" />
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="disease" class="form-label">Disease :</label>
-                                <input id="disease" type="text" name="disease" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="address" class="form-label">Address : </label>
-                                <input id="address" type="text" name="address" class="form-control" />
-                            </div>
-                        </div>
+                    <div class="mb-3">
+                        <label for="c_password" class="form-label">Confirm Password : </label>
+                        <input id="c_password" type="password" name="c_password" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="role" class="form-label">Role : </label>
+                        <input id="r_role" type="text" name="role" class="form-control" value="Patient" readonly />
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" onclick="AddPatient()" class="btn btn-primary">Save changes</button>
+                        <button type="button" onclick="RegisterPatient()" class="btn btn-primary">Register</button>
                     </div>
-
+         
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-@* update and populate data  *@
 <div class="modal fade" id="updatemodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
     <div class="modal-dialog">
@@ -108,20 +75,53 @@
             <div class="modal-body">
 
                 <form id="updateform">
-
                     <input hidden id="update_id" />
 
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name : </label>
+                        <input id="u_name" type="text" name="name" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Id : </label>
+                            <input id="u_email" type="email" name="email" class="form-control" />
+                        </div>
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" onclick="updatePatient()" class="btn btn-primary">Save changes</button>
+                        </div>  
+                        
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="appointmentModalLabel">Add Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <form>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="u_firstname" class="form-label">First Name : </label>
-                                <input id="u_firstname" type="text" name="firstname" class="form-control" />
+                                <label for="name" class="form-label">Name : </label>
+                                <input id="name" type="text" name="name" class="form-control" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="u_lastname" class="form-label">Last Name : </label>
-                                <input id="u_lastname" type="text" name="lastname" class="form-control" />
+                                <label for="email" class="form-label">Email Id : </label>
+                                <input id="email" type="email" name="email" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -129,14 +129,14 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="u_email" class="form-label">Email Id : </label>
-                                <input id="u_email" type="email" name="email" class="form-control" />
+                                <label for="appointment_time" class="form-label">Phone Number : </label>
+                                <input id="appointment_time" type="time" name="appointment_time" class="form-control" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="u_phone" class="form-label">Phone Number : </label>
-                                <input id="u_phone" type="text" name="phone" class="form-control" />
+                                <label for="appointment_date" class="form-label">Specialist :</label>
+                                <input id="appointment_date" type="date" name="appointment_date" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -144,14 +144,23 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="u_age" class="form-label">Age : </label>
-                                <input id="u_age" type="text" name="age" class="form-control" />
+                                <label for="disease" class="form-label">Age : </label>
+                                <input id="disease" type="text" name="disease" class="form-control" />
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="doctor" class="form-label">Address : </label>
+                                <input id="doctor" type="text" name="doctor" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="gender" class="form-label">Gender:</label>
-                                <select id="u_gender" type="text" name="gender" class="form-control">
+                                <select id="gender" name="gender" class="form-control">
                                     <option value="">Please select one…</option>
                                     <option value="female">Female</option>
                                     <option value="male">Male</option>
@@ -159,138 +168,46 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="disease" class="form-label">Disease :</label>
-                                <input id="u_disease" type="text" name="disease" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="address" class="form-label">Address : </label>
-                                <input id="u_address" type="text" name="address" class="form-control" />
+                                <label for="phone" class="form-label">Phone Number : </label>
+                                <input id="phone" type="text" name="phone" class="form-control" />
                             </div>
                         </div>
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" onclick="updatePatient()" class="btn btn-primary">Save changes</button>
+                        <button type="button" onclick="BookAppointment()" class="btn btn-primary">Book Appointment</button>
                     </div>
 
                 </form>
             </div>
-
-
         </div>
     </div>
 </div>
+<div class="card w-100 shadow-sm">
+    <div class="card-body">
+        <table class="table table-bordered" id="myTable" style="width:100% !important">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
 
-@* view patient details *@
-<div class="modal fade" id="ViewModal" tabindex="-1" aria-labelledby="ViewModalLabel" aria-hidden="true">
+            </thead>
 
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="ViewModalLabel">Add Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <div class="modal-body">
-
-                <form id="updateform">
-                    <input hidden id="view_id" />
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="u_firstname" class="form-label">First Name : </label>
-                                <input id="view_firstname" type="text" name="firstname" class="form-control" readonly />
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="u_lastname" class="form-label">Last Name : </label>
-                                <input id="view_lastname" type="text" name="lastname" class="form-control" readonly />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="u_email" class="form-label">Email Id : </label>
-                                <input id="view_email" type="email" name="email" class="form-control" readonly />
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="u_phone" class="form-label">Phone Number : </label>
-                                <input id="view_phone" type="text" name="phone" class="form-control" readonly />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="u_age" class="form-label">Age : </label>
-                                <input id="view_age" type="text" name="age" class="form-control" readonly />
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="u_gender" class="form-label">Gender:</label>
-                                <select id="view_gender" name="gender" class="form-control" readonly>
-                                    <option value="">Please select one…</option>
-                                    <option value="female">Female</option>
-                                    <option value="male">Male</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="disease" class="form-label">Disease :</label>
-                                <input id="view_disease" type="text" name="disease" class="form-control" readonly />
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="address" class="form-label">Address : </label>
-                                <input id="view_address" type="text" name="address" class="form-control" readonly />
-                            </div>
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-
-
-        </div>
+        </table>
     </div>
 </div>
 
-
-<table class="table table-striped" id="myTable" style="width:100% !important">
-    <thead class="table-dark">
-        <tr>
-            <th>id</th>
-            <th>Name</th>
-            <th>Phone</th>
-            <th>Disease</th>
-            <th>Address</th>
-            <th>Action</th>
-        </tr>
-
-    </thead>
-
-</table>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
 
 <script>
 
@@ -317,14 +234,12 @@
                     data: data,
                     columns: [
                         { data: 'id' },
-                        { data: 'firstname' },
-                        { data: 'phone' },
-                        { data: 'disease' },
-                        { data: 'address' },
+                        { data: 'name' },
+                        { data: 'email' },
                         {
                             data: null,
                             render: function (data, type, row) {
-                                return ` <div class="btn-group" role="group" aria-label="Basic example"><button type="button" onclick="popupdatedata(` + row.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updatemodal">edit</button><button type="button" onclick="ViewModal(` + row.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ViewModal">view</button><button type="button" onclick="DeletePatient(` + row.id + `)" class="btn btn-primary" >delete</button></div>`;
+                                return `<button type="button" onclick="popupdatedata(` + row.id + `)" class="btn" style="background:cadetblue" data-bs-toggle="modal" data-bs-target="#updatemodal">edit</button>|<button type="button" onclick="DeletePatient(` + row.id + `)" class="btn" style="background:cadetblue" >delete</button>|<button type="button" onclick="BookAppointment(` + row.id + `)" class="btn" style="background:cadetblue" data-bs-toggle="modal" data-bs-target="#appointmentModal">Book Appointment</button>`;
                             }
                         }
                     ]
@@ -334,54 +249,6 @@
                 Success = false;
             }
         });
-    }
-
-
-    // Add patient function
-    function AddPatient() {
-      
-        ClearForm();
-        debugger;
-        var oModel = {
-            
-            firstname: $('#firstname').val(),
-            lastname: $('#lastname').val(),
-            email: $('#email').val(),
-            phone: $('#phone').val(),
-            age: $('#age').val(),
-            disease: $('#disease').val(),
-            address: $('#address').val(),
-            gender: $('#gender').val()
-        }
-        debugger;
-
-        var formData = new FormData();
-        formData.append("model", JSON.stringify(oModel));
-        debugger;
-        $.ajax({
-            type: "POST",
-            url: "/Admin_PatientPage/AddPatient",
-            data: formData,
-            processData: false,
-            contentType: false,
-            cache: false,
-            success: function (data) {
-                ClearForm();
-                Swal.fire({
-                    title: "Good job!",
-                    text: "Employee saved successfully!",
-                    icon: "success",
-                    button: "Ok",
-                });
-                $('#exampleModal').modal('hide');
-                get();
-            },
-            error: function (error) {
-                console.log("Error saving employee:", error);
-                Swal.fire("Oops", "An error occurred while saving your data, Please try again later.", "error");
-            }
-        })
-
     }
 
     function DeletePatient(id) {
@@ -399,7 +266,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "/Admin_PatientPage/DeletePatient/"+ id,
+                    url: "/Admin_PatientPage/DeletePatient/" + id,
                     success: function (data) {
 
                         swal.fire("Employee deleted successfully!", {
@@ -420,24 +287,18 @@
         });
     }
 
+
     function popupdatedata(id) {
         debugger;
 
         $.ajax({
-            type: "POST",
-            url: "/Admin_PatientPage/GetPatientByID/" + id,
+            type: "post",
+            url: "/admin_patientpage/getpatientbyid/" + id,
             success: function (data) {
                 $('#update_id').val(data.id),
-                $('#u_firstname').val(data.firstname),
-                $('#u_lastname').val(data.lastname),
-                $('#u_email').val(data.email),
-                $('#u_phone').val(data.phone),
-                $('#u_age').val(data.age),
-                $('#u_disease').val(data.disease),
-                $('#u_address').val(data.address),
-                $('#u_gender').val(data.gender)
+                    $('#u_name').val(data.name),
+                    $('#u_email').val(data.email)
             }
-
         });
     }
 
@@ -445,28 +306,19 @@
     function updatePatient() {
         debugger;
 
-        ClearForm();
-
         var employeeID = {
             id: $('#update_id').val()
         }
 
         var updatedModel = {
-         
-            firstname: $('#u_firstname').val(),
-            lastname: $('#u_lastname').val(),
-            email: $('#u_email').val(),
-            phone: $('#u_phone').val(),
-            age: $('#u_age').val(),
-            disease: $('#u_disease').val(),
-            address: $('#u_address').val(),
-            age: $('#u_gender').val()
+            name: $('#u_name').val(),
+            email: $('#u_email').val()
         };
-
+        console.log(name);
         var formData = new FormData();
         formData.append("Id", employeeID.id);
-        formData.append("model", JSON.stringify(updatedModel));
-
+        formData.append("omodel", JSON.stringify(updatedModel));
+        console.log(name);
         debugger;
 
         $.ajax({
@@ -477,13 +329,19 @@
             contentType: false,
             cache: false,
             success: function (data) {
-                $('#exampleModal').modal('hide');
-                Swal.fire({
-                    title: "Good job!",
-                    text: "Employee update successfully!",
-                    icon: "success",
-                    button: "Ok",
-                });
+                $('#updatemodal').modal('hide');
+                if (data.status === "success") {
+                    Swal.fire({
+                        title: "Good job!",
+                        text: "Employee update successfully!",
+                        icon: "success",
+                        button: "Ok",
+                    });
+                } else if (data.status === "warning") {
+                    alert(data.message);
+                }
+                DataTable.destroy();
+                get();
             },
             error: function () {
                 Swal.fire({
@@ -493,28 +351,52 @@
                 });
             }
         });
-       
+
     }
 
-    function ViewModal(id) {
+
+    function RegisterPatient() {
         debugger;
+        if ($('#RegisterPatient_id').valid()) {
+            var RegisterData = {
+                name: $('#r_name').val(),
+                email: $('#r_email').val(),
+                password: $('#r_password').val(),
+                confirm_password: $('#c_password').val(),
+                role: $('#r_role').val(),
+            };
 
-        $.ajax({
-            type: "POST",
-            url: "/Admin_PatientPage/GetPatientByID/" + id,
-            success: function (data) {
-                $('#view_id').val(data.id),
-                    $('#view_firstname').val(data.firstname),
-                    $('#view_lastname').val(data.lastname),
-                    $('#view_email').val(data.email),
-                    $('#view_phone').val(data.phone),
-                    $('#view_age').val(data.age),
-                    $('#view_disease').val(data.disease),
-                    $('#view_address').val(data.address),
-                    $('#view_gender').val(data.gender)
-            }
+            console.log(RegisterData);
 
-        });
+            var formData = new FormData();
+            formData.append("model", JSON.stringify(RegisterData));
+            debugger;
+
+            $.ajax({
+                type: "POST",
+                url: "/Admin_PatientPage/RegisterPatient",
+                data: formData,
+                contentType: false,
+                processData: false,
+                Cache: false,
+                success: function (data) {
+                    $('#RegisterModal').modal('hide');
+                    if (data.status === "success") {
+                        alert(data.message);
+                        // window.location.href = "/Login/Login";
+                    }
+                    else if (data.status === "warning") {
+                        alert(data.message);
+                    }
+
+                    DataTable.destroy();
+                    get();
+                },
+                error: function (error) {
+                    console.log("Register Data Error: ", error);
+                },
+            });
+        }
     }
 
     function ClearForm() {
