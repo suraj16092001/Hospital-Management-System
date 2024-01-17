@@ -48,7 +48,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             _dBManager.AddCMDParam("@p_name", user.name);
             _dBManager.AddCMDParam("@p_email", user.email);
             _dBManager.AddCMDParam("@p_pass", user.password);
-            _dBManager.AddCMDParam("@p_role", user.role);
+            _dBManager.AddCMDParam("@p_role_id", user.role);
 
 
             _dBManager.ExecuteNonQuery();

@@ -27,6 +27,7 @@ namespace Hospital_Management_System.Models
 
 
         [Required]
-        public string role { get; set; }
+
+        public int role { get; set; }
     }
 }

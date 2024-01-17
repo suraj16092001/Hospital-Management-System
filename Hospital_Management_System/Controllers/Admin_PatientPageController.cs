@@ -1,7 +1,11 @@
 ﻿using Hospital_Management_System.HospitalBussinessManager.IBAL;
+using Hospital_Management_System.HospitalDataManager.DAL;
+using Hospital_Management_System.HospitalDataManager.IDAL;
 using Hospital_Management_System.Models;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System.Configuration;
 using System.Data;
 using System.Text.Json;
@@ -12,7 +16,7 @@ namespace Hospital_Management_System.Controllers
     {
         IAdmin_PatientPageBAL _IAdmin_PatientPageBAL;
 
-        public Admin_PatientPageController( IAdmin_PatientPageBAL admin_PatientPageBAL)
+        public Admin_PatientPageController(IAdmin_PatientPageBAL admin_PatientPageBAL)
         {
             _IAdmin_PatientPageBAL = admin_PatientPageBAL;
         }
@@ -27,8 +31,6 @@ namespace Hospital_Management_System.Controllers
             return Json(_IAdmin_PatientPageBAL.GetPatientList());
         }
 
-
-
         // view Create for Adding patient by admin
         public IActionResult AddPatient()
         {
@@ -39,7 +41,7 @@ namespace Hospital_Management_System.Controllers
         [HttpPost]
         public IActionResult AddPatient(string model)
         {
-            Admin_PatientPageModel admin_PatientPage = JsonSerializer.Deserialize<Admin_PatientPageModel>(model);
+            Admin_PatientPageModel admin_PatientPage = JsonConvert.DeserializeObject<Admin_PatientPageModel>(model);
             _IAdmin_PatientPageBAL.AddPatient(admin_PatientPage);
             return Json("PatientList");
         }
@@ -50,7 +52,6 @@ namespace Hospital_Management_System.Controllers
             return RedirectToAction("PatientList");
         }
 
-
         public IActionResult GetPatientByID(int id)
         {
             return Json(_IAdmin_PatientPageBAL.GetPatientByID(id));
@@ -58,40 +59,19 @@ namespace Hospital_Management_System.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdatePatient(string omodel, int Id)
+        public IActionResult UpdatePatient(string model, int Id)
         {
-            UserModel model = JsonSerializer.Deserialize<UserModel>(omodel);
-            if (ModelState.IsValid)
-            {
-                var result = _IAdmin_PatientPageBAL.UpdatePatient(model, Id);
-                if (result == "exists")
-                {
-                    return Json(new { status = "warning", message = "Email Id Already Exists!" });
-                }
-            }
-
-            return Json(new { status = "success", message = "Patient Updated successfully!" });
-        }
-
-        public IActionResult Register()
-        {
-            return View();
+            Admin_PatientPageModel admin_PatientPage = JsonConvert.DeserializeObject<Admin_PatientPageModel>(model);
+            _IAdmin_PatientPageBAL.UpdatePatient(admin_PatientPage, Id);
+            return Json("PatientList");
         }
 
         [HttpPost]
-        public IActionResult RegisterPatient(string model)
+        public IActionResult BookAppointment(string model)
         {
-            UserModel user = JsonSerializer.Deserialize<UserModel>(model)!;
-            if (ModelState.IsValid)
-            {
-                var result = _IAdmin_PatientPageBAL.RegisterPatient(user);
-
-                if (result == "exists")
-                {
-                    return Json(new { status = "warning", message = "Email Id Already Exists!" });
-                }
-            }
-            return Json(new { status = "success", message = "Patient register successfully!" });
+            AppointmentModel appointment = JsonConvert.DeserializeObject<AppointmentModel>(model, new IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
+            _IAdmin_PatientPageBAL.BookAppointment(appointment);
+            return Json("PatientList");
         }
     }
 }

@@ -40,7 +40,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="specialist" class="form-label">Specialist :</label>
+                                <label for="specialist" class="form-label">Specialization :</label>
                                 <input id="specialist" type="text" name="specialist" class="form-control" />
                             </div>
                         </div>
@@ -314,7 +314,7 @@
                         {
                             data: null,
                             render: function (data, type, row) {
-                                return ` <button type="button" onclick="popupdatedata(` + row.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#UpdateDoctorModal">edit</button>|<button type="button" onclick="Viewdata(` + row.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ViewDoctorModal">view</button>|<button type="button" onclick="DeleteDoctor(` + row.id + `)" class="btn btn-primary" >delete</button>`;
+                                return ` <button type="button" onclick="popupdatedata(` + row.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#UpdateDoctorModal"><i class="fa-solid fa-pen-to-square"></i></button>|<button type="button" onclick="Viewdata(` + row.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ViewDoctorModal"><i class="fa-solid fa-eye"></i></button>|<button type="button" onclick="DeleteDoctor(` + row.id + `)" class="btn btn-primary" ><i class="fa-solid fa-trash-can-arrow-up"></button>`;
                             }
                         }
                     ]
