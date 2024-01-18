@@ -43,9 +43,9 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
 
         }
 
-        public AppointmentModel BookAppointment(AppointmentModel model, DateOnly date, TimeOnly time)
+        public AppointmentModel BookAppointment(AppointmentModel model)
         {
-            return _IAdmin_PatientPageDAL.BookAppointment(model, date,time);
+            return _IAdmin_PatientPageDAL.BookAppointment(model);
         }
     }
 }

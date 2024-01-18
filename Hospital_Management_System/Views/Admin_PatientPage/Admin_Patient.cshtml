@@ -264,7 +264,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="appointmentModalLabel">Add Details</h5>
+                <h5 class="modal-title" id="appointmentModalLabel">Add Appointment</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -277,13 +277,13 @@
                                 <label for="disease" class="form-label">Disease : </label>
                                 <select id="a_disease" name="disease" class="form-control" readonly>
                                     <option value="">Please select one…</option>
-                                    <option value="female">Fever</option>
-                                    <option value="male">Diabetes</option>
-                                    <option value="other">Cancer</option>
-                                    <option value="other">Heart Disease, Stroke</option>
-                                    <option value="other">Kidney Disease</option>
-                                    <option value="other">Malaria, Dengue Fever</option>
-                                    <option value="other">Emergency</option>
+                                    <option value="Fever">Fever</option>
+                                    <option value="Diabetes">Diabetes</option>
+                                    <option value="Cancer">Cancer</option>
+                                    <option value="Heart Disease, Stroke">Heart Disease, Stroke</option>
+                                    <option value="Kidney Disease">Kidney Disease</option>
+                                    <option value="Malaria, Dengue Fever">Malaria, Dengue Fever</option>
+                                    <option value="Emergency">Emergency</option>
                                 </select>
                             </div>
                         </div>
@@ -305,14 +305,10 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="appointment_date" class="form-label">Appointment Date :</label>
-                                <input id="a_appointment_date" type="date" name="appointment_date" class="form-control" />
+                                <input id="a_appointment_date" type="date" name="appointment_date" class="form-control datepicker" />
                             </div>
                         </div>
                     </div>
-
-
-
-
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" onclick="BookAppointment()" class="btn btn-primary">Book Appointment</button>
@@ -390,25 +386,27 @@
     function BookAppointment() {
         var oModel = {
             doctor: $('#a_doctor').val(),
-            disease: $('#a_disease').val()
-        }
-
-        var date={
-            appointment_date: $('#a_appointment_date').val()
-        }
-
-        var time = {
+            disease: $('#a_disease').val(),
+            appointment_date: $('#a_appointment_date').val(),
             appointment_time: $('#a_appointment_time').val()
         }
+
+        // var date={
+        //     appointment_date: $('#a_appointment_date').val()
+        // }
+
+        // var time = {
+        //     appointment_time: $('#a_appointment_time').val()
+        // }
 
         debugger;
         var formData = new FormData();
         for (var key in oModel) {
             formData.append(key, oModel[key])
         }
-        formData.append("date", date.appointment_date);
-        formData.append("time", time.appointment_time);
-
+        // formData.append("date", date.appointment_date);
+        // formData.append("time", time.appointment_time);
+        debugger;
         $.ajax({
             type: "POST",
             url: "/Admin_PatientPage/BookAppointment",
@@ -417,7 +415,7 @@
             contentType: false,
             cache: false,
             success: function (data) {
-                ClearForm();
+               
                 Swal.fire({
                     title: "Good job!",
                     text: "Appointment saved successfully!",

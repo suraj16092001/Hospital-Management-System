@@ -112,8 +112,9 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             return patient;
         }
 
-        public AppointmentModel BookAppointment(AppointmentModel appointment, DateOnly date, TimeOnly time)
+        public AppointmentModel BookAppointment(AppointmentModel appointment)
         {
+
             _dBManager.InitDbCommand("InsertPatientAppointment");
             _dBManager.AddCMDParam("@p_disease", appointment.disease);
             _dBManager.AddCMDParam("@p_doctor", appointment.doctor);

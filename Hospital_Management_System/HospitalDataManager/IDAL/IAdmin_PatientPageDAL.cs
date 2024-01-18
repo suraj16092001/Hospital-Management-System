@@ -13,6 +13,6 @@ namespace Hospital_Management_System.HospitalDataManager.IDAL
         public Admin_PatientPageModel UpdatePatient(Admin_PatientPageModel patient, int Id);
         public void DeletePatient(int id);
 
-        public AppointmentModel BookAppointment(AppointmentModel appointment, DateOnly date, TimeOnly time);
+        public AppointmentModel BookAppointment(AppointmentModel appointment);
     }
 }
