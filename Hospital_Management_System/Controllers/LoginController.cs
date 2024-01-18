@@ -54,17 +54,17 @@ namespace Hospital_Management_System.Controllers
                     return Json(new { status = "warning", message = "Invalid Password" });
                 }
             }
-            //if (login != null)
-            //{
-            //    HttpContext.Session.SetString("role", login.GetRole);
-            //    HttpContext.Session.SetString("email", email);
-            //    HttpContext.Session.SetString("password", password);
-            //}
-            //else
-            //{
-            //    ViewBag.Message = "Login failed";
-            //    return View();
-            //}
+            if (login != null)
+            {
+                HttpContext.Session.SetString("role", login.GetRole);
+                HttpContext.Session.SetString("email", email);
+                HttpContext.Session.SetString("password", password);
+            }
+            else
+            {
+                ViewBag.Message = "Login failed";
+                return View();
+            }
             return Json(new { role=login.GetRole , status = "success", message = "login successfully!" });
         }
 

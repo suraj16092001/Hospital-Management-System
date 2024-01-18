@@ -67,10 +67,10 @@ namespace Hospital_Management_System.Controllers
         }
 
         [HttpPost]
-        public IActionResult BookAppointment(string model)
+        public IActionResult BookAppointment(AppointmentModel model,DateOnly date,TimeOnly time)
         {
-            AppointmentModel appointment = JsonConvert.DeserializeObject<AppointmentModel>(model, new IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
-            _IAdmin_PatientPageBAL.BookAppointment(appointment);
+            //AppointmentModel appointment = JsonConvert.DeserializeObject<AppointmentModel>(model, new IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
+            _IAdmin_PatientPageBAL.BookAppointment(model, date,time);
             return Json("PatientList");
         }
     }

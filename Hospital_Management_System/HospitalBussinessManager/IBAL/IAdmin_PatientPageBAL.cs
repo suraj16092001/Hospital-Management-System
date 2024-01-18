@@ -14,7 +14,7 @@ namespace Hospital_Management_System.HospitalBussinessManager.IBAL
         public string UpdatePatient(Admin_PatientPageModel model, int Id);
         public void DeletePatient(int id);
 
-        public AppointmentModel BookAppointment(AppointmentModel model);
+        public AppointmentModel BookAppointment(AppointmentModel model, DateOnly date, TimeOnly time);
 
 
     }

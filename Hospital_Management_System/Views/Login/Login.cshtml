@@ -67,15 +67,15 @@
                     if (data.status === "warning") {
                         alert(data.message);
                     }
-                    else if (data.status === "success" && data.role=== "Admin") {
+                    else if (data.status === "success" && data.role === "1") {
                         alert(data.message);
                         window.location.href = "/AdminDashBoard/AdminDashBoard";
                     }
-                    else if (data.status === "success" && data.role === "Patient") {
+                    else if (data.status === "success" && data.role === "2") {
                         alert(data.message);
                         window.location.href = "/PatientDashboard/PatientDashboard";
                     }
-                    else if (data.status === "success" && data.role === "Doctor") {
+                    else if (data.status === "success" && data.role === "3") {
                         alert(data.message);
                         window.location.href = "/DoctorDashboard/DoctorDashboard";
                     }

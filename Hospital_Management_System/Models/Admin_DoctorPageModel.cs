@@ -6,6 +6,8 @@
 
         public string name { get; set; }
 
+        public string password { get; set; }
+
         public string qualification { get; set; }
 
         public string specialist { get; set; }

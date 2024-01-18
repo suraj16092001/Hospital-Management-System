@@ -23,7 +23,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
 
             foreach (DataRow item in ds.Tables[0].Rows)
             {
-               Admin_DoctorPageModel model = new Admin_DoctorPageModel();
+                Admin_DoctorPageModel model = new Admin_DoctorPageModel();
                 model.id = item["id"].ConvertDBNullToInt();
                 model.name = item["name"].ConvertDBNullToString();
                 model.qualification = item["qualification"].ConvertDBNullToString();
@@ -42,17 +42,27 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
 
         public Admin_DoctorPageModel AddDoctor(Admin_DoctorPageModel model)
         {
-            _dBManager.InitDbCommand("InsertDoctorData");
-            _dBManager.AddCMDParam("@p_name", model.name);
-            _dBManager.AddCMDParam("@p_qualification", model.qualification);
-            _dBManager.AddCMDParam("@p_specialist", model.specialist);
-            _dBManager.AddCMDParam("@p_gender", model.gender);
-            _dBManager.AddCMDParam("@p_phone", model.phone);
-            _dBManager.AddCMDParam("@p_email", model.email);
-            _dBManager.AddCMDParam("@p_age", model.age);
-            _dBManager.AddCMDParam("@p_address", model.address);
+            try
+            {
+                _dBManager.InitDbCommand("InsertDoctorData");
+                _dBManager.AddCMDParam("@p_name", model.name);
+                _dBManager.AddCMDParam("@p_password", model.password);
+                _dBManager.AddCMDParam("@p_qualification", model.qualification);
+                _dBManager.AddCMDParam("@p_specialist", model.specialist);
+                _dBManager.AddCMDParam("@p_gender", model.gender);
+                _dBManager.AddCMDParam("@p_phone", model.phone);
+                _dBManager.AddCMDParam("@p_email", model.email);
+                _dBManager.AddCMDParam("@p_age", model.age);
+                _dBManager.AddCMDParam("@p_address", model.address);
 
-            _dBManager.ExecuteNonQuery();
+                _dBManager.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+
+            }
+
 
             return model;
 
