@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Configuration;
 using System.Data;
+using System.Globalization;
 using System.Text.Json;
 
 namespace Hospital_Management_System.Controllers
@@ -66,6 +67,7 @@ namespace Hospital_Management_System.Controllers
             return Json("PatientList");
         }
 
+        /*
         [HttpPost]
         public IActionResult BookAppointment(AppointmentModel model)
         {
@@ -73,5 +75,26 @@ namespace Hospital_Management_System.Controllers
             _IAdmin_PatientPageBAL.BookAppointment(model);
             return Json("PatientList");
         }
+        */
+
+        [HttpPost]
+        public IActionResult BookAppointment(AppointmentModel model)
+        {
+            // Parse the date and time strings into DateTime
+            DateTime appointmentDate = DateTime.ParseExact(model.appointment_date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            TimeSpan appointmentTime = TimeSpan.Parse(model.appointment_time);
+
+            // Combine the date and time into one DateTime
+            DateTime appointmentDateTime = appointmentDate.Date + appointmentTime;
+
+            // Format the DateTime to MySQL format
+            model.appointment_date = appointmentDateTime.ToString("yyyy-MM-dd");
+            model.appointment_time = appointmentDateTime.ToString("HH:mm:ss");
+
+            _IAdmin_PatientPageBAL.BookAppointment(model);
+
+            return Json("PatientList");
+        }
+
     }
 }

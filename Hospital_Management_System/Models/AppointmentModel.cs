@@ -11,12 +11,12 @@ namespace Hospital_Management_System.Models
         public string doctor { get; set; }
 
         //[JsonNumberHandling(JsonNumberHandling.AllowReadingFromString)]
-        [DisplayFormat(ApplyFormatInEditMode =true,DataFormatString ="{0:MM/dd/yyyy}")]
-        public DateOnly appointment_date { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode =true,DataFormatString ="{0:YYYY/MM/DD}")]
+        public string appointment_date { get; set; }
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{HH:mm}")]
         //[JsonNumberHandling(JsonNumberHandling.AllowReadingFromString)]
-        public TimeOnly appointment_time { get; set; }
+        public string appointment_time { get; set; }
 
     }
 }
