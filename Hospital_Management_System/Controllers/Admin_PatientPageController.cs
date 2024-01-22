@@ -1,4 +1,5 @@
-﻿using Hospital_Management_System.HospitalBussinessManager.IBAL;
+﻿using Hospital_Management_System.HospitalBussinessManager.BAL;
+using Hospital_Management_System.HospitalBussinessManager.IBAL;
 using Hospital_Management_System.HospitalDataManager.DAL;
 using Hospital_Management_System.HospitalDataManager.IDAL;
 using Hospital_Management_System.Models;
@@ -16,6 +17,7 @@ namespace Hospital_Management_System.Controllers
     public class Admin_PatientPageController : Controller
     {
         IAdmin_PatientPageBAL _IAdmin_PatientPageBAL;
+      
 
         public Admin_PatientPageController(IAdmin_PatientPageBAL admin_PatientPageBAL)
         {
@@ -66,16 +68,6 @@ namespace Hospital_Management_System.Controllers
             _IAdmin_PatientPageBAL.UpdatePatient(admin_PatientPage, Id);
             return Json("PatientList");
         }
-
-        /*
-        [HttpPost]
-        public IActionResult BookAppointment(AppointmentModel model)
-        {
-            //AppointmentModel appointment = JsonConvert.DeserializeObject<AppointmentModel>(model, new IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
-            _IAdmin_PatientPageBAL.BookAppointment(model);
-            return Json("PatientList");
-        }
-        */
 
         [HttpPost]
         public IActionResult BookAppointment(AppointmentModel model)

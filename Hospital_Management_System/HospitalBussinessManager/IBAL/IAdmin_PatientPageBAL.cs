@@ -16,6 +16,5 @@ namespace Hospital_Management_System.HospitalBussinessManager.IBAL
 
         public AppointmentModel BookAppointment(AppointmentModel model);
 
-
     }
 }

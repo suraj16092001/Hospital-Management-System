@@ -3,9 +3,12 @@
 <h1>Patient</h1> *@
 @model IEnumerable<Hospital_Management_System.Models.Admin_PatientPageModel>
 
-<p>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h2>Patient Details</h2>
     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Patient</button>
-</p>
+   @*  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#registerModal">Register Patient</button> *@
+</div>
+
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
@@ -369,7 +372,7 @@
                         {
                             data: null,
                             render: function (data, type, row) {
-                                return `<button type="button" onclick="popupdatedata(` + row.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square"></i></button>|<button type="button" onclick="ViewModal(` + row.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ViewModal"><i class="fa-solid fa-eye"></i></button>|<button type="button" onclick="DeletePatient(` + row.id + `)" class="btn btn-primary" ><i class="fa-solid fa-trash-can-arrow-up"></i></button>|<button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#appointmentModal">Book Appointment</button>`;
+                                return `<button type="button" onclick="popupdatedata(` + row.id + `)" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square"></i></button>|<button type="button" onclick="ViewModal(` + row.id + `)" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ViewModal"><i class="fa-solid fa-eye"></i></button>|<button type="button" onclick="DeletePatient(` + row.id + `)" class="btn btn-success" ><i class="fa-solid fa-trash-can-arrow-up"></i></button>|<button type="button" class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#appointmentModal">Book Appointment</button>`;
                             }
                         }
                     ]
@@ -386,25 +389,14 @@
             doctor: $('#a_doctor').val(),
             disease: $('#a_disease').val(),
             appointment_date: $('#a_appointment_date').val(),
-            appointment_time: $('#a_appointment_time').val()
+            appointment_time: $('#a_appointment_time').val(),
         }
-
-        // var date={
-        //     appointment_date: $('#a_appointment_date').val()
-        // }
-
-        // var time = {
-        //     appointment_time: $('#a_appointment_time').val()
-        // }
 
         debugger;
         var formData = new FormData();
         for (var key in oModel) {
             formData.append(key, oModel[key])
         }
-        // formData.append("date", date.appointment_date);
-        // formData.append("time", time.appointment_time);
-        debugger;
         $.ajax({
             type: "POST",
             url: "/Admin_PatientPage/BookAppointment",
@@ -413,7 +405,7 @@
             contentType: false,
             cache: false,
             success: function (data) {
-               
+
                 Swal.fire({
                     title: "Good job!",
                     text: "Appointment saved successfully!",
@@ -429,8 +421,6 @@
             }
         })
     }
-
-
     // Add patient function
     function AddPatient() {
 

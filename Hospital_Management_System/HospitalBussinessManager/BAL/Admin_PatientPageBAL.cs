@@ -9,10 +9,12 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
     public class Admin_PatientPageBAL:IAdmin_PatientPageBAL
     {
         IAdmin_PatientPageDAL _IAdmin_PatientPageDAL;
+        ILoginDAL _ILoginDAL;
 
         public Admin_PatientPageBAL(IDBManager dBManager)
         {
             _IAdmin_PatientPageDAL = new Admin_PatientPageDAL(dBManager);
+            _ILoginDAL= new LoginDAL(dBManager);
 
         }
 
