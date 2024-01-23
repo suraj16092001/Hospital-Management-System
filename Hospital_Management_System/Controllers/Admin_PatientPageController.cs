@@ -17,7 +17,7 @@ namespace Hospital_Management_System.Controllers
     public class Admin_PatientPageController : Controller
     {
         IAdmin_PatientPageBAL _IAdmin_PatientPageBAL;
-      
+
 
         public Admin_PatientPageController(IAdmin_PatientPageBAL admin_PatientPageBAL)
         {
@@ -42,17 +42,20 @@ namespace Hospital_Management_System.Controllers
 
         //Adding patient data in database
         [HttpPost]
-        public IActionResult AddPatient(string model)
+        public IActionResult AddPatient(PatientAllDataViewModel oModel)
         {
-            Admin_PatientPageModel admin_PatientPage = JsonConvert.DeserializeObject<Admin_PatientPageModel>(model);
-            _IAdmin_PatientPageBAL.AddPatient(admin_PatientPage);
+            //Admin_PatientPageModel admin_PatientPage = JsonConvert.DeserializeObject<Admin_PatientPageModel>(model);
+            //UserModel user = JsonConvert.DeserializeObject<UserModel>(userModel);
+
+            //patientAllDataView.AdminPage = (Admin_PatientPageModel)admin_PatientPage;
+            _IAdmin_PatientPageBAL.AddPatient(oModel);
             return Json("PatientList");
         }
 
         public IActionResult DeletePatient(int id)
         {
             _IAdmin_PatientPageBAL.DeletePatient(id);
-            return RedirectToAction("PatientList");
+            return Json("PatientList");
         }
 
         public IActionResult GetPatientByID(int id)

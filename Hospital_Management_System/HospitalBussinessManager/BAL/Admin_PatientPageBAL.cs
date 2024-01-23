@@ -23,9 +23,10 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
             return _IAdmin_PatientPageDAL.GetPatientList();
         }
 
-        public Admin_PatientPageModel AddPatient(Admin_PatientPageModel model)
+        public PatientAllDataViewModel AddPatient(PatientAllDataViewModel oModel)
         {
-            return _IAdmin_PatientPageDAL.AddPatient(model);
+            oModel.User.role = 2;
+            return _IAdmin_PatientPageDAL.AddPatient(oModel);
         }
 
         public Admin_PatientPageModel GetPatientByID(int id)

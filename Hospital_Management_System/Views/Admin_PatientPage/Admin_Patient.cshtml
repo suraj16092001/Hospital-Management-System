@@ -21,7 +21,7 @@
 
             <div class="modal-body">
 
-                <form>
+                <form method="post">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -77,8 +77,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="disease" class="form-label">Disease :</label>
-                                <input id="disease" type="text" name="disease" class="form-control" />
+                                <label for="DOB" class="form-label">Date of Birth :</label>
+                                <input id="DOB" type="date" name="DOB" class="form-control" />
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -89,11 +89,9 @@
                         </div>
                     </div>
 
-
-
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" onclick="AddPatient()" class="btn btn-primary">Save changes</button>
+                        <button type="button" onclick="AddPatient();" class="btn btn-primary">Save changes</button>
                     </div>
 
                 </form>
@@ -121,7 +119,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="u_name" class="form-label">First Name : </label>
+                                <label for="u_name" class="form-label">Name : </label>
                                 <input id="u_name" type="text" name="u_name" class="form-control" />
                             </div>
                         </div>
@@ -136,8 +134,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="u_disease" class="form-label">Disease :</label>
-                                <input id="u_disease" type="text" name="u_disease" class="form-control" />
+                                <label for="DOB" class="form-label">Date of Birth :</label>
+                                <input id="u_DOB" type="date" name="DOB" class="form-control" />
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -217,8 +215,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="disease" class="form-label">Disease :</label>
-                                <input id="view_disease" type="text" name="disease" class="form-control" readonly />
+                                <label for="DOB" class="form-label">Date of Birth :</label>
+                                <input id="viev_DOB" type="date" name="DOB" class="form-control" readonly/>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -329,8 +327,8 @@
                 <tr>
                     <th>id</th>
                     <th>Name</th>
+                    <th>email</th>
                     <th>Phone</th>
-                    <th>Disease</th>
                     <th>Address</th>
                     <th>Action</th>
                 </tr>
@@ -366,13 +364,13 @@
                     columns: [
                         { data: 'id' },
                         { data: 'name' },
+                        { data: 'email' },
                         { data: 'phone' },
-                        { data: 'disease' },
                         { data: 'address' },
                         {
                             data: null,
                             render: function (data, type, row) {
-                                return `<button type="button" onclick="popupdatedata(` + row.id + `)" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square"></i></button>|<button type="button" onclick="ViewModal(` + row.id + `)" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ViewModal"><i class="fa-solid fa-eye"></i></button>|<button type="button" onclick="DeletePatient(` + row.id + `)" class="btn btn-success" ><i class="fa-solid fa-trash-can-arrow-up"></i></button>|<button type="button" class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#appointmentModal">Book Appointment</button>`;
+                                return `<button type="button" onclick="popupdatedata(` + row.id + `)" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square"></i></button>|<button type="button" onclick="ViewModal(` + row.id + `)" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#ViewModal"><i class="fa-solid fa-eye"></i></button>|<button type="button" onclick="DeletePatient(` + row.id + `)" class="btn btn-danger" ><i class="fa-solid fa-trash-can-arrow-up"></i></button>|<button type="button" class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#appointmentModal"><i class="fa-solid fa-clipboard-list"></i></button>`;
                             }
                         }
                     ]
@@ -424,22 +422,28 @@
     // Add patient function
     function AddPatient() {
 
-
+        debugger;
         var oModel = {
-
             name: $('#name').val(),
             email: $('#email').val(),
-            password: $('#password').val(),
+            password: $('#password').val()
             phone: $('#phone').val(),
             age: $('#age').val(),
-            disease: $('#disease').val(),
+            DateOfBirth: $('#DOB').val(),
             address: $('#address').val(),
             gender: $('#gender').val()
         }
+
         debugger;
 
+        // var formData = new FormData();
+        // formData.append("model", JSON.stringify(oModel));
+        // formData.append("userModel", JSON.stringify(obj));
+
         var formData = new FormData();
-        formData.append("model", JSON.stringify(oModel));
+        for (var key in oModel) {
+            formData.append(key, oModel[key])
+        }
         debugger;
         Swal.fire({
             title: "Are you sure?",
@@ -527,7 +531,7 @@
                     $('#u_email').val(data.email),
                     $('#u_phone').val(data.phone),
                     $('#u_age').val(data.age),
-                    $('#u_disease').val(data.disease),
+                    $('#u_DOB').val(data.DateOfBirth),
                     $('#u_address').val(data.address),
                     $('#u_gender').val(data.gender)
             }
@@ -548,7 +552,7 @@
             email: $('#u_email').val(),
             phone: $('#u_phone').val(),
             age: $('#u_age').val(),
-            disease: $('#u_disease').val(),
+            DateOfBirth: $('#u_DOB').val(),
             address: $('#u_address').val(),
             gender: $('#u_gender').val()
         };
@@ -610,7 +614,7 @@
                     $('#view_name').val(data.name),
                     $('#view_email').val(data.email),
                     $('#view_phone').val(data.phone),
-                    $('#view_disease').val(data.disease),
+                    $('#viev_DOB').val(data.disease),
                     $('#view_age').val(data.age),
                     $('#view_address').val(data.address),
                     $('#view_gender').val(data.gender)
@@ -626,7 +630,7 @@
         $('#password').val('');
         $('#phone').val('');
         $('#age').val('');
-        $('#disease').val('');
+        $('#DOB').val('');
         $('#address').val('');
         $('#gender').val('');
 

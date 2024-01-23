@@ -29,12 +29,10 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             {
                 Admin_PatientPageModel admin_PatientPageModel = new Admin_PatientPageModel();
                 admin_PatientPageModel.id = item["id"].ConvertDBNullToInt();
-                admin_PatientPageModel.name = item["name"].ConvertDBNullToString();
-                admin_PatientPageModel.email = item["email"].ConvertDBNullToString();
                 admin_PatientPageModel.phone = item["phone"].ConvertDBNullToString();
                 admin_PatientPageModel.age = item["age"].ConvertDBNullToString();
                 admin_PatientPageModel.gender = item["gender"].ConvertDBNullToString();
-                admin_PatientPageModel.disease = item["disease"].ConvertDBNullToString();
+                admin_PatientPageModel.DateOfBirth = item["DOB"].ConvertDBNullToString();
                 admin_PatientPageModel.address = item["address"].ConvertDBNullToString();
 
                 patientList.Add(admin_PatientPageModel);
@@ -44,21 +42,22 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
         }
 
 
-        public Admin_PatientPageModel AddPatient(Admin_PatientPageModel patient)
+        public PatientAllDataViewModel AddPatient(PatientAllDataViewModel oModel)
         {
-            _dBManager.InitDbCommand("InsertPatientData");
-            _dBManager.AddCMDParam("@p_name", patient.name);
-            _dBManager.AddCMDParam("@p_email", patient.email);
-            _dBManager.AddCMDParam("@p_password", patient.password);
-            _dBManager.AddCMDParam("@p_phone", patient.phone);
-            _dBManager.AddCMDParam("@p_age", patient.age);
-            _dBManager.AddCMDParam("@p_gender", patient.gender);
-            _dBManager.AddCMDParam("@p_disease", patient.disease);
-            _dBManager.AddCMDParam("@p_address", patient.address);
+            _dBManager.InitDbCommand("insertData");
+            _dBManager.AddCMDParam("@p_name", oModel.User.name);
+            _dBManager.AddCMDParam("@p_email", oModel.User.email);
+            _dBManager.AddCMDParam("@p_password", oModel.User.password);
+            _dBManager.AddCMDParam("@p_role_id", oModel.User.role);
+            _dBManager.AddCMDParam("@p_phone", oModel.Admin_PatientPage.phone);
+            _dBManager.AddCMDParam("@p_age", oModel.Admin_PatientPage.age);
+            _dBManager.AddCMDParam("@p_gender", oModel.Admin_PatientPage.gender);
+            _dBManager.AddCMDParam("@p_DateOfBirth", oModel.Admin_PatientPage.DateOfBirth);
+            _dBManager.AddCMDParam("@p_address", oModel.Admin_PatientPage.address);
 
             _dBManager.ExecuteNonQuery();
-
-            return patient;
+            
+            return oModel;
 
         }
 
@@ -73,21 +72,23 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
         public Admin_PatientPageModel GetPatientByID(int id)
         {
 
-            _dBManager.InitDbCommand("GetPatientByID");
+            _dBManager.InitDbCommand("GetAllPatientData");
             Admin_PatientPageModel admin_PatientPageModel = null;
+            UserModel userModel = null;
             _dBManager.AddCMDParam("@p_id", id);
             DataSet ds = _dBManager.ExecuteDataSet();
 
             foreach (DataRow item in ds.Tables[0].Rows)
             {
                 admin_PatientPageModel = new Admin_PatientPageModel();
-
+                userModel = new UserModel();
                 admin_PatientPageModel.id = item["id"].ConvertDBNullToInt();
-                admin_PatientPageModel.name = item["name"].ConvertDBNullToString();
-                admin_PatientPageModel.email = item["email"].ConvertDBNullToString();
+                userModel.name = item["name"].ConvertDBNullToString();
+                userModel.email = item["email"].ConvertDBNullToString();
                 admin_PatientPageModel.age = item["age"].ConvertDBNullToString();
                 admin_PatientPageModel.gender = item["gender"].ConvertDBNullToString();
-                admin_PatientPageModel.disease = item["disease"].ConvertDBNullToString();
+                admin_PatientPageModel.register_id = item["register_id"].ConvertDBNullToInt();
+                admin_PatientPageModel.DateOfBirth = item["DOB"].ConvertDBNullToString();
                 admin_PatientPageModel.phone = item["phone"].ConvertDBNullToString();
                 admin_PatientPageModel.address = item["address"].ConvertDBNullToString();
 
@@ -100,11 +101,9 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
         {
             _dBManager.InitDbCommand("UpdatePatientData");
             _dBManager.AddCMDParam("@p_id", Id);
-            _dBManager.AddCMDParam("@p_name", patient.name);
-            _dBManager.AddCMDParam("@p_email", patient.email);
             _dBManager.AddCMDParam("@p_age", patient.age);
             _dBManager.AddCMDParam("@p_gender", patient.gender);
-            _dBManager.AddCMDParam("@p_disease", patient.disease);
+            _dBManager.AddCMDParam("@p_DateOfBirth", patient.DateOfBirth);
             _dBManager.AddCMDParam("@p_phone", patient.phone);
             _dBManager.AddCMDParam("@p_address", patient.address);
 

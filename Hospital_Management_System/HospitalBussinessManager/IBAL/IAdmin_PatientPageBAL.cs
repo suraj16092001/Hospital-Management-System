@@ -8,7 +8,7 @@ namespace Hospital_Management_System.HospitalBussinessManager.IBAL
     {
 
         public List<Admin_PatientPageModel> GetPatientList();
-        public Admin_PatientPageModel AddPatient(Admin_PatientPageModel model);
+        public PatientAllDataViewModel AddPatient(PatientAllDataViewModel oModel);
 
         public Admin_PatientPageModel GetPatientByID(int id);
         public string UpdatePatient(Admin_PatientPageModel model, int Id);
