@@ -25,7 +25,7 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
 
         public PatientAllDataViewModel AddPatient(PatientAllDataViewModel oModel)
         {
-            oModel.User.role = 2;
+            //oModel.User.role = 2;
             return _IAdmin_PatientPageDAL.AddPatient(oModel);
         }
 

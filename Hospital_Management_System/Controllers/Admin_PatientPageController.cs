@@ -42,13 +42,13 @@ namespace Hospital_Management_System.Controllers
 
         //Adding patient data in database
         [HttpPost]
-        public IActionResult AddPatient(PatientAllDataViewModel oModel)
+        public IActionResult AddPatient(PatientAllDataViewModel model)
         {
             //Admin_PatientPageModel admin_PatientPage = JsonConvert.DeserializeObject<Admin_PatientPageModel>(model);
             //UserModel user = JsonConvert.DeserializeObject<UserModel>(userModel);
 
             //patientAllDataView.AdminPage = (Admin_PatientPageModel)admin_PatientPage;
-            _IAdmin_PatientPageBAL.AddPatient(oModel);
+            _IAdmin_PatientPageBAL.AddPatient(model);
             return Json("PatientList");
         }
 

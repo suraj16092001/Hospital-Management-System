@@ -426,12 +426,12 @@
         var oModel = {
             name: $('#name').val(),
             email: $('#email').val(),
-            password: $('#password').val()
+            password: $('#password').val(),
             phone: $('#phone').val(),
             age: $('#age').val(),
             DateOfBirth: $('#DOB').val(),
             address: $('#address').val(),
-            gender: $('#gender').val()
+            gender: $('#gender').val(),
         }
 
         debugger;
@@ -444,7 +444,6 @@
         for (var key in oModel) {
             formData.append(key, oModel[key])
         }
-        debugger;
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -463,7 +462,7 @@
                     contentType: false,
                     cache: false,
                     success: function (data) {
-                        ClearForm();
+                     
                         Swal.fire({
                             title: "Good job!",
                             text: "Patient saved successfully!",

@@ -45,15 +45,16 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
         public PatientAllDataViewModel AddPatient(PatientAllDataViewModel oModel)
         {
             _dBManager.InitDbCommand("insertData");
-            _dBManager.AddCMDParam("@p_name", oModel.User.name);
-            _dBManager.AddCMDParam("@p_email", oModel.User.email);
-            _dBManager.AddCMDParam("@p_password", oModel.User.password);
-            _dBManager.AddCMDParam("@p_role_id", oModel.User.role);
             _dBManager.AddCMDParam("@p_phone", oModel.Admin_PatientPage.phone);
             _dBManager.AddCMDParam("@p_age", oModel.Admin_PatientPage.age);
             _dBManager.AddCMDParam("@p_gender", oModel.Admin_PatientPage.gender);
             _dBManager.AddCMDParam("@p_DateOfBirth", oModel.Admin_PatientPage.DateOfBirth);
             _dBManager.AddCMDParam("@p_address", oModel.Admin_PatientPage.address);
+            _dBManager.AddCMDParam("@p_name", oModel.User.name);
+            _dBManager.AddCMDParam("@p_email", oModel.User.email);
+            _dBManager.AddCMDParam("@p_password", oModel.User.password);
+            _dBManager.AddCMDParam("@p_role_id", oModel.User.role);
+            
 
             _dBManager.ExecuteNonQuery();
             
