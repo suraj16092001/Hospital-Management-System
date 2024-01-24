@@ -7,11 +7,11 @@ namespace Hospital_Management_System.HospitalBussinessManager.IBAL
     public interface IAdmin_PatientPageBAL
     {
 
-        public List<Admin_PatientPageModel> GetPatientList();
+        public List<PatientAllDataViewModel> GetPatientList();
         public PatientAllDataViewModel AddPatient(PatientAllDataViewModel oModel);
 
-        public Admin_PatientPageModel GetPatientByID(int id);
-        public string UpdatePatient(Admin_PatientPageModel model, int Id);
+        public PatientAllDataViewModel GetPatientByID(int id);
+        public string UpdatePatient(PatientAllDataViewModel model, int Id);
         public void DeletePatient(int id);
         public AppointmentModel BookAppointment(AppointmentModel model);
 

@@ -18,23 +18,23 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
 
         }
 
-        List<Admin_PatientPageModel> IAdmin_PatientPageBAL.GetPatientList()
+        List<PatientAllDataViewModel> IAdmin_PatientPageBAL.GetPatientList()
         {
             return _IAdmin_PatientPageDAL.GetPatientList();
         }
 
         public PatientAllDataViewModel AddPatient(PatientAllDataViewModel oModel)
         {
-            //oModel.User.role = 2;
+            oModel.User.role = 2;
             return _IAdmin_PatientPageDAL.AddPatient(oModel);
         }
 
-        public Admin_PatientPageModel GetPatientByID(int id)
+        public PatientAllDataViewModel GetPatientByID(int id)
         {
             return _IAdmin_PatientPageDAL.GetPatientByID(id);
         }
 
-        public string UpdatePatient(Admin_PatientPageModel model, int Id)
+       public string UpdatePatient(PatientAllDataViewModel model, int Id)
         {
             _IAdmin_PatientPageDAL.UpdatePatient(model, Id);
             return "Success";
