@@ -1,10 +1,10 @@
-GetAllPatientData
+GetAllPatientData	
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAllPatientData`()
 begin
 select
  patient.id,loginuser.name,loginuser.email,loginuser.pass,loginuser.role_id,
-patient.age,patient.phone,patient.DOB,patient.address,patient.gender,patient.register_id
+patient.phone,patient.DOB,patient.address,patient.gender,patient.register_id
 	   	FROM patient
 	INNER JOIN loginuser 
 	ON loginuser.id = patient.register_id;	
@@ -17,8 +17,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `insertData`(
 IN p_name VARCHAR(50),
 IN p_email VARCHAR(55), 
 IN p_password VARCHAR(45),
-IN p_role_id varchar(45), 
-IN p_age VARCHAR(45), 
+IN p_role_id varchar(45),  
 IN p_phone VARCHAR(55), 
 IN p_DateOfBirth date, 
 IN p_address VARCHAR(255), 
@@ -27,17 +26,20 @@ BEGIN
   DECLARE last_id INT;
   INSERT INTO loginuser (name, email, pass,role_id) VALUES (p_name, p_email, p_password,p_role_id);
   SET last_id = LAST_INSERT_ID();
-  INSERT INTO patient (register_id, age, phone, DOB, address, gender) VALUES (last_id, p_age, p_phone, p_DateOfBirth, p_address, p_gender);
+  INSERT INTO patient (register_id, phone, DOB, address, gender) VALUES (last_id, p_phone, p_DateOfBirth, p_address, p_gender);
 END
 
+//////////
 PopulatePatientData
+
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `PopulatePatientData`(
 IN p_id int
 )
 begin
 select
  patient.id,loginuser.name,loginuser.email,loginuser.pass,loginuser.role_id,
-patient.age,patient.phone,patient.DOB,patient.address,patient.gender,patient.register_id
+patient.phone,patient.DOB,patient.address,patient.gender,patient.register_id
 	   	FROM patient
 	INNER JOIN loginuser 
 	ON loginuser.id = patient.register_id
@@ -51,7 +53,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdatePData`(
 IN p_id int,
 IN p_name varchar(255),
 IN p_email varchar(255),
-IN p_age int,
 IN p_phone varchar(15),
 IN p_DOB date,
 IN p_address varchar(255),
@@ -62,7 +63,6 @@ begin
     SET 
         loginuser.name = p_name,
         loginuser.email = p_email,
-        patient.age = p_age,
         patient.phone = p_phone,
         patient.DOB = p_DOB,
         patient.address = p_address,
@@ -71,3 +71,79 @@ begin
         loginuser.id = patient.register_id AND
         patient.id = p_id;
 end
+
+
+///////////
+CREATE DEFINER=`root`@`localhost` PROCEDURE `DeletePatientData`(
+IN p_id int
+)
+BEGIN
+    DELETE patient, loginuser 
+    FROM patient, loginuser
+    WHERE 
+        loginuser.id = patient.register_id AND
+        patient.id = p_id;
+END
+
+
+
+//////loginuser
+id int AI PK 
+name varchar(200) 
+email varchar(200) 
+pass varchar(55) 
+role_id int
+
+
+
+/////
+Table: patient
+Columns:
+id int AI PK 
+phone varchar(55) 
+DOB date 
+address varchar(255) 
+gender varchar(45) 
+register_id int
+
+////
+Table: roles
+Columns:
+role_id int PK 
+role_name varchar(45)
+
+
+
+//////
+Table: doctor
+Columns:
+id int AI PK 
+name varchar(45) 
+qualification varchar(45) 
+specialist varchar(45) 
+gender varchar(45) 
+phone varchar(45) 
+email varchar(45) 
+address varchar(45) 
+password varchar(45)
+
+/////
+Table: book_appointment
+Columns:
+id int AI PK 
+disease varchar(45) 
+doctor varchar(45) 
+appointment_date date 
+appointment_time time
+
+//////
+Table: admin
+Columns:
+id int AI PK 
+name varchar(45) 
+password varchar(45) 
+email varchar(45) 
+age varchar(45) 
+gender varchar(45) 
+phone varchar(45) 
+address varchar(45)

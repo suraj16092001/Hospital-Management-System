@@ -31,7 +31,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 model.gender = item["gender"].ConvertDBNullToString();
                 model.phone = item["phone"].ConvertDBNullToString();
                 model.email = item["email"].ConvertDBNullToString();
-                model.age = item["age"].ConvertDBNullToString();
+                model.DateOfBirth = item["age"].ConvertDBNullToString();
                 model.address = item["address"].ConvertDBNullToString();
 
                 doctorList.Add(model);
@@ -52,7 +52,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 _dBManager.AddCMDParam("@p_gender", model.gender);
                 _dBManager.AddCMDParam("@p_phone", model.phone);
                 _dBManager.AddCMDParam("@p_email", model.email);
-                _dBManager.AddCMDParam("@p_age", model.age);
+                _dBManager.AddCMDParam("@p_age", model.DateOfBirth);
                 _dBManager.AddCMDParam("@p_address", model.address);
 
                 _dBManager.ExecuteNonQuery();
@@ -94,7 +94,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 doctor.gender = item["gender"].ConvertDBNullToString();
                 doctor.phone = item["phone"].ConvertDBNullToString();
                 doctor.email = item["email"].ConvertDBNullToString();
-                doctor.age = item["age"].ConvertDBNullToString();
+                doctor.DateOfBirth = item["age"].ConvertDBNullToString();
                 doctor.address = item["address"].ConvertDBNullToString();
 
             }
@@ -112,7 +112,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             _dBManager.AddCMDParam("@p_gender", model.gender);
             _dBManager.AddCMDParam("@p_phone", model.phone);
             _dBManager.AddCMDParam("@p_email", model.email);
-            _dBManager.AddCMDParam("@p_age", model.age);
+            _dBManager.AddCMDParam("@p_DOB", model.DateOfBirth);
             _dBManager.AddCMDParam("@p_address", model.address);
 
             _dBManager.ExecuteNonQuery();
