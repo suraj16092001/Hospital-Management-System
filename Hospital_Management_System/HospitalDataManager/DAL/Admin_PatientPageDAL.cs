@@ -37,7 +37,6 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 oModel.User.email = item["email"].ConvertDBNullToString();
                 oModel.Admin_PatientPage.id = item["id"].ConvertDBNullToInt();
                 oModel.Admin_PatientPage.phone = item["phone"].ConvertDBNullToString();
-                oModel.Admin_PatientPage.age = item["age"].ConvertDBNullToString();
                 oModel.Admin_PatientPage.gender = item["gender"].ConvertDBNullToString();
                 oModel.Admin_PatientPage.DateOfBirth = item["DOB"].ConvertDBNullToString();
                 oModel.Admin_PatientPage.address = item["address"].ConvertDBNullToString();
@@ -58,7 +57,6 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             _dBManager.AddCMDParam("@p_password", oModel.User.password);
             _dBManager.AddCMDParam("@p_role_id", oModel.User.role);
             _dBManager.AddCMDParam("@p_phone", oModel.Admin_PatientPage.phone);
-            _dBManager.AddCMDParam("@p_age", oModel.Admin_PatientPage.age);
             _dBManager.AddCMDParam("@p_gender", oModel.Admin_PatientPage.gender);
             _dBManager.AddCMDParam("@p_DateOfBirth", oModel.Admin_PatientPage.DateOfBirth);
             _dBManager.AddCMDParam("@p_address", oModel.Admin_PatientPage.address);
@@ -71,7 +69,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
 
         public void DeletePatient(int id)
         {
-            _dBManager.InitDbCommand("DeletePatientByID");
+            _dBManager.InitDbCommand("DeletePatientData");
             _dBManager.AddCMDParam("p_id", id);
 
             _dBManager.ExecuteNonQuery();
@@ -95,7 +93,6 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 oModel.User.name = item["name"].ConvertDBNullToString();
                 oModel.User.email = item["email"].ConvertDBNullToString();
                 oModel.Admin_PatientPage.id = item["id"].ConvertDBNullToInt();
-                oModel.Admin_PatientPage.age = item["age"].ConvertDBNullToString();
                 oModel.Admin_PatientPage.gender = item["gender"].ConvertDBNullToString();
                 oModel.Admin_PatientPage.register_id = item["register_id"].ConvertDBNullToInt();
                 oModel.Admin_PatientPage.DateOfBirth = item["DOB"].ConvertDBNullToString();
@@ -106,15 +103,12 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
         }
 
 
-        public PatientAllDataViewModel UpdatePatient(PatientAllDataViewModel patient, int Id)
+        public PatientAllDataViewModel UpdatePatient(PatientAllDataViewModel patient)
         {
-            patient.User = new UserModel();
-            patient.Admin_PatientPage = new Admin_PatientPageModel();
             _dBManager.InitDbCommand("UpdatePData");
-            _dBManager.AddCMDParam("@p_id", Id);
+            _dBManager.AddCMDParam("@p_id", patient.Admin_PatientPage.id);
             _dBManager.AddCMDParam("@p_name", patient.User.name);
             _dBManager.AddCMDParam("@p_email", patient.User.email);
-            _dBManager.AddCMDParam("@p_age", patient.Admin_PatientPage.age);
             _dBManager.AddCMDParam("@p_gender", patient.Admin_PatientPage.gender);
             _dBManager.AddCMDParam("@p_DOB", patient.Admin_PatientPage.DateOfBirth);
             _dBManager.AddCMDParam("@p_phone", patient.Admin_PatientPage.phone);

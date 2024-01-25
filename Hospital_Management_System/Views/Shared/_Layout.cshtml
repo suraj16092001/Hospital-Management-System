@@ -12,6 +12,8 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.20.0/dist/jquery.validate.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
     @RenderSection("Styles", required: false)
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
 </head>
 <body id="page-top">
 
@@ -53,35 +55,27 @@
 
             <!-- Nav Item - Admin -->
             <li class="nav-item">
-                <a class="nav-link" asp-controller="Admin_PatientPage" asp-action="Admin_Patient">
-                    <i class="fa-solid fa-user"></i>
-                    <span>Patient</span>
-                </a>
-            </li>
-            
-            
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="Admin_DoctorPage" asp-action="Admin_Doctor">
-                    <i class="fa-solid fa-user-doctor"></i>
-                    <span>Doctor</span>
-                </a>
-            </li>
-
-          @*   <li class="nav-item">
-                <a class="nav-link" asp-controller="AdminPage" asp-action="AdminPage">
-                    <i class="fa-regular fa-calendar-check"></i>
-                    <span>Patient</span>
-                </a>
-            </li>
- *@
-            <li class="nav-item">
                 <a class="nav-link" asp-controller="AdminPage" asp-action="AdminPage">
                     <i class="fa-solid fa-user-tie"></i>
                     <span>Admin</span>
                 </a>
             </li>
 
+            <!-- Nav Item - Patient -->
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Admin_PatientPage" asp-action="Admin_Patient">
+                    <i class="fa-solid fa-user"></i>
+                    <span>Patient</span>
+                </a>
+            </li>
 
+            <!-- Nav Item - Doctor-->
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Admin_DoctorPage" asp-action="Admin_Doctor">
+                    <i class="fa-solid fa-user-doctor"></i>
+                    <span>Doctor</span>
+                </a>
+            </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item d-none">

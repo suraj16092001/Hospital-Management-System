@@ -11,7 +11,7 @@ namespace Hospital_Management_System.HospitalBussinessManager.IBAL
         public PatientAllDataViewModel AddPatient(PatientAllDataViewModel oModel);
 
         public PatientAllDataViewModel GetPatientByID(int id);
-        public string UpdatePatient(PatientAllDataViewModel model, int Id);
+        public PatientAllDataViewModel UpdatePatient(PatientAllDataViewModel model);
         public void DeletePatient(int id);
         public AppointmentModel BookAppointment(AppointmentModel model);
 

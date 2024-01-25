@@ -34,10 +34,9 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
             return _IAdmin_PatientPageDAL.GetPatientByID(id);
         }
 
-       public string UpdatePatient(PatientAllDataViewModel model, int Id)
+       public PatientAllDataViewModel UpdatePatient(PatientAllDataViewModel model)
         {
-            _IAdmin_PatientPageDAL.UpdatePatient(model, Id);
-            return "Success";
+            return _IAdmin_PatientPageDAL.UpdatePatient(model); ;
         }
 
         public void DeletePatient(int id)

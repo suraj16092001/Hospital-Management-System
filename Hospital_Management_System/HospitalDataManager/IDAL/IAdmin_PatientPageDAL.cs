@@ -10,7 +10,7 @@ namespace Hospital_Management_System.HospitalDataManager.IDAL
         public PatientAllDataViewModel AddPatient(PatientAllDataViewModel oModel);
 
         public PatientAllDataViewModel GetPatientByID(int id);
-        public PatientAllDataViewModel UpdatePatient(PatientAllDataViewModel patient, int Id);
+        public PatientAllDataViewModel UpdatePatient(PatientAllDataViewModel patient);
         public void DeletePatient(int id);
         public AppointmentModel BookAppointment(AppointmentModel appointment);
     }

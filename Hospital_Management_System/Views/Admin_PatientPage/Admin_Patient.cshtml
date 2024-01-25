@@ -38,7 +38,6 @@
                     </div>
 
                     <div class="row">
-
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password : </label>
@@ -57,8 +56,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="age" class="form-label">Age : </label>
-                                <input id="age" type="number" name="age" class="form-control" />
+                                <label for="DOB" class="form-label">Date of Birth :</label>
+                                <input id="DOB" type="date" name="DOB" class="form-control" />
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -74,18 +73,11 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="DOB" class="form-label">Date of Birth :</label>
-                                <input id="DOB" type="date" name="DOB" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="address" class="form-label">Address : </label>
-                                <input id="address" type="text" name="address" class="form-control" />
-                            </div>
+
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Address : </label>
+                            <input id="address" type="text" name="address" class="form-control" />
                         </div>
                     </div>
 
@@ -149,12 +141,6 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="u_age" class="form-label">Age : </label>
-                                <input id="u_age" type="text" name="age" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
                                 <label for="gender" class="form-label">Gender:</label>
                                 <select id="u_gender" type="text" name="gender" class="form-control">
                                     <option value="">Please select one…</option>
@@ -164,15 +150,17 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="address" class="form-label">Address : </label>
-                        <input id="u_address" type="text" name="address" class="form-control" />
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address : </label>
+                                <input id="u_address" type="text" name="address" class="form-control" />
+                            </div>
+                        </div>
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" onclick="updatePatient()" class="btn btn-primary">Save changes</button>
+                        <button type="button" onclick="updatePatient()" class="btn btn-primary">Update changes</button>
                     </div>
 
                 </form>
@@ -195,7 +183,7 @@
 
             <div class="modal-body">
 
-                <form id="Viewform">
+                <form id="Viewform" enctype="multipart/form-data">
                     <input hidden id="view_id" />
                     <div class="row">
                         <div class="col-md-6">
@@ -230,12 +218,6 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="u_age" class="form-label">Age : </label>
-                                <input id="view_age" type="text" name="age" class="form-control" readonly />
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
                                 <label for="u_gender" class="form-label">Gender:</label>
                                 <select id="view_gender" name="gender" class="form-control" readonly>
                                     <option value="">Please select one…</option>
@@ -245,11 +227,12 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="address" class="form-label">Address : </label>
-                        <input id="view_address" type="text" name="address" class="form-control" readonly />
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address : </label>
+                                <input id="view_address" type="text" name="address" class="form-control" readonly />
+                            </div>
+                        </div>
                     </div>
 
                 </form>
@@ -366,7 +349,7 @@
                         {
                             data: null,
                             render: function (data, type, row) {
-                                return `<button type="button" onclick="popupdatedata(` + row.Admin_PatientPage.id + `)" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square"></i></button>|<button type="button" onclick="ViewModal(` + row.User.id + `)" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#ViewModal"><i class="fa-solid fa-eye"></i></button>|<button type="button" onclick="DeletePatient(` + row.User.id + `)" class="btn btn-danger" ><i class="fa-solid fa-trash-can-arrow-up"></i></button>|<button type="button" class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#appointmentModal"><i class="fa-solid fa-clipboard-list"></i></button>`;
+                                return `<button type="button" onclick="popupdatedata(` + row.Admin_PatientPage.id + `)" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square"></i></button>|<button type="button" onclick="ViewModal(` + row.Admin_PatientPage.id + `)" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#ViewModal"><i class="fa-solid fa-eye"></i></button>|<button type="button" onclick="DeletePatient(` + row.Admin_PatientPage.id + `)" class="btn btn-danger" ><i class="fa-solid fa-trash-can-arrow-up"></i></button>|<button type="button" class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#appointmentModal"><i class="fa-solid fa-clipboard-list"></i></button>`;
                             }
                         }
                     ]
@@ -425,7 +408,6 @@
             },
             Admin_PatientPage: {
                 phone: $('#phone').val(),
-                age: $('#age').val(),
                 DateOfBirth: $('#DOB').val(),
                 address: $('#address').val(),
                 gender: $('#gender').val(),
@@ -500,14 +482,14 @@
             type: "POST",
             url: "/Admin_PatientPage/GetPatientByID/" + id,
             success: function (data) {
-               $('#u_email').val(data.User.email),
-               $('#u_name').val(data.User.name),
-               $('#update_id').val(data.Admin_PatientPage.id),
-               $('#u_phone').val(data.Admin_PatientPage.phone),
-               $('#u_age').val(data.Admin_PatientPage.age),
-               $('#u_DOB').val(data.Admin_PatientPage.DateOfBirth),
-               $('#u_address').val(data.Admin_PatientPage.address),
-               $('#u_gender').val(data.Admin_PatientPage.gender)
+                $('#u_email').val(data.User.email);
+                $('#u_name').val(data.User.name);
+                $('#update_id').val(data.Admin_PatientPage.id);
+                $('#u_phone').val(data.Admin_PatientPage.phone);
+                var date = moment(data.Admin_PatientPage.DateOfBirth);
+                $('#u_DOB').val(date.format('YYYY-MM-DD'));
+                $('#u_address').val(data.Admin_PatientPage.address);
+                $('#u_gender').val(data.Admin_PatientPage.gender);
 
             }
         });
@@ -517,65 +499,50 @@
     function updatePatient() {
         debugger;
 
-        var employeeID = {
-            id: $('#update_id').val()
-        }
-
         var updatedModel = {
 
-            name: $('#u_name').val(),
-            email: $('#u_email').val(),
-            phone: $('#u_phone').val(),
-            age: $('#u_age').val(),
-            DateOfBirth: $('#u_DOB').val(),
-            address: $('#u_address').val(),
-            gender: $('#u_gender').val()
+            User: {
+                name: $('#u_name').val(),
+                email: $('#u_email').val(),
+            },
+            Admin_PatientPage: {
+                id: $('#update_id').val(),
+                phone: $('#u_phone').val(),
+                DateOfBirth: $('#u_DOB').val(),
+                address: $('#u_address').val(),
+                gender: $('#u_gender').val()
+            }
         };
-
-        var formData = new FormData();
-        formData.append("Id", employeeID.id);
-        formData.append("model", JSON.stringify(updatedModel));
-
+        console.log(updatedModel);
         debugger;
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, update it!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    type: "POST",
-                    url: "/Admin_PatientPage/UpdatePatient",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    cache: false,
-                    success: function (data) {
-                        $('#updatemodal').modal('hide');
-                        Swal.fire({
-                            title: "Good job!",
-                            text: "Patient update successfully!",
-                            icon: "success",
-                            button: "Ok",
-                        });
 
-                        // datatable.destroy();
-                        get();
-                    },
-                    error: function () {
-                        Swal.fire({
-                            title: "Error while updating!",
-                            text: "close",
-                            icon: "error"
-                        });
-                    }
+        $.ajax({
+            type: "POST",
+            url: "/Admin_PatientPage/UpdatePatient",
+            data: JSON.stringify(updatedModel),
+            contentType: 'application/json',  // Set the content type to application/json
+            cache: false,
+            success: function (data) {
+                $('#updatemodal').modal('hide');
+                Swal.fire({
+                    title: "Good job!",
+                    text: "Patient update successfully!",
+                    icon: "success",
+                    button: "Ok",
+                });
+
+                // datatable.destroy();
+                get();
+            },
+            error: function () {
+                Swal.fire({
+                    title: "Error while updating!",
+                    text: "close",
+                    icon: "error"
                 });
             }
         });
+
     }
 
     function ViewModal(id) {
@@ -585,16 +552,16 @@
             type: "POST",
             url: "/Admin_PatientPage/GetPatientByID/" + id,
             success: function (data) {
-                $('#view_id').val(data.id),
-                    $('#view_name').val(data.name),
-                    $('#view_email').val(data.email),
-                    $('#view_phone').val(data.phone),
-                    $('#viev_DOB').val(data.disease),
-                    $('#view_age').val(data.age),
-                    $('#view_address').val(data.address),
-                    $('#view_gender').val(data.gender)
-            }
+                $('#view_id').val(data.Admin_PatientPage.id);
+                $('#view_email').val(data.User.email);
+                $('#view_name').val(data.User.name);
+                $('#view_phone').val(data.Admin_PatientPage.phone);
+                var date = moment(data.Admin_PatientPage.DateOfBirth);
+                $('#viev_DOB').val(date.format('YYYY-MM-DD'));
+                $('#view_address').val(data.Admin_PatientPage.address);
+                $('#view_gender').val(data.Admin_PatientPage.gender);
 
+            }
         });
     }
 
@@ -604,7 +571,6 @@
         $('#email').val('');
         $('#password').val('');
         $('#phone').val('');
-        $('#age').val('');
         $('#DOB').val('');
         $('#address').val('');
         $('#gender').val('');

@@ -60,10 +60,10 @@ namespace Hospital_Management_System.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdatePatient(string model, int Id)
+        public IActionResult UpdatePatient([FromBody]PatientAllDataViewModel model)
         {
-            PatientAllDataViewModel admin_PatientPage = JsonConvert.DeserializeObject<PatientAllDataViewModel>(model);
-            _IAdmin_PatientPageBAL.UpdatePatient(admin_PatientPage, Id);
+
+            _IAdmin_PatientPageBAL.UpdatePatient(model);
             return Json("PatientList");
         }
 
