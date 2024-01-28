@@ -3,6 +3,7 @@ using Hospital_Management_System.HospitalDataManager.DAL;
 using Hospital_Management_System.HospitalDataManager.IDAL;
 using Hospital_Management_System.Models;
 using Microsoft.AspNetCore.Mvc;
+using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 namespace Hospital_Management_System.HospitalBussinessManager.BAL
 {
@@ -16,13 +17,14 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
 
         }
 
-        public List<Admin_DoctorPageModel> GetDoctorList()
+        public List<DoctorAllDataViewModel> GetDoctorList()
         {
            return _IAdmin_DoctorPageDAL.GetDoctorList(); 
         }
 
-        public Admin_DoctorPageModel AddDoctor(Admin_DoctorPageModel model)
+        public DoctorAllDataViewModel AddDoctor(DoctorAllDataViewModel model)
         {
+            model.User.role = 3;
             return _IAdmin_DoctorPageDAL.AddDoctor(model);
         }
 
@@ -31,15 +33,15 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
             _IAdmin_DoctorPageDAL.DeleteDoctor(id);
         }
 
-        public Admin_DoctorPageModel GetDoctorByID(int id)
+        public DoctorAllDataViewModel GetDoctorByID(int id)
         {
             return _IAdmin_DoctorPageDAL.GetDoctorByID(id);
         }
 
-        public string UpdateDoctor(Admin_DoctorPageModel model, int Id)
+        public DoctorAllDataViewModel UpdateDoctor(DoctorAllDataViewModel model)
         {
-            _IAdmin_DoctorPageDAL.UpdateDoctor(Id, model);
-            return ("DoctorList");
+
+            return _IAdmin_DoctorPageDAL.UpdateDoctor(model);
         }
     }
 }

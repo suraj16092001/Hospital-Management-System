@@ -6,11 +6,11 @@ namespace Hospital_Management_System.HospitalBussinessManager.IBAL
 {
     public interface IAdmin_DoctorPageBAL
     {
-        public List<Admin_DoctorPageModel> GetDoctorList();
-        public Admin_DoctorPageModel AddDoctor(Admin_DoctorPageModel model);
+        public List<DoctorAllDataViewModel> GetDoctorList();
+        public DoctorAllDataViewModel AddDoctor(DoctorAllDataViewModel model);
         public void DeleteDoctor(int id);
 
-        public Admin_DoctorPageModel GetDoctorByID(int id);
-        public string UpdateDoctor( Admin_DoctorPageModel model,int Id);
+        public DoctorAllDataViewModel GetDoctorByID(int id);
+        public DoctorAllDataViewModel UpdateDoctor(DoctorAllDataViewModel model);
     }
 }

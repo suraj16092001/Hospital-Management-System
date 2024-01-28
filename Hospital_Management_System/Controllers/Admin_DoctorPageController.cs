@@ -27,11 +27,11 @@ namespace Hospital_Management_System.Controllers
         {
             return View();
         }
+
         [HttpPost]
-        public IActionResult AddDoctor(string model)
+        public IActionResult AddDoctor([FromBody] DoctorAllDataViewModel model)
         {
-            Admin_DoctorPageModel admin_DoctorPage = JsonSerializer.Deserialize<Admin_DoctorPageModel>(model);
-            _IAdmin_DoctorPageBAL.AddDoctor(admin_DoctorPage);
+            _IAdmin_DoctorPageBAL.AddDoctor(model);
             return Json("DoctorList");
         }
 
@@ -48,10 +48,9 @@ namespace Hospital_Management_System.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateDoctor(string model, int Id)
+        public IActionResult UpdateDoctor([FromBody]DoctorAllDataViewModel model)
         {
-            Admin_DoctorPageModel admin_DoctorPage = JsonSerializer.Deserialize<Admin_DoctorPageModel>(model);
-            _IAdmin_DoctorPageBAL.UpdateDoctor(admin_DoctorPage, Id);
+            _IAdmin_DoctorPageBAL.UpdateDoctor(model);
             return Json("DoctorList");
         }
 

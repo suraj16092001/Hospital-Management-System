@@ -1,21 +1,22 @@
 ﻿@model IEnumerable<Hospital_Management_System.Models.Admin_DoctorPageModel >
 
-<p>
-    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#AddDoctorModal">Add Doctor</button>
-</p>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h2>Doctor's Details</h2>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddDoctorModal">Add Doctor</button>
+</div>
 
 <div class="modal fade" id="AddDoctorModal" tabindex="-1" aria-labelledby="AddDoctorModallLabel" aria-hidden="true">
 
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Details</h5>
+                <h5 class="modal-title" id="AddDoctorModallLabel">Add Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <div class="modal-body">
 
-                <form>
+                <form enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -69,8 +70,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="age" class="form-label">Age : </label>
-                                <input id="age" type="number" name="age" class="form-control" />
+                                <label for="DateOfBirth" class="form-label">Date Of Birth : </label>
+                                <input id="DateOfBirth" type="date" name="DateOfBirth" class="form-control" />
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -109,7 +110,7 @@
 
             <div class="modal-body">
 
-                <form>
+                <form enctype="multipart/form-data">
 
                     <input hidden id="u_id" />
 
@@ -166,8 +167,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="age" class="form-label">Age : </label>
-                                <input id="u_age" type="number" name="age" class="form-control" />
+                                <label for="u_DateOfBirth" class="form-label">Date Of Birth : </label>
+                                <input id="u_DateOfBirth" type="date" name="u_DateOfBirth" class="form-control" />
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -200,7 +201,7 @@
 
             <div class="modal-body">
 
-                <form>
+                <form enctype="multipart/form-data">
 
                     <input hidden id="v_id" />
 
@@ -257,8 +258,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="age" class="form-label">Age : </label>
-                                <input id="v_age" type="number" name="age" class="form-control" readonly />
+                                <label for="v_DateOfBirth" class="form-label">Date Of Birth : </label>
+                                <input id="v_DateOfBirth" type="date" name="v_DateOfBirth" class="form-control" readonly />
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -282,6 +283,7 @@
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
+                    <th>Email</th>
                     <th>Phone</th>
                     <th>Specialist</th>
                     <th>Action</th>
@@ -315,14 +317,15 @@
                 $('#DrTable').DataTable({
                     data: data,
                     columns: [
-                        { data: 'id' },
-                        { data: 'name' },
-                        { data: 'phone' },
-                        { data: 'specialist' },
+                        { data: 'admin_Doctor.id' },
+                        { data: 'User.name' },
+                        { data: 'User.email' },
+                        { data: 'admin_Doctor.phone' },
+                        { data: 'admin_Doctor.specialist' },
                         {
                             data: null,
                             render: function (data, type, row) {
-                                return ` <button type="button" onclick="popupdatedata(` + row.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#UpdateDoctorModal"><i class="fa-solid fa-pen-to-square"></i></button>|<button type="button" onclick="Viewdata(` + row.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ViewDoctorModal"><i class="fa-solid fa-eye"></i></button>|<button type="button" onclick="DeleteDoctor(` + row.id + `)" class="btn btn-primary" ><i class="fa-solid fa-trash-can-arrow-up"></button>`;
+                                return ` <button type="button" onclick="popupdatedata(` + row.admin_Doctor.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#UpdateDoctorModal"><i class="fa-solid fa-pen-to-square"></i></button>|<button type="button" onclick="Viewdata(` + row.admin_Doctor.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ViewDoctorModal"><i class="fa-solid fa-eye"></i></button>|<button type="button" onclick="DeleteDoctor(` + row.admin_Doctor.id + `)" class="btn btn-primary" ><i class="fa-solid fa-trash-can-arrow-up"></button>`;
                             }
                         }
                     ]
@@ -334,32 +337,48 @@
         });
     }
 
+    function ClearForm() {
+
+        $('#name').val('');
+        $('#email').val('');
+        $('#password').val('');
+        $('#phone').val('');
+        $('#address').val('');
+        $('#gender').val('');
+        $('#specialist').val('');
+        $('#qualification').val('');
+        $('#DateOfBirth').val('');
+
+    }
 
     function AddDoctor() {
-
+        debugger;
         var oModel = {
+            User: {
+                name: $('#name').val(),
+                email: $('#email').val(),
+                password: $('#password').val(),
+            },
+            admin_Doctor: {
+                qualification: $('#qualification').val(),
+                specialist: $('#specialist').val(),
+                gender: $('#gender').val(),
+                phone: $('#phone').val(),
+                DateOfBirth: $('#DateOfBirth').val(),
+                address: $('#address').val(),
+            }
 
-            name: $('#name').val(),
-            email: $('#email').val(),
-            password: $('#password').val(),
-            specialist: $('#specialist').val(),
-            gender: $('#gender').val(),
-            qualification: $('#qualification').val(),
-            phone: $('#phone').val(),
-            age: $('#age').val(),
-            address: $('#address').val(),
         }
-
-        var formData = new FormData();
-        formData.append("model", JSON.stringify(oModel));
-
+        console.log(oModel);
+        debugger;
         $.ajax({
             type: "POST",
             url: "/Admin_DoctorPage/AddDoctor",
-            data: formData,
-            processData: false,
-            contentType: false,
+            contentType: "application/json",
+            data: JSON.stringify(oModel),
+            dataType: 'json',
             cache: false,
+            async: false,
             success: function (data) {
 
                 debugger;
@@ -369,6 +388,7 @@
                     icon: "success",
                     button: "Ok",
                 });
+                ClearForm();
                 $('#AddDoctorModal').modal('hide');
                 get();
             },
@@ -422,15 +442,16 @@
             type: "POST",
             url: "/Admin_DoctorPage/GetDoctorByID/" + id,
             success: function (data) {
-                $('#u_id').val(data.id),
-                    $('#u_name').val(data.name),
-                    $('#u_email').val(data.email),
-                    $('#u_phone').val(data.phone),
-                    $('#u_specialist').val(data.specialist),
-                    $('#u_gender').val(data.gender),
-                    $('#u_qualification').val(data.qualification),
-                    $('#u_age').val(data.age),
-                    $('#u_address').val(data.address)
+                $('#u_id').val(data.admin_Doctor.id);
+                $('#u_name').val(data.User.name);
+                $('#u_email').val(data.User.email);
+                $('#u_phone').val(data.admin_Doctor.phone);
+                $('#u_specialist').val(data.admin_Doctor.specialist);
+                $('#u_gender').val(data.admin_Doctor.gender);
+                $('#u_qualification').val(data.admin_Doctor.qualification);
+                var date = moment(data.admin_Doctor.DateOfBirth);
+                $('#u_DateOfBirth').val(date.format('YYYY-MM-DD'));
+                $('#u_address').val(data.admin_Doctor.address);
             }
 
         });
@@ -439,35 +460,27 @@
 
     function UpdateDoctor() {
 
-
-        var employeeID = {
-            id: $('#u_id').val()
-        }
-
         var updatedModel = {
-
-            name: $('#u_name').val(),
-            email: $('#u_email').val(),
-            phone: $('#u_phone').val(),
-            specialist: $('#u_specialist').val(),
-            gender: $('#u_gender').val(),
-            qualification: $('#u_qualification').val(),
-            age: $('#u_age').val(),
-            address: $('#u_address').val(),
+            User: {
+                name: $('#u_name').val(),
+                email: $('#u_email').val(),
+            },
+            admin_Doctor: {
+                id: $('#u_id').val(),
+                phone: $('#u_phone').val(),
+                specialist: $('#u_specialist').val(),
+                gender: $('#u_gender').val(),
+                qualification: $('#u_qualification').val(),
+                DateOfBirth: $('#u_DateOfBirth').val(),
+                address: $('#u_address').val(),
+            }
         };
-
-        var formData = new FormData();
-        formData.append("Id", employeeID.id);
-        formData.append("model", JSON.stringify(updatedModel));
-
         debugger;
-
         $.ajax({
             type: "POST",
             url: "/Admin_DoctorPage/UpdateDoctor",
-            data: formData,
-            processData: false,
-            contentType: false,
+            data: JSON.stringify(updatedModel),
+            contentType: 'application/json',  // Set the content type to application/json
             cache: false,
             success: function (data) {
                 $('#UpdateDoctorModal').modal('hide');
@@ -496,15 +509,16 @@
             type: "GET",
             url: "/Admin_DoctorPage/GetDoctorByID/" + id,
             success: function (data) {
-                $('#v_id').val(data.id),
-                    $('#v_name').val(data.name),
-                    $('#v_email').val(data.email),
-                    $('#v_phone').val(data.phone),
-                    $('#v_specialist').val(data.specialist),
-                    $('#v_gender').val(data.gender),
-                    $('#v_qualification').val(data.qualification),
-                    $('#v_age').val(data.age),
-                    $('#v_address').val(data.address)
+                $('#v_id').val(data.admin_Doctor.id);
+                $('#v_name').val(data.User.name);
+                $('#v_email').val(data.User.email);
+                $('#v_phone').val(data.admin_Doctor.phone);
+                $('#v_specialist').val(data.admin_Doctor.specialist);
+                $('#v_gender').val(data.admin_Doctor.gender);
+                $('#v_qualification').val(data.admin_Doctor.qualification);
+                var date = moment(data.admin_Doctor.DateOfBirth);
+                $('#v_DateOfBirth').val(date.format('YYYY-MM-DD'));
+                $('#v_address').val(data.admin_Doctor.address);
             }
 
         });

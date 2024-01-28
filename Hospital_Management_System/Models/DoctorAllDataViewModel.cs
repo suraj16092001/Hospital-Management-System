@@ -2,7 +2,7 @@
 {
     public class DoctorAllDataViewModel
     {
-        Admin_DoctorPageModel admin_Doctor { get; set; }
-        UserModel User { get; set; }
+        public Admin_DoctorPageModel admin_Doctor { get; set; }
+        public UserModel User { get; set; }
     }
 }

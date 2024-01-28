@@ -2,6 +2,7 @@
 using Hospital_Management_System.HospitalDataManager.IDAL;
 using Hospital_Management_System.Models;
 using System.Data;
+using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 namespace Hospital_Management_System.HospitalDataManager.DAL
 {
@@ -13,26 +14,31 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             _dBManager = dBManager;
         }
 
-        public List<Admin_DoctorPageModel> GetDoctorList()
+        public List<DoctorAllDataViewModel> GetDoctorList()
         {
-            List<Admin_DoctorPageModel> doctorList = new List<Admin_DoctorPageModel>();
+            List<DoctorAllDataViewModel> doctorList = new List<DoctorAllDataViewModel>();
 
-            _dBManager.InitDbCommand("GetDoctorData");
+            _dBManager.InitDbCommand("GetAllDoctorData");
 
             DataSet ds = _dBManager.ExecuteDataSet();
 
             foreach (DataRow item in ds.Tables[0].Rows)
             {
-                Admin_DoctorPageModel model = new Admin_DoctorPageModel();
-                model.id = item["id"].ConvertDBNullToInt();
-                model.name = item["name"].ConvertDBNullToString();
-                model.qualification = item["qualification"].ConvertDBNullToString();
-                model.specialist = item["specialist"].ConvertDBNullToString();
-                model.gender = item["gender"].ConvertDBNullToString();
-                model.phone = item["phone"].ConvertDBNullToString();
-                model.email = item["email"].ConvertDBNullToString();
-                model.DateOfBirth = item["age"].ConvertDBNullToString();
-                model.address = item["address"].ConvertDBNullToString();
+                DoctorAllDataViewModel model = new DoctorAllDataViewModel();
+
+                model.User = new UserModel();
+                model.admin_Doctor = new Admin_DoctorPageModel();
+
+                model.User.name = item["name"].ConvertDBNullToString();
+                model.User.email = item["email"].ConvertDBNullToString();
+                model.admin_Doctor.qualification = item["qualification"].ConvertDBNullToString();
+                model.admin_Doctor.id = item["id"].ConvertDBNullToInt();
+                model.admin_Doctor.specialist = item["specialist"].ConvertDBNullToString();
+                model.admin_Doctor.qualification = item["qualification"].ConvertDBNullToString();
+                model.admin_Doctor.gender = item["gender"].ConvertDBNullToString();
+                model.admin_Doctor.phone = item["phone"].ConvertDBNullToString();
+                model.admin_Doctor.DateOfBirth = item["DOB"].ConvertDBNullToString();
+                model.admin_Doctor.address = item["address"].ConvertDBNullToString();
 
                 doctorList.Add(model);
             }
@@ -40,20 +46,21 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             return doctorList;
         }
 
-        public Admin_DoctorPageModel AddDoctor(Admin_DoctorPageModel model)
+        public DoctorAllDataViewModel AddDoctor(DoctorAllDataViewModel model)
         {
             try
             {
                 _dBManager.InitDbCommand("InsertDoctorData");
-                _dBManager.AddCMDParam("@p_name", model.name);
-                _dBManager.AddCMDParam("@p_password", model.password);
-                _dBManager.AddCMDParam("@p_qualification", model.qualification);
-                _dBManager.AddCMDParam("@p_specialist", model.specialist);
-                _dBManager.AddCMDParam("@p_gender", model.gender);
-                _dBManager.AddCMDParam("@p_phone", model.phone);
-                _dBManager.AddCMDParam("@p_email", model.email);
-                _dBManager.AddCMDParam("@p_age", model.DateOfBirth);
-                _dBManager.AddCMDParam("@p_address", model.address);
+                _dBManager.AddCMDParam("@p_name", model.User.name);
+                _dBManager.AddCMDParam("@p_password", model.User.password);
+                _dBManager.AddCMDParam("@p_email", model.User.email);
+                _dBManager.AddCMDParam("@p_role_id", model.User.role);
+                _dBManager.AddCMDParam("@p_qualification", model.admin_Doctor.qualification);
+                _dBManager.AddCMDParam("@p_specialist", model.admin_Doctor.specialist);
+                _dBManager.AddCMDParam("@p_gender", model.admin_Doctor.gender);
+                _dBManager.AddCMDParam("@p_phone", model.admin_Doctor.phone);
+                _dBManager.AddCMDParam("@p_DOB", model.admin_Doctor.DateOfBirth);
+                _dBManager.AddCMDParam("@p_address", model.admin_Doctor.address);
 
                 _dBManager.ExecuteNonQuery();
             }
@@ -75,45 +82,47 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             _dBManager.ExecuteNonQuery();
         }
 
-        public Admin_DoctorPageModel GetDoctorByID(int id)
+        public DoctorAllDataViewModel GetDoctorByID(int id)
         {
-            _dBManager.InitDbCommand("GetDoctorByID");
-            Admin_DoctorPageModel doctor = null;
+            DoctorAllDataViewModel oModel = null;
+            _dBManager.InitDbCommand("PopulateDoctorData");
             _dBManager.AddCMDParam("@p_id", id);
             _dBManager.ExecuteNonQuery();
             DataSet ds = _dBManager.ExecuteDataSet();
 
             foreach (DataRow item in ds.Tables[0].Rows)
             {
-                doctor = new Admin_DoctorPageModel();
+                oModel = new DoctorAllDataViewModel();
+                oModel.User = new UserModel();
+                oModel.admin_Doctor = new Admin_DoctorPageModel();
 
-                doctor.id = item["id"].ConvertDBNullToInt();
-                doctor.name = item["name"].ConvertDBNullToString();
-                doctor.qualification = item["qualification"].ConvertDBNullToString();
-                doctor.specialist = item["specialist"].ConvertDBNullToString();
-                doctor.gender = item["gender"].ConvertDBNullToString();
-                doctor.phone = item["phone"].ConvertDBNullToString();
-                doctor.email = item["email"].ConvertDBNullToString();
-                doctor.DateOfBirth = item["age"].ConvertDBNullToString();
-                doctor.address = item["address"].ConvertDBNullToString();
+                oModel.User.name = item["name"].ConvertDBNullToString();
+                oModel.User.email = item["email"].ConvertDBNullToString();
+                oModel.admin_Doctor.id = item["id"].ConvertDBNullToInt();
+                oModel.admin_Doctor.qualification = item["qualification"].ConvertDBNullToString();
+                oModel.admin_Doctor.specialist = item["specialist"].ConvertDBNullToString();
+                oModel.admin_Doctor.gender = item["gender"].ConvertDBNullToString();
+                oModel.admin_Doctor.phone = item["phone"].ConvertDBNullToString();
+                oModel.admin_Doctor.DateOfBirth = item["DOB"].ConvertDBNullToString();
+                oModel.admin_Doctor.address = item["address"].ConvertDBNullToString();
 
             }
 
-            return doctor;
+            return oModel;
         }
 
-        public Admin_DoctorPageModel UpdateDoctor(int Id, Admin_DoctorPageModel model)
+        public DoctorAllDataViewModel UpdateDoctor(DoctorAllDataViewModel model)
         {
             _dBManager.InitDbCommand("UpdateDoctorData");
-            _dBManager.AddCMDParam("@p_id", Id);
-            _dBManager.AddCMDParam("@p_name", model.name);
-            _dBManager.AddCMDParam("@p_qualification", model.qualification);
-            _dBManager.AddCMDParam("@p_specialist", model.specialist);
-            _dBManager.AddCMDParam("@p_gender", model.gender);
-            _dBManager.AddCMDParam("@p_phone", model.phone);
-            _dBManager.AddCMDParam("@p_email", model.email);
-            _dBManager.AddCMDParam("@p_DOB", model.DateOfBirth);
-            _dBManager.AddCMDParam("@p_address", model.address);
+            _dBManager.AddCMDParam("@p_name", model.User.name);
+            _dBManager.AddCMDParam("@p_email", model.User.email);
+            _dBManager.AddCMDParam("@p_id", model.admin_Doctor.id);
+            _dBManager.AddCMDParam("@p_qualification", model.admin_Doctor.qualification);
+            _dBManager.AddCMDParam("@p_specialist", model.admin_Doctor.specialist);
+            _dBManager.AddCMDParam("@p_gender", model.admin_Doctor.gender);
+            _dBManager.AddCMDParam("@p_phone", model.admin_Doctor.phone);
+            _dBManager.AddCMDParam("@p_DOB", model.admin_Doctor.DateOfBirth);
+            _dBManager.AddCMDParam("@p_address", model.admin_Doctor.address);
 
             _dBManager.ExecuteNonQuery();
             return model;

@@ -7,7 +7,6 @@ using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 namespace Hospital_Management_System.HospitalDataManager.DAL
 {
-
     public class Admin_PatientPageDAL : IAdmin_PatientPageDAL
     {
         readonly IDBManager _dBManager;

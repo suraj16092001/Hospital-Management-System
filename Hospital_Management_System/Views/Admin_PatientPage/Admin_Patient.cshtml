@@ -486,8 +486,7 @@
                 $('#u_name').val(data.User.name);
                 $('#update_id').val(data.Admin_PatientPage.id);
                 $('#u_phone').val(data.Admin_PatientPage.phone);
-                var date = moment(data.Admin_PatientPage.DateOfBirth);
-                $('#u_DOB').val(date.format('YYYY-MM-DD'));
+                
                 $('#u_address').val(data.Admin_PatientPage.address);
                 $('#u_gender').val(data.Admin_PatientPage.gender);
 
