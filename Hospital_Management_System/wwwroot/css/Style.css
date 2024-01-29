@@ -67,6 +67,10 @@ header {
     display: none;
 }
 
+.dropdown.no-arrow .dropdown-toggle::after {
+    display: none;
+}
+
 section {
     padding: 2rem 9%;
 }

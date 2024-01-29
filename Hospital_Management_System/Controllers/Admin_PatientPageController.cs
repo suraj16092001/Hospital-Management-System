@@ -31,6 +31,10 @@ namespace Hospital_Management_System.Controllers
 
         public IActionResult PatientList()
         {
+            Console.WriteLine(HttpContext.Session.GetString("role"));
+            Console.WriteLine(HttpContext.Session.GetString("email"));
+            Console.WriteLine(HttpContext.Session.GetString("password"));
+
             return Json(_IAdmin_PatientPageBAL.GetPatientList());
         }
 

@@ -10,23 +10,14 @@ namespace Hospital_Management_System
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddSession();//
             builder.Services.AddDistributedMemoryCache();//
-            builder.Services.AddSession(options =>
-            {
-                options.IdleTimeout = TimeSpan.FromSeconds(10);
-                options.Cookie.HttpOnly = true;
-                options.Cookie.IsEssential = true;
-            });//
-
             builder.Services.AddControllers().AddJsonOptions(options =>
                 options.JsonSerializerOptions.PropertyNamingPolicy = null);
 
             builder.Services.AddAppSetting();
-            builder.Services.AddSession();
 
             var app = builder.Build();
-
-            app.UseSession();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -36,13 +27,13 @@ namespace Hospital_Management_System
                 app.UseHsts();
             }
 
+            app.UseSession();//session
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
 
             app.UseAuthorization();
-            app.UseSession();//session
 
             app.MapControllerRoute(
                 name: "default",
