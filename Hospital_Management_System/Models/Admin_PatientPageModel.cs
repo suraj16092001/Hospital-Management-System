@@ -16,6 +16,5 @@ namespace Hospital_Management_System.Models
         public string address { get; set; }
 
         public int register_id { get; set; }
-
     }
 }

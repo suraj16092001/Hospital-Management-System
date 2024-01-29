@@ -2,6 +2,7 @@
 using Hospital_Management_System.HospitalDataManager.IDAL;
 using Hospital_Management_System.Models;
 using System.Data;
+using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 namespace Hospital_Management_System.HospitalDataManager.DAL
 {
@@ -14,42 +15,44 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             _dBManager = dBManager;
         }
 
-        public List<AdminPageModel> GetAdminList()
+        public List<AdminAllDataViewModel> GetAdminList()
         {
-            List<AdminPageModel> AdminList = new List<AdminPageModel>();
+            List<AdminAllDataViewModel> AdminList = new List<AdminAllDataViewModel>();
 
             _dBManager.InitDbCommand("GetAdminData");
             DataSet ds = _dBManager.ExecuteDataSet();
 
             foreach (DataRow item in ds.Tables[0].Rows)
             {
-                AdminPageModel adminPageModel = new AdminPageModel();
+				AdminAllDataViewModel oModel = new AdminAllDataViewModel();
+				oModel.User = new UserModel();
+				oModel.AdminPage = new AdminPageModel();
 
-                adminPageModel.id = item["id"].ConvertDBNullToInt();
-                adminPageModel.name = item["name"].ConvertDBNullToString();
-                //adminPageModel.password = item["password"].ConvertDBNullToString();
-                adminPageModel.email = item["email"].ConvertDBNullToString();
-                adminPageModel.age = item["age"].ConvertDBNullToString();
-                adminPageModel.gender = item["gender"].ConvertDBNullToString();
-                adminPageModel.phone = item["phone"].ConvertDBNullToString();
-                adminPageModel.address = item["address"].ConvertDBNullToString();
+				oModel.AdminPage.id = item["id"].ConvertDBNullToInt();
+				oModel.User.name = item["name"].ConvertDBNullToString();
+				oModel.User.email = item["email"].ConvertDBNullToString();
+				oModel.AdminPage.DateOfBirth = item["DOB"].ConvertDBNullToString();
+				oModel.AdminPage.gender = item["gender"].ConvertDBNullToString();
+				oModel.AdminPage.phone = item["phone"].ConvertDBNullToString();
+				oModel.AdminPage.address = item["address"].ConvertDBNullToString();
 
-                AdminList.Add(adminPageModel);
+                AdminList.Add(oModel);
             }
 
             return AdminList;
         }
 
-        public AdminPageModel AddAdmin(AdminPageModel admin)
+        public AdminAllDataViewModel AddAdmin(AdminAllDataViewModel admin)
         {
             _dBManager.InitDbCommand("InsertAdminData");
-            _dBManager.AddCMDParam("@p_name", admin.name);
-            _dBManager.AddCMDParam("@p_email", admin.email);
-            _dBManager.AddCMDParam("@p_password", admin.password);
-            _dBManager.AddCMDParam("@p_phone", admin.phone);
-            _dBManager.AddCMDParam("@p_age", admin.age);
-            _dBManager.AddCMDParam("@p_gender", admin.gender);
-            _dBManager.AddCMDParam("@p_address", admin.address);
+            _dBManager.AddCMDParam("@p_name", admin.User.name);
+            _dBManager.AddCMDParam("@p_email", admin.User.email);
+            _dBManager.AddCMDParam("@p_password", admin.User.password);
+			_dBManager.AddCMDParam("@p_role_id", admin.User.role);
+			_dBManager.AddCMDParam("@p_phone", admin.AdminPage.phone);
+            _dBManager.AddCMDParam("@p_DOB", admin.AdminPage.DateOfBirth);
+            _dBManager.AddCMDParam("@p_gender", admin.AdminPage.gender);
+            _dBManager.AddCMDParam("@p_address", admin.AdminPage.address);
 
             _dBManager.ExecuteNonQuery();
 
@@ -65,41 +68,43 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
         }
 
 
-        public AdminPageModel GetAdminByID(int id)
+        public AdminAllDataViewModel GetAdminByID(int id)
         {
+			AdminAllDataViewModel model = null;
 
-            _dBManager.InitDbCommand("GetAdminByID");
-            AdminPageModel adminPage = null;
+            _dBManager.InitDbCommand("PopulateAdminData");
             _dBManager.AddCMDParam("@p_id", id);
             DataSet ds = _dBManager.ExecuteDataSet();
 
             foreach (DataRow item in ds.Tables[0].Rows)
             {
-                adminPage = new AdminPageModel();
+				model = new AdminAllDataViewModel();
+				model.User = new UserModel();
+				model.AdminPage = new AdminPageModel();
 
-                adminPage.id = item["id"].ConvertDBNullToInt();
-                adminPage.name = item["name"].ConvertDBNullToString();
-                adminPage.email = item["email"].ConvertDBNullToString();
-                adminPage.age = item["age"].ConvertDBNullToString();
-                adminPage.gender = item["gender"].ConvertDBNullToString();
-                adminPage.phone = item["phone"].ConvertDBNullToString();
-                adminPage.address = item["address"].ConvertDBNullToString();
+				model.AdminPage.id = item["id"].ConvertDBNullToInt();
+				model.User.name = item["name"].ConvertDBNullToString();
+				model.User.email = item["email"].ConvertDBNullToString();
+				model.AdminPage.DateOfBirth = item["DOB"].ConvertDBNullToString();
+				model.AdminPage.gender = item["gender"].ConvertDBNullToString();
+				model.AdminPage.phone = item["phone"].ConvertDBNullToString();
+				model.AdminPage.address = item["address"].ConvertDBNullToString();
 
             }
-            return adminPage;
+            return model;
         }
 
 
-        public AdminPageModel UpdateAdmin(AdminPageModel admin, int Id)
+        public AdminAllDataViewModel UpdateAdmin(AdminAllDataViewModel admin)
         {
             _dBManager.InitDbCommand("UpdateAdminData");
-            _dBManager.AddCMDParam("@p_id", Id);
-            _dBManager.AddCMDParam("@p_name", admin.name);
-            _dBManager.AddCMDParam("@p_email", admin.email);
-            _dBManager.AddCMDParam("@p_age", admin.age);
-            _dBManager.AddCMDParam("@p_gender", admin.gender);
-            _dBManager.AddCMDParam("@p_phone", admin.phone);
-            _dBManager.AddCMDParam("@p_address", admin.address);
+            _dBManager.AddCMDParam("@p_id", admin.AdminPage.id);
+            _dBManager.AddCMDParam("@p_name", admin.User.name);
+            _dBManager.AddCMDParam("@p_email", admin.User.email);
+            _dBManager.AddCMDParam("@p_DOB", admin.AdminPage.DateOfBirth);
+            _dBManager.AddCMDParam("@p_gender", admin.AdminPage.gender);
+            _dBManager.AddCMDParam("@p_phone", admin.AdminPage.phone);
+            _dBManager.AddCMDParam("@p_address", admin.AdminPage.address);
 
             _dBManager.ExecuteNonQuery();
             return admin;

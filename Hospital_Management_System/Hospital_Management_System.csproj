@@ -7,6 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\images\DoctorsImage\**" />
+    <Compile Remove="wwwroot\images\Doctors\**" />
+    <Compile Remove="wwwroot\images\gallary\**" />
+    <Content Remove="wwwroot\images\DoctorsImage\**" />
+    <Content Remove="wwwroot\images\Doctors\**" />
+    <Content Remove="wwwroot\images\gallary\**" />
+    <EmbeddedResource Remove="wwwroot\images\DoctorsImage\**" />
+    <EmbeddedResource Remove="wwwroot\images\Doctors\**" />
+    <EmbeddedResource Remove="wwwroot\images\gallary\**" />
+    <None Remove="wwwroot\images\DoctorsImage\**" />
+    <None Remove="wwwroot\images\Doctors\**" />
+    <None Remove="wwwroot\images\gallary\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MySql.Data" Version="8.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
@@ -17,8 +32,6 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
-    <Folder Include="wwwroot\images\DoctorsImage\" />
-    <Folder Include="wwwroot\js\" />
     <Folder Include="wwwroot\lib\bootstrap\" />
     <Folder Include="wwwroot\lib\bootstrap\dist\js\" />
     <Folder Include="wwwroot\lib\jquery-validation-unobtrusive\" />

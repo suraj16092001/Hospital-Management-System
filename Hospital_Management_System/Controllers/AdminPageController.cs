@@ -31,7 +31,7 @@ namespace Hospital_Management_System.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddAdmin(AdminPageModel oModel)
+        public IActionResult AddAdmin([FromBody] AdminAllDataViewModel oModel)
         {
             _IAdminPageBAL.AddAdmin(oModel);
             return Json("AdminList");
@@ -50,10 +50,9 @@ namespace Hospital_Management_System.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateAdmin(string model, int Id)
+        public IActionResult UpdateAdmin(AdminAllDataViewModel model)
         {
-            AdminPageModel admin = JsonConvert.DeserializeObject<AdminPageModel>(model);
-            _IAdminPageBAL.UpdateAdmin(admin, Id);
+            _IAdminPageBAL.UpdateAdmin(model);
             return Json("AdminList");
         }
     }

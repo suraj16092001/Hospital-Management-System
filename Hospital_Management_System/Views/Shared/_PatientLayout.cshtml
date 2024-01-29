@@ -7,10 +7,22 @@
     <title>@ViewData["Title"] - Hospital_Management_System</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="stylesheet" href="~/css/patient.css" />
+    <title>Medi Home</title>
+    <link rel="stylesheet" href="~/css/Style.css".css" />
     <link rel="stylesheet" href="~/Hospital_Management_System.styles.css" asp-append-version="true" />
+    <link rel="shortcut icon" href="img/fav-icon.svg" type="image/x-icon">
 </head>
 <body>
+    <header>
+        <a href="#" class="logo"><i class="fas fa-hospital"></i>Medi Home</a>
+
+        <nav class="navbar">
+            <a href="#home">home</a>
+            <a href="#contact">contact</a>
+        </nav>
+
+        <div id="menubtn" class="fas fa-bars"></div>
+    </header>
 
     <div class="container-fluid px-0">
         <main role="main">
@@ -21,6 +33,8 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>

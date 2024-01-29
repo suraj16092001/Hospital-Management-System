@@ -4,12 +4,10 @@ namespace Hospital_Management_System.HospitalDataManager.IDAL
 {
     public interface IAdminPageDAL
     {
-        public List<AdminPageModel> GetAdminList();
-        public AdminPageModel AddAdmin(AdminPageModel admin);
-
+		public List<AdminAllDataViewModel> GetAdminList();
+		public AdminAllDataViewModel AddAdmin(AdminAllDataViewModel admin);
         public void DeleteAdmin(int id);
-        public AdminPageModel GetAdminByID(int id);
-
-        public AdminPageModel UpdateAdmin(AdminPageModel admin, int Id);
+		public AdminAllDataViewModel GetAdminByID(int id);
+		public AdminAllDataViewModel UpdateAdmin(AdminAllDataViewModel admin);
     }
 }

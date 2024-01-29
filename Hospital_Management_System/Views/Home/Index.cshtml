@@ -25,8 +25,8 @@
 			<a href="#about">about</a>
 			<a href="#services">services</a>
 			<a href="#contact">contact</a>
-			<a href="#">SignIn</a>
-			<a href="#">SignUp</a>
+			<a asp-controller="Login" asp-action="Login">SignIn</a>
+			<a asp-controller="Login" asp-action="SignUp">SignUp</a>
 		</nav>
 
 		<div id="menubtn" class="fas fa-bars"></div>
@@ -104,25 +104,6 @@
 				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, nulla!</p>
 				<a href="#" class="btn">read more</a>
 			</div>
-		</div>
-	</section>
-
-	<section class="contact" id="contact">
-		<h1 class="heading"><span>contact</span> us</h1>
-
-		<div class="wrapper">
-			<div class="image">
-				<img src="~/images/img3.png" alt="">
-			</div>
-
-			<form action="">
-				<h3>book appointment</h3>
-				<input type="text" placeholder="your name" class="box">
-				<input type="email" placeholder="your email" class="box">
-				<input type="number" placeholder="your phone number" class="box">
-				<input type="date" class="box">
-				<input type="submit" value="place appointment" class="btn">
-			</form>
 		</div>
 	</section>
 

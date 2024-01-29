@@ -2,6 +2,7 @@
 using Hospital_Management_System.HospitalDataManager.DAL;
 using Hospital_Management_System.HospitalDataManager.IDAL;
 using Hospital_Management_System.Models;
+using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 namespace Hospital_Management_System.HospitalBussinessManager.BAL
 {
@@ -13,14 +14,15 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
             _IAdminPageDAL = new AdminPageDAL(dBManager);
         }
 
-        List<AdminPageModel> IAdminPageBAL.GetAdminList()
+        List<AdminAllDataViewModel> IAdminPageBAL.GetAdminList()
         {
             return _IAdminPageDAL.GetAdminList();
         }
 
-        public AdminPageModel AddAdmin(AdminPageModel model)
+        public AdminAllDataViewModel AddAdmin(AdminAllDataViewModel model)
         {
-            return _IAdminPageDAL.AddAdmin(model);
+			model.User.role = 1;
+			return _IAdminPageDAL.AddAdmin(model);
         }
 
         public void DeleteAdmin(int id)
@@ -28,16 +30,16 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
             _IAdminPageDAL.DeleteAdmin(id);
 
         }
-        public AdminPageModel GetAdminByID(int id)
+        public AdminAllDataViewModel GetAdminByID(int id)
         {
             return _IAdminPageDAL.GetAdminByID(id);
         }
 
-        public string UpdateAdmin(AdminPageModel model, int Id)
+        public AdminAllDataViewModel UpdateAdmin(AdminAllDataViewModel model)
         {
-            _IAdminPageDAL.UpdateAdmin(model, Id);
-            return "Success";
-        }
+            
+            return _IAdminPageDAL.UpdateAdmin(model);
+		}
 
 
     }
