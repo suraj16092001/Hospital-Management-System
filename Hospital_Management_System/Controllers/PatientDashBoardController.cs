@@ -6,6 +6,7 @@ namespace Hospital_Management_System.Controllers
     {
         public IActionResult PatientDashboard()
         {
+            Console.WriteLine(HttpContext.Session.GetInt32("id"));
             return View();
         }
     }

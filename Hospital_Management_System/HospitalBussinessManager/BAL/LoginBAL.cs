@@ -48,6 +48,7 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
 
           login.DbPassword = _ILoginDAL.Login(email);
 
+            login.Id = _ILoginDAL.getID(email);
             return login;
           
         }

@@ -111,6 +111,15 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             return passwordExixts;
         }
 
-       
+        public int getID(string email)
+        {
+            _dBManager.InitDbCommand("getID")
+                .AddCMDParam("@p_email", email);
+            var result = _dBManager.ExecuteScalar();
+
+            int id = Convert.ToInt32(result);
+            return id;
+        }
+
     }
 }

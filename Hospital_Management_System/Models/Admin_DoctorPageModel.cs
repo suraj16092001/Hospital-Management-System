@@ -13,5 +13,7 @@ namespace Hospital_Management_System.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/DD/YYYY}")]
         public string DateOfBirth { get; set; } // age instead dob
         public string address { get; set; }
+        public string imagePath { get; set; }
+        public IFormFile imageFile { get; set; }
     }   
 }

@@ -56,13 +56,11 @@ namespace Hospital_Management_System.Controllers
             }
             if (login != null)
             {
-                HttpContext.Session.SetString("role", login.GetRole);
-                HttpContext.Session.SetString("email", email);
-                HttpContext.Session.SetString("password", password);
+                HttpContext.Session.SetInt32("id", login.Id);
             }
             else
             {
-                ViewBag.Message = "Login failed";
+                ViewBag.message = "login failed";
                 return View();
             }
             return Json(new { role=login.GetRole , status = "success", message = "login successfully!" });

@@ -39,6 +39,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 model.admin_Doctor.phone = item["phone"].ConvertDBNullToString();
                 model.admin_Doctor.DateOfBirth = item["DOB"].ConvertDBNullToString();
                 model.admin_Doctor.address = item["address"].ConvertDBNullToString();
+                model.admin_Doctor.imagePath = item["image"].ConvertDBNullToString();
 
                 doctorList.Add(model);
             }
@@ -61,6 +62,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 _dBManager.AddCMDParam("@p_phone", model.admin_Doctor.phone);
                 _dBManager.AddCMDParam("@p_DOB", model.admin_Doctor.DateOfBirth);
                 _dBManager.AddCMDParam("@p_address", model.admin_Doctor.address);
+                _dBManager.AddCMDParam("@p_Image", model.admin_Doctor.imagePath);
 
                 _dBManager.ExecuteNonQuery();
             }
