@@ -11,6 +11,7 @@ using System.Configuration;
 using System.Data;
 using System.Globalization;
 using System.Text.Json;
+using System.Collections.Generic;
 
 namespace Hospital_Management_System.Controllers
 {
@@ -64,7 +65,7 @@ namespace Hospital_Management_System.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdatePatient([FromBody]PatientAllDataViewModel model)
+        public IActionResult UpdatePatient([FromBody] PatientAllDataViewModel model)
         {
 
             _IAdmin_PatientPageBAL.UpdatePatient(model);
@@ -90,5 +91,13 @@ namespace Hospital_Management_System.Controllers
             return Json("PatientList");
         }
 
+
+        [HttpPost]
+        public IActionResult GetDoctors([FromBody]Admin_DoctorPageModel specialist)
+        {
+            List<UserModel> doctors = _IAdmin_PatientPageBAL.GetDoctors(specialist);
+            return Json(doctors);
+
+        }
     }
 }

@@ -253,8 +253,8 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="disease" class="form-label">Disease : </label>
-                                <select id="a_disease" name="disease" class="form-control" readonly>
-                                    <option value="">Select one…</option>
+                                <select id="a_disease" name="disease" class="form-control" onchange="FetchDoctors(this.value)">
+                                    <option value="">Select One...</option>
                                     <option value="Dentist">Dentist</option>
                                     <option value="Heart Specialist">Heart Specialist</option>
                                     <option value="Diabetes">Diabetes</option>
@@ -271,8 +271,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="doctor" class="form-label">Doctor : </label>
-                                <input id="a_doctor" type="text" name="doctor" class="form-control" />
+                                <label for="doctor" class="form-label">Doctor:</label>
+                                <select id="a_doctor" name="doctor" class="form-control"></select>
                             </div>
                         </div>
                     </div>
@@ -398,6 +398,29 @@
             }
         })
     }
+
+    function FetchDoctors(specialist) {
+        debugger;
+        $.ajax({
+            url: '/Admin_PatientPage/GetDoctors',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ specialist: specialist }),
+            success: function (data) {
+                var dropdown = $('#a_doctor');
+                dropdown.empty();
+
+                $.each(data, function (i, doctor) {
+                    dropdown.append($('<option></option>').text(doctor.name));
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+
+
 
     function AddPatient() {
         var oModel = {

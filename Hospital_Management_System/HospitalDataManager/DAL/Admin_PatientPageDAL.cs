@@ -130,5 +130,23 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             return appointment;
         }
 
+        public List<UserModel> GetDoctors(Admin_DoctorPageModel specialist)
+        {
+            List<UserModel> DoctorList = new List<UserModel>();
+            _dBManager.InitDbCommand("DoctorDropdown");
+            _dBManager.AddCMDParam("@p_specialist", specialist.specialist);
+            DataSet ds = _dBManager.ExecuteDataSet();
+            foreach (DataRow item in ds.Tables[0].Rows)
+            {
+                UserModel oModel = new UserModel();
+
+                oModel.name = item["name"].ConvertDBNullToString();
+
+                DoctorList.Add(oModel);
+            }
+            return DoctorList;
+
+        }
+
     }
 }

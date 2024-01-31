@@ -49,5 +49,9 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
         {
             return _IAdmin_PatientPageDAL.BookAppointment(model);
         }
+        public List<UserModel> GetDoctors(Admin_DoctorPageModel specialist)
+        {
+            return _IAdmin_PatientPageDAL.GetDoctors(specialist);
+        }
     }
 }
