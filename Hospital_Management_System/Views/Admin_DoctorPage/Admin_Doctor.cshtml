@@ -320,7 +320,7 @@
                     <th>Name</th>
                     <th>Phone</th>
                     <th>Specialist</th>
-                    <th>Photo</th>
+                  @*   <th>Photo</th> *@
                     <th>Action</th>
                 </tr>
             </thead>
@@ -357,12 +357,12 @@
                       
                         { data: 'admin_Doctor.phone' },
                         { data: 'admin_Doctor.specialist' },
-                        {
-                            data: 'admin_Doctor.imagePath',
-                            render: function (data, type, row) {
-                                return '<img src="~/images/' + row.admin_Doctor.imagePath + '"class="rounded-image" width="35px" height="35px" />';
-                            }
-                        },
+                        // {
+                        //     data: 'admin_Doctor.imagePath',
+                        //     render: function (data, type, row) {
+                        //         return '<img src="~/images/' + row.admin_Doctor.imagePath + '"class="rounded-image" width="35px" height="35px" />';
+                        //     }
+                        // },
                         {
                             data: null,
                             render: function (data, type, row) {
@@ -412,6 +412,7 @@
             }
         
         }
+
         debugger;
         console.log(oModel);
         debugger;

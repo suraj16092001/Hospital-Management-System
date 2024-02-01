@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <title>Medi Home</title>
-    <link rel="stylesheet" href="~/css/Style.css" .css" /> @* //welcome and after login css  *@
+    <link rel="stylesheet" href="~/css/Style.css"/> @* //welcome page and after login page css  *@
     <link rel="stylesheet" href="~/Hospital_Management_System.styles.css" asp-append-version="true" />
     <link rel="shortcut icon" href="img/fav-icon.svg" type="image/x-icon">
 </head>
@@ -17,39 +17,10 @@
         <nav class="navbar">
             <a href="#home">home</a>
             <a href="#contact">contact</a>
-            <ul class="sidebar-nav ms-auto">
 
-                <div class="topbar-divider d-none d-sm-block"></div>
-
-                <!-- Nav Item - User Information -->
-                <li class="nav-item dropdown no-arrow">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="me-2 d-none d-lg-inline text-gray-600 small">Suraj Kanse</span>
-                        <img class="img-profile rounded-circle" src="">
-                    </a>
-                    <!-- Dropdown - User Information -->
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                         aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">
-                            <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>
-                            Profile
-                        </a>
-                        <a class="dropdown-item" href="#">
-                            <i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>
-                            Settings
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">
-                            <i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>
-                            Logout
-                        </a>
-                    </div>
-                </li>
-
-            </ul>
         </nav>
         <div id="menubtn" class="fas fa-bars"></div>
+        
     </header>
    
     <div class="container-fluid px-0">
@@ -57,22 +28,7 @@
             @RenderBody()
         </main>
     </div>
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
+   
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
