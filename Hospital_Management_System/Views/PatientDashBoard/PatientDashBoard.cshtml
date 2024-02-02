@@ -24,11 +24,28 @@
 
         <form action="">
             <h3>book appointment</h3>
-            <input type="text" placeholder="your name" class="box">
-            <input type="email" placeholder="your email" class="box">
-            <input type="number" placeholder="your phone number" class="box">
-            <input type="date" class="box">
-            <input type="submit" value="place appointment" class="btn">
+            <select id="disease" name="disease" class="box" onchange="FetchDoctors(this.value)">
+                <option value="">Select One...</option>
+                <option value="Dentist">Dentist</option>
+                <option value="Heart Specialist">Heart Specialist</option>
+                <option value="Diabetes">Diabetes</option>
+                <option value="Oncology(Cancer)">Oncology(Cancer)</option>
+                <option value="General Physician">General Physician</option>
+                <option value="Orthopedic">Orthopedic</option>
+                <option value="Neurology">Neurology</option>
+                <option value="Radiology">Radiology</option>
+                <option value="Surgery">Surgery</option>
+                <option value="Skin Specialist">Skin Specialist</option>
+                <option value="Emergency Department">Emergency Department</option>
+            </select>
+
+            <select type="text" placeholder="Doctors" class="box">
+                <option value="">Select One...</option>
+            </select>
+
+            <input id="appointment_time" type="time" name="appointment_time" class="box" />
+            <input id="appointment_date" type="date" name="appointment_date" class="box datepicker" />
+            <button type="button" onclick="BookAppointment()" class="btn btn-primary text-white">Book Appointment</button>
         </form>
     </div>
 </section>
