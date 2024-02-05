@@ -2,36 +2,127 @@
 
     Layout = "_PatientLayout";
 }
-
 <section class="home" id="home">
     <div class="content">
         <h3>stay healthy, be fit</h3>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing, elit. Ea optio voluptatibus repellat ipsum soluta. Voluptate consectetur repellat repellendus porro enim?</p>
-        <a href="#" class="btn">consult now</a>
+        <button href="#" class="btn" data-bs-toggle="modal" data-bs-target="#appointmentModal">Request an Appointment</button>
     </div>
     <div class="image">
         <img src="~/images/img1.png" alt="">
     </div>
 </section>
 
-<section class="contact" id="contact">
-    <h1 class="heading"><span>contact</span> us</h1>
+<div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
 
-    <div class="wrapper">
-        <div class="image">
-            <img src="~/images/img3.png" alt="">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="appointmentModalLabel">Request for an Appointment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <form>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name:</label>
+                        <input id="name" name="name" class="form-control"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email:</label>
+                        <input id="email" type="email" name="email" class="form-control"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="department" class="form-label">Department : </label>
+                        <select id="department" name="department" class="form-control">
+                            <option value="">Select One...</option>
+                            <option value="Dentist">Dentist</option>
+                            <option value="Heart Specialist">Heart Specialist</option>
+                            <option value="Diabetes">Diabetes</option>
+                            <option value="Oncology(Cancer)">Oncology(Cancer)</option>
+                            <option value="General Physician">General Physician</option>
+                            <option value="Orthopedic">Orthopedic</option>
+                            <option value="Neurology">Neurology</option>
+                            <option value="Radiology">Radiology</option>
+                            <option value="Surgery">Surgery</option>
+                            <option value="Skin Specialist">Skin Specialist</option>
+                            <option value="Emergency Department">Emergency Department</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="appointment_time" class="form-label">Appointment Time : </label>
+                        <input id="appointment_time" type="time" name="appointment_time" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="appointment_date" class="form-label">Appointment Date :</label>
+                        <input id="appointment_date" type="date" name="appointment_date" class="form-control datepicker" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Description :</label>
+                        <textarea class="form-control" id="message" rows="3"></textarea>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
+                        <button type="button" onclick="BookAppointment()" class="btn">Book Appointment</button>
+                    </div>
+
+                </form>
+            </div>
         </div>
-
-        <form action="">
-            <h3>book appointment</h3>
-            <input type="text" placeholder="your name" class="box">
-            <input type="email" placeholder="your email" class="box">
-            <input type="number" placeholder="your phone number" class="box">
-            <input type="date" class="box">
-            <input type="submit" value="place appointment" class="btn">
-        </form>
     </div>
-</section>
+</div>
+
+<script>
+
+    function BookAppointment() {
+        var oModel = {
+            name: $('#name').val(),
+            email: $('#email').val(),
+            appointment_date: $('#appointment_date').val(),
+            appointment_time: $('#appointment_time').val(),
+            department: $('#department').val(),
+            description: $('#message').val(),
+        }
+
+        debugger;
+        var formData = new FormData();
+        for (var key in oModel) {
+            formData.append(key, oModel[key])
+        }
+        debugger;
+        $.ajax({
+            type: "POST",
+            url: "/PatientDashBoard/RequestedAppointment",
+            data: formData,
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function (data) {
+
+                Swal.fire({
+                    title: "Good job!",
+                    text: "Your appointment request has been sent we will contact you soon",
+                    icon: "success",
+                    button: "Ok",
+                });
+                $('#appointmentModal').modal('hide');
+            },
+            error: function (error) {
+                console.log("Error saving employee:", error);
+                Swal.fire("Oops", "An error occurred while saving your data, Please try again later.", "error");
+            }
+        })
+    }
+
+</script>
+
+
+
+
+
 
 
 

@@ -5,6 +5,15 @@
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddDoctorModal">Add Doctor</button>
 </div>
 
+ @* <div class="card" style="width: 18rem;">
+    <img src="~/images/1.jpg" class="card-img-top" alt="">
+    <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+</div> *@ 
+
 <div class="modal fade" id="AddDoctorModal" tabindex="-1" aria-labelledby="AddDoctorModallLabel" aria-hidden="true">
 
     <div class="modal-dialog">
@@ -42,7 +51,20 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="specialist" class="form-label">Specialization :</label>
-                                <input id="specialist" type="text" name="specialist" class="form-control" />
+                                <select id="specialist" name="specialist" class="form-control">
+                                    <option value="">Select one…</option>
+                                    <option value="Dentist">Dentist</option>
+                                    <option value="Heart Specialist">Heart Specialist</option>
+                                    <option value="Diabetes">Diabetes</option>
+                                    <option value="Oncology(Cancer)">Oncology(Cancer)</option>
+                                    <option value="General Physician">General Physician</option>
+                                    <option value="Orthopedic">Orthopedic</option>
+                                    <option value="Neurology">Neurology</option>
+                                    <option value="Radiology">Radiology</option>
+                                    <option value="Surgery">Surgery</option>
+                                    <option value="Skin Specialist">Skin Specialist</option>
+                                    <option value="Emergency Department">Emergency Department</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -87,6 +109,10 @@
                         <input id="address" type="text" name="address" class="form-control" />
                     </div>
 
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Photo : </label>
+                        <input id="imageFile" name="imageFile" type="file" class="form-control">
+                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" onclick="AddDoctor()" class="btn btn-primary">Save changes</button>
@@ -179,6 +205,11 @@
                         </div>
                     </div>
 
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Photo : </label>
+                        <input id="u_imageFile" name="imageFile" type="file" class="form-control">
+                    </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" onclick="UpdateDoctor()" class="btn btn-primary">Save changes</button>
@@ -269,6 +300,10 @@
                             </div>
                         </div>
                     </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Photo : </label>
+                        <input id="v_imageFile" name="imageFile" type="file" class="form-control" readonly>
+                    </div>
                 </form>
             </div>
         </div>
@@ -283,9 +318,9 @@
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
-                    <th>Email</th>
                     <th>Phone</th>
                     <th>Specialist</th>
+                  @*   <th>Photo</th> *@
                     <th>Action</th>
                 </tr>
             </thead>
@@ -319,9 +354,15 @@
                     columns: [
                         { data: 'admin_Doctor.id' },
                         { data: 'User.name' },
-                        { data: 'User.email' },
+                      
                         { data: 'admin_Doctor.phone' },
                         { data: 'admin_Doctor.specialist' },
+                        // {
+                        //     data: 'admin_Doctor.imagePath',
+                        //     render: function (data, type, row) {
+                        //         return '<img src="~/images/' + row.admin_Doctor.imagePath + '"class="rounded-image" width="35px" height="35px" />';
+                        //     }
+                        // },
                         {
                             data: null,
                             render: function (data, type, row) {
@@ -348,6 +389,7 @@
         $('#specialist').val('');
         $('#qualification').val('');
         $('#DateOfBirth').val('');
+        $('#imageFile').val('');
 
     }
 
@@ -366,9 +408,12 @@
                 phone: $('#phone').val(),
                 DateOfBirth: $('#DateOfBirth').val(),
                 address: $('#address').val(),
+                imagePath: $('#imageFile').val(),
             }
-
+        
         }
+
+        debugger;
         console.log(oModel);
         debugger;
         $.ajax({

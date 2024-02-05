@@ -29,9 +29,9 @@ namespace Hospital_Management_System.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddDoctor([FromBody] DoctorAllDataViewModel model)
+        public IActionResult AddDoctor([FromBody] DoctorAllDataViewModel model,IFormFile file)
         {
-            _IAdmin_DoctorPageBAL.AddDoctor(model);
+            _IAdmin_DoctorPageBAL.AddDoctor(model, file);
             return Json("DoctorList");
         }
 

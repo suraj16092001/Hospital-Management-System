@@ -8698,3 +8698,10 @@ body.sidebar-toggled footer.sticky-footer {
         clip: rect(67px, 9999px, 68px, 0);
     }
 }
+
+
+.card img {
+    width: 100%;
+    aspect-ratio: 3/2;
+    object-fit: contain;
+}
