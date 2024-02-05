@@ -22,12 +22,55 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
            return _IAdmin_DoctorPageDAL.GetDoctorList(); 
         }
 
-        public DoctorAllDataViewModel AddDoctor(DoctorAllDataViewModel model)
+        public DoctorAllDataViewModel AddDoctor(DoctorAllDataViewModel model, IFormFile file)
         {
+            model.admin_Doctor.imageFile = file;
+            model.admin_Doctor.imagePath = UploadImage(model.admin_Doctor.imageFile);
             model.User.role = 3;
             return _IAdmin_DoctorPageDAL.AddDoctor(model);
         }
 
+        public string UploadImage(IFormFile imageFile)
+        {
+            try
+            {
+                string uniqueFileName = null;
+
+                if (imageFile != null)
+                {
+                    string uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+
+                    // Create the directory if it doesn't exist
+
+                    Console.WriteLine(Directory.GetCurrentDirectory());
+
+                    if (!Directory.Exists(uploadFolder))
+                    {
+                        Directory.CreateDirectory(uploadFolder);
+                    }
+
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + imageFile.FileName;
+                    string filePath = Path.Combine(uploadFolder, uniqueFileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        imageFile.CopyTo(stream);
+                    }
+
+                }
+                else
+                {
+                    Console.WriteLine("Image file path is null");
+                }
+
+                return uniqueFileName;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
         public void DeleteDoctor(int id)
         {
             _IAdmin_DoctorPageDAL.DeleteDoctor(id);
