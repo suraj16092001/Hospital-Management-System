@@ -39,7 +39,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 model.admin_Doctor.phone = item["phone"].ConvertDBNullToString();
                 model.admin_Doctor.DateOfBirth = item["DOB"].ConvertDBNullToString();
                 model.admin_Doctor.address = item["address"].ConvertDBNullToString();
-                model.admin_Doctor.imagePath = item["image"].ConvertDBNullToString();
+                //model.admin_Doctor.imagePath = item["image"].ConvertDBNullToString();
 
                 doctorList.Add(model);
             }

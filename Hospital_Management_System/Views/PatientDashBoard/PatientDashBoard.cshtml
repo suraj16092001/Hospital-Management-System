@@ -11,7 +11,7 @@
     <div class="image">
         <img src="~/images/img1.png" alt="">
     </div>
-</section>
+</section>  
 
 <div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
 
@@ -24,7 +24,7 @@
 
             <div class="modal-body">
 
-                <form>
+                <form enctype="multipart/form-data" method="post">
                     <div class="mb-3">
                         <label for="name" class="form-label">Name:</label>
                         <input id="name" name="name" class="form-control"></input>
@@ -79,27 +79,34 @@
 
     function BookAppointment() {
         var oModel = {
-            name: $('#name').val(),
-            email: $('#email').val(),
-            appointment_date: $('#appointment_date').val(),
-            appointment_time: $('#appointment_time').val(),
-            department: $('#department').val(),
-            description: $('#message').val(),
+            Appointment: {
+                name: $('#name').val(),
+                email: $('#email').val(),
+                appointment_date: $('#appointment_date').val(),
+                appointment_time: $('#appointment_time').val(),
+                department: $('#department').val(),
+                description: $('#message').val(),
+            },
+            User: {
+                id: $('#id').val(),
+            }
+           
         }
 
         debugger;
-        var formData = new FormData();
-        for (var key in oModel) {
-            formData.append(key, oModel[key])
-        }
-        debugger;
+        // var formData = new FormData();
+        // for (var key in oModel) {
+        //     formData.append(key, oModel[key])
+        // }
+        // debugger;
         $.ajax({
             type: "POST",
             url: "/PatientDashBoard/RequestedAppointment",
-            data: formData,
-            processData: false,
-            contentType: false,
+            contentType: "application/json",
+            data: JSON.stringify(oModel),
+            dataType: 'json',
             cache: false,
+            async: false,
             success: function (data) {
 
                 Swal.fire({
