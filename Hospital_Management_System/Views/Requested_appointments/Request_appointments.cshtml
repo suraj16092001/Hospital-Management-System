@@ -114,7 +114,23 @@
                     columns: [
                         { data: 'id' },
                         { data: 'name' },
-                        { data: 'appointment_date' },
+                        {
+                            data: 'appointment_date',
+                            render: function (data, type, row) {
+                                // Parse the date with the correct format
+                                var parsedDate = moment(data, 'DD-MM-YYYY HH:mm:ss');
+
+                                // Check if the parsed date is valid
+                                if (parsedDate.isValid()) {
+                                    // Format the valid date to display only the date part
+                                    return parsedDate.format('YYYY-MM-DD');
+                                } else {
+                                    // Handle invalid date
+                                    return 'Invalid date';
+                                }
+                            }
+                        },
+
                         { data: 'appointment_time' },
                         { data: 'department' },
                         { data: 'status' },
@@ -133,6 +149,7 @@
         });
     }
 
+
     function popupdatedata(id) {
         debugger;
 
@@ -143,8 +160,17 @@
                 $('#update_id').val(data.id);
                 $('#u_name').val(data.name);
                 $('#u_email').val(data.email);
-                var date = moment(data.appointment_date);
-                $('#u_appointment_date').val(date.format('YYYY-MM-DD'));
+                // var date = moment(data.appointment_date);
+                // $('#u_appointment_date').val(date.format('YYYY-MM-DD'));
+                var date = moment(data.appointment_date, 'DD-MM-YYYY HH:mm:ss');
+
+                // Ensure that date is valid before formatting
+                if (date.isValid()) {
+                    $('#u_appointment_date').val(date.format('YYYY-MM-DD'));
+                } else {
+                    // Handle invalid date
+                    console.error("Invalid date format:", data.appointment_date);
+                }
                 $('#u_appointment_time').val(data.appointment_time);
                 $('#u_department').val(data.department);
                 $('#u_status').val(data.status);
