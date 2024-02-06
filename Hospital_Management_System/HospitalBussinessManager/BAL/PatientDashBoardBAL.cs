@@ -14,8 +14,9 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
             _IPatientDashBoardDAL = new PatientDashBoardDAL(dBManager);
         }
 
-        public RequestedCombinedViewModel RequestedAppointment(RequestedCombinedViewModel model)
+        public Requested_AppointmentModel RequestedAppointment(Requested_AppointmentModel model)
         {
+            model.status = "Requested";
             return _IPatientDashBoardDAL.RequestedAppointment(model);
         }
     }

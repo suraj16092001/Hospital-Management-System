@@ -11,7 +11,7 @@ namespace Hospital_Management_System.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:YYYY/MM/DD}")]
         public string appointment_date { get; set;}
 
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{HH:mm}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:hh:mm:ss A}")]
         public string appointment_time { get; set;}
         public string department { get; set;}
         public string status { get; set;}

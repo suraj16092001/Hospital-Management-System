@@ -19,20 +19,22 @@ namespace Hospital_Management_System.Controllers
         }
 
         [HttpPost]
-        public IActionResult RequestedAppointment([FromBody]RequestedCombinedViewModel oModel)
+        public IActionResult RequestedAppointment([FromBody]Requested_AppointmentModel oModel)
         {
-            DateTime appointmentDate = DateTime.ParseExact(oModel.Appointment.appointment_date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-            TimeSpan appointmentTime = TimeSpan.Parse(oModel.Appointment.appointment_time);
+            int? test = HttpContext.Session.GetInt32("id");
+            oModel.patient_id = test.Value;
+            DateTime appointmentDate = DateTime.ParseExact(oModel.appointment_date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            TimeSpan appointmentTime = TimeSpan.Parse(oModel.appointment_time);
 
             // Combine the date and time into one DateTime
             DateTime appointmentDateTime = appointmentDate.Date + appointmentTime;
 
             // Format the DateTime to MySQL format
-            oModel.Appointment.appointment_date = appointmentDateTime.ToString("yyyy-MM-dd");
-            oModel.Appointment.appointment_time = appointmentDateTime.ToString("HH:mm:ss");
+            oModel.appointment_date = appointmentDateTime.ToString("yyyy-MM-dd");
+            oModel.appointment_time = appointmentDateTime.ToString("HH:mm:ss");
 
             _IPatientDashBoardBAL.RequestedAppointment(oModel);
-            return View();
+            return Json("Requested");
         }
 
 

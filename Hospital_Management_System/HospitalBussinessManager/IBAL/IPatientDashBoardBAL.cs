@@ -4,6 +4,6 @@ namespace Hospital_Management_System.HospitalBussinessManager.IBAL
 {
     public interface IPatientDashBoardBAL
     {
-        public RequestedCombinedViewModel RequestedAppointment(RequestedCombinedViewModel model);
+        public Requested_AppointmentModel RequestedAppointment(Requested_AppointmentModel model);
     }
 }

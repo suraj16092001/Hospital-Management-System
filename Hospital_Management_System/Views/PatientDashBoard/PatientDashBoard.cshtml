@@ -6,14 +6,109 @@
     <div class="content">
         <h3>stay healthy, be fit</h3>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing, elit. Ea optio voluptatibus repellat ipsum soluta. Voluptate consectetur repellat repellendus porro enim?</p>
-        <button href="#" class="btn" data-bs-toggle="modal" data-bs-target="#appointmentModal">Request an Appointment</button>
+        <button href="#contact" class="btn">Request an Appointment</button>
     </div>
     <div class="image">
         <img src="~/images/img1.png" alt="">
     </div>
-</section>  
+</section>
 
-<div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
+
+<section class="contact" id="contact">
+    <h1 class="heading"><span>contact</span> us</h1>
+
+    <div class="wrapper">
+        <div class="image">
+            <img src="~/images/img3.png" alt="">
+        </div>
+
+        <form action="">
+
+            <h3>Request appointment</h3>
+            <input id="name" type="text" name="name" class="box" />
+            <input id="email" type="email" name="email" class="box" />
+            <select id="department" name="department" class="box">
+                <option value="">Select One...</option>
+                <option value="Dentist">Dentist</option>
+                <option value="Heart Specialist">Heart Specialist</option>
+                <option value="Diabetes">Diabetes</option>
+                <option value="Oncology(Cancer)">Oncology(Cancer)</option>
+                <option value="General Physician">General Physician</option>
+                <option value="Orthopedic">Orthopedic</option>
+                <option value="Neurology">Neurology</option>
+                <option value="Radiology">Radiology</option>
+                <option value="Surgery">Surgery</option>
+                <option value="Skin Specialist">Skin Specialist</option>
+                <option value="Emergency Department">Emergency Department</option>
+            </select>
+
+            <input id="appointment_time" type="time" name="appointment_time" class="box" />
+            <input id="appointment_date" type="date" name="appointment_date" class="box datepicker" />
+            <textarea class="box" id="message" placeholder="Write a message...." rows="3"></textarea>
+            <button type="button" onclick="BookAppointment()" class="btn btn-primary text-white">Request Appointment</button>
+        </form>
+    </div>
+</section>
+
+<script>
+
+    function BookAppointment() {
+        var oModel = {
+                name: $('#name').val(),
+                email: $('#email').val(),
+                appointment_date: $('#appointment_date').val(),
+                appointment_time: $('#appointment_time').val(),
+                department: $('#department').val(),
+                description: $('#message').val(),
+        }
+
+        debugger;
+       
+        $.ajax({
+            type: "POST",
+            url: "/PatientDashBoard/RequestedAppointment",
+            contentType: "application/json",
+            data: JSON.stringify(oModel),
+            dataType: 'json',
+            cache: false,
+            async: false,
+            success: function (data) {
+                ClearForm();
+                Swal.fire({
+                    position: "top",
+                    title: "Good job!",
+                    text: "Your appointment request has been sent we will contact you soon",
+                    icon: "success",
+                    button: "Ok",
+                });
+              
+            },
+            error: function (error) {
+                console.log("Error saving employee:", error);
+                Swal.fire("Oops", "An error occurred while saving your request, Please try again later.", "error");
+            }
+        })
+    }
+
+    function ClearForm() {
+        $('#name').val('');
+        $('#email').val('');
+        $('#appointment_date').val('');
+        $('#appointment_time').val('');
+        $('#department').val('');
+        $('#message').val('');
+    }
+</script>
+
+
+
+
+
+
+
+
+
+@* <div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
 
     <div class="modal-dialog">
         <div class="modal-content">
@@ -73,64 +168,4 @@
             </div>
         </div>
     </div>
-</div>
-
-<script>
-
-    function BookAppointment() {
-        var oModel = {
-            Appointment: {
-                name: $('#name').val(),
-                email: $('#email').val(),
-                appointment_date: $('#appointment_date').val(),
-                appointment_time: $('#appointment_time').val(),
-                department: $('#department').val(),
-                description: $('#message').val(),
-            },
-            User: {
-                id: $('#id').val(),
-            }
-           
-        }
-
-        debugger;
-        // var formData = new FormData();
-        // for (var key in oModel) {
-        //     formData.append(key, oModel[key])
-        // }
-        // debugger;
-        $.ajax({
-            type: "POST",
-            url: "/PatientDashBoard/RequestedAppointment",
-            contentType: "application/json",
-            data: JSON.stringify(oModel),
-            dataType: 'json',
-            cache: false,
-            async: false,
-            success: function (data) {
-
-                Swal.fire({
-                    title: "Good job!",
-                    text: "Your appointment request has been sent we will contact you soon",
-                    icon: "success",
-                    button: "Ok",
-                });
-                $('#appointmentModal').modal('hide');
-            },
-            error: function (error) {
-                console.log("Error saving employee:", error);
-                Swal.fire("Oops", "An error occurred while saving your data, Please try again later.", "error");
-            }
-        })
-    }
-
-</script>
-
-
-
-
-
-
-
-
-
+</div> *@

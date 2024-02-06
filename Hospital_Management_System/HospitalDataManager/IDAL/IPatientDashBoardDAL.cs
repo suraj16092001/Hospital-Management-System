@@ -4,6 +4,6 @@ namespace Hospital_Management_System.HospitalDataManager.IDAL
 {
     public interface IPatientDashBoardDAL
     {
-        public RequestedCombinedViewModel RequestedAppointment(RequestedCombinedViewModel model);
+        public Requested_AppointmentModel RequestedAppointment(Requested_AppointmentModel model);
     }
 }

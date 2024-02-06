@@ -1,5 +1,199 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿
+<div class="modal fade" id="updatemodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <form id="updateform" enctype="multipart/form-data">
+
+                    <input hidden id="update_id" />
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="u_name" class="form-label">Name : </label>
+                                <input id="u_name" type="text" name="u_name" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="u_email" class="form-label">Email Id : </label>
+                                <input id="u_email" type="email" name="email" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="u_appointment_date" class="form-label">Appointment Date:</label>
+                                <input id="u_appointment_date" type="date" name="u_appointment_date" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="u_appointment_time" class="form-label">Appointment Time: </label>
+                                <input id="u_appointment_time" type="time" name="u_appointment_time" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="u_department" class="form-label">Department : </label>
+                                <input id="u_department" type="text" name="u_department" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="u_status" class="form-label">Status : </label>
+                                <select id="u_status" type="text" name="u_status" class="form-control">
+                                    <option value="Requested">Requested</option>
+                                    <option value="Booked Appointment">Booked Appointment</option>
+                                    <option value="Doctor Not Available">Doctor Not Available</option>
+                                    <option value="Cancelled Appointment">Cancelled Appointment</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" onclick="updateStatus()" class="btn btn-primary">Update changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="card w-100 shadow-sm">
+    <div class="card-body">
+        <table class="table table-striped" id="myTable" style="width:100% !important">
+            <thead class="table-dark">
+                <tr>
+                    <th>Req Id</th>
+                    <th>Name</th>
+                    <th>Appointment Date</th>
+                    <th>Appointment Time</th>
+                    <th>Department</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        get();
+    });
+
+    function get() {
+        debugger;
+        // Destroy the existing DataTable
+        if ($.fn.DataTable.isDataTable('#myTable')) {
+            $('#myTable').DataTable().destroy();
+        }
+
+        $.ajax({
+            type: "GET",
+            url: "/Requested_appointments/RequestedPatientList",
+            success: function (data) {
+                $('#myTable').DataTable({
+                    data: data,
+                    columns: [
+                        { data: 'id' },
+                        { data: 'name' },
+                        { data: 'appointment_date' },
+                        { data: 'appointment_time' },
+                        { data: 'department' },
+                        { data: 'status' },
+                        {
+                            data: null,
+                            render: function (data, type, row) {
+                                return `<button type="button" onclick="popupdatedata(` + row.id + `)" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square"></i></button>`;
+                            }
+                        }
+                    ]
+                });
+            },
+            error: function (textStatus, errorThrown) {
+                Success = false;
+            }
+        });
+    }
+
+    function popupdatedata(id) {
+        debugger;
+
+        $.ajax({
+            type: "GET",
+            url: "/Requested_appointments/GetRequested_Appointment/" + id,
+            success: function (data) {
+                $('#update_id').val(data.id);
+                $('#u_name').val(data.name);
+                $('#u_email').val(data.email);
+                var date = moment(data.appointment_date);
+                $('#u_appointment_date').val(date.format('YYYY-MM-DD'));
+                $('#u_appointment_time').val(data.appointment_time);
+                $('#u_department').val(data.department);
+                $('#u_status').val(data.status);
+            }
+        });
+    }
+
+    function updateStatus() {
+        debugger;
+
+        var updatedModel = {
+            id: $('#update_id').val(),
+            name: $('#u_name').val(),
+            email: $('#u_email').val(),
+            appointment_date: $('#u_appointment_date').val(),
+            appointment_time: $('#u_appointment_time').val(),
+            department: $('#u_department').val(),
+            status: $('#u_status').val(),
+        };
+        console.log(updatedModel);
+        debugger;
+
+        $.ajax({
+            type: "POST",
+            url: "/Requested_appointments/UpdateStatus",
+            data: JSON.stringify(updatedModel),
+            contentType: 'application/json',  // Set the content type to application/json
+            cache: false,
+            success: function (data) {
+                $('#updatemodal').modal('hide');
+                Swal.fire({
+                    title: "Good job!",
+                    text: "Appointment Book successfully!",
+                    icon: "success",
+                    button: "Ok",
+                });
+
+                // datatable.destroy();
+                get();
+            },
+            error: function () {
+                Swal.fire({
+                    title: "Error while booking appointment!",
+                    text: "close",
+                    icon: "error"
+                });
+            }
+        });
+
+    }
+
+</script>
