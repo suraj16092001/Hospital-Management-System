@@ -57,11 +57,11 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 oModel.id = item["id"].ConvertDBNullToInt();
                 oModel.name = item["name"].ConvertDBNullToString();
                 oModel.email = item["email"].ConvertDBNullToString();
+                oModel.department = item["department"].ConvertDBNullToString();
+                oModel.doctor_name = item["doctor_name"].ConvertDBNullToString();
                 oModel.appointment_date = item["appointment_date"].ConvertDBNullToString();
                 oModel.appointment_time = item["appointment_time"].ConvertDBNullToString();
-                oModel.department = item["department"].ConvertDBNullToString();
                 oModel.status = item["status"].ConvertDBNullToString();
-                oModel.doctor_name = item["doctor_name"].ConvertDBNullToString();
 
             }
             return oModel;
