@@ -139,7 +139,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             foreach (DataRow item in ds.Tables[0].Rows)
             {
                 UserModel oModel = new UserModel();
-
+                oModel.id = item["id"].ConvertDBNullToInt();
                 oModel.name = item["name"].ConvertDBNullToString();
 
                 DoctorList.Add(oModel);

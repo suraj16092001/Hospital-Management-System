@@ -16,6 +16,7 @@ namespace Hospital_Management_System.Models
         public string department { get; set;}
         public string status { get; set;}
         public string description { get; set;}
+        public string doctor_name { get; set; }
         public int patient_id { get; set;}
     }
 }

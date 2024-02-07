@@ -18,6 +18,7 @@ namespace Hospital_Management_System.Extension
             services.AddScoped<IAdminPageBAL,AdminPageBAL>();
             services.AddScoped<IPatientDashBoardBAL,PatientDashBoardBAL>();
             services.AddScoped<IRequested_appointmentsBAL, Requested_appointmentsBAL>();
+            services.AddScoped<IScheduled_AppointmentsBAL, Scheduled_AppointmentsBAL>();
 ;
             return services;
         }

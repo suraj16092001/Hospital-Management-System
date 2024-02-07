@@ -36,40 +36,23 @@
             <!-- Divider -->
             <li><hr class="sidebar-divider my-0"></li>
 
+            <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" asp-controller="AdminDashBoard" asp-action="AdminDashBoard">
+                <a class="nav-link" asp-controller="DoctorDashBoard" asp-action="DoctorDashBoard">
                     <i class="fa-solid fa-house"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="AdminPage" asp-action="AdminPage">
-                    <i class="fa-solid fa-user-tie"></i>
-                    <span>Admin</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="Admin_PatientPage" asp-action="Admin_Patient">
-                    <i class="fa-solid fa-user"></i>
-                    <span>Patient</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="Admin_DoctorPage" asp-action="Admin_Doctor">
-                    <i class="fa-solid fa-user-doctor"></i>
-                    <span>Doctor</span>
-                </a>
-            </li>
 
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="Requested_appointments" asp-action="Request_appointments">
-                    <i class="fa-solid fa-user-doctor"></i>
-                    <span>Requested Appointments</span>
+            <li class="nav-item active">
+                <a class="nav-link" asp-controller="Scheduled_Appointments" asp-action="Scheduled_Appointments">
+                    <i class="fa-regular fa-calendar-check"></i>
+                    <span>Scheduled Appointments</span>
                 </a>
             </li>
 
 
-            <!-- Nav Item - Dashboard -->
+
             @*    <!-- Nav Item - User -->
             <li class="nav-item">
             <a class="nav-link" asp-controller="User" asp-action="Index">
@@ -78,9 +61,39 @@
             </a>
             </li> *@
 
-            <!-- Nav Item - Admin -->
+            @*    <!-- Nav Item - Admin -->
+            <li class="nav-item">
+            <a class="nav-link" asp-controller="AdminPage" asp-action="AdminPage">
+            <i class="fa-solid fa-user-tie"></i>
+            <span>Admin</span>
+            </a>
+            </li>
+
             <!-- Nav Item - Patient -->
+            <li class="nav-item">
+            <a class="nav-link" asp-controller="Admin_PatientPage" asp-action="Admin_Patient">
+            <i class="fa-solid fa-user"></i>
+            <span>Patient</span>
+            </a>
+            </li>
+
             <!-- Nav Item - Doctor-->
+            <li class="nav-item">
+            <a class="nav-link" asp-controller="Admin_DoctorPage" asp-action="Admin_Doctor">
+            <i class="fa-solid fa-user-doctor"></i>
+            <span>Doctor</span>
+            </a>
+            </li>
+
+            <li class="nav-item">
+            <a class="nav-link" asp-controller="Requested_appointments" asp-action="Request_appointments">
+            <i class="fa-solid fa-user-doctor"></i>
+            <span>Requested Appointments</span>
+            </a>
+            </li> *@
+
+
+
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item d-none">
                 <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="true"

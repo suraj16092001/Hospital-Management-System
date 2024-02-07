@@ -61,6 +61,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 oModel.appointment_time = item["appointment_time"].ConvertDBNullToString();
                 oModel.department = item["department"].ConvertDBNullToString();
                 oModel.status = item["status"].ConvertDBNullToString();
+                oModel.doctor_name = item["doctor_name"].ConvertDBNullToString();
 
             }
             return oModel;

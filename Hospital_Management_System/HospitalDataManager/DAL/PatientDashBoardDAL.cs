@@ -24,6 +24,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             _dBManager.AddCMDParam("@p_department", model.department);
             _dBManager.AddCMDParam("@p_status", model.status);
             _dBManager.AddCMDParam("@p_description", model.description);
+            _dBManager.AddCMDParam("@p_doctor", model.doctor_name);
 
 
             _dBManager.ExecuteNonQuery();

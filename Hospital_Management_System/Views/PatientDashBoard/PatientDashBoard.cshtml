@@ -25,9 +25,9 @@
         <form action="">
 
             <h3>Request appointment</h3>
-            <input id="name" type="text" name="name" class="box" />
-            <input id="email" type="email" name="email" class="box" />
-            <select id="department" name="department" class="box">
+            <input id="name" type="text" name="name" class="box" placeholder="Enter Name.." />
+            <input id="email" type="email" name="email" class="box" placeholder="Enter Email.." />
+            <select id="department" name="department" class="box" onchange="FetchDoctors(this.value)">
                 <option value="">Select One...</option>
                 <option value="Dentist">Dentist</option>
                 <option value="Heart Specialist">Heart Specialist</option>
@@ -41,7 +41,10 @@
                 <option value="Skin Specialist">Skin Specialist</option>
                 <option value="Emergency Department">Emergency Department</option>
             </select>
-
+            
+            <select id="doctor" name="doctor" class="box">
+                <option value="">Loading Available Doctors...</option>
+            </select>
             <input id="appointment_time" type="time" name="appointment_time" class="box" />
             <input id="appointment_date" type="date" name="appointment_date" class="box datepicker" />
             <textarea class="box" id="message" placeholder="Write a message...." rows="3"></textarea>
@@ -52,6 +55,28 @@
 
 <script>
 
+    function FetchDoctors(department) {
+        debugger;
+        $.ajax({
+            url: '/Admin_PatientPage/GetDoctors',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ specialist: department }),
+            success: function (data) {
+                var dropdown = $('#doctor');
+                dropdown.empty();
+
+                $.each(data, function (i, doctor) {
+                    dropdown.append($('<option></option>').text(doctor.name));
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+
+
     function BookAppointment() {
         var oModel = {
                 name: $('#name').val(),
@@ -60,6 +85,7 @@
                 appointment_time: $('#appointment_time').val(),
                 department: $('#department').val(),
                 description: $('#message').val(),
+                doctor_name: $('#doctor').val(),
         }
 
         debugger;
@@ -97,6 +123,7 @@
         $('#appointment_time').val('');
         $('#department').val('');
         $('#message').val('');
+        $('#doctor').val('');
     }
 </script>
 

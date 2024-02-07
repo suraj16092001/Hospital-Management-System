@@ -1,4 +1,9 @@
-﻿
+﻿@{
+
+    Layout = "_DoctorLayout";
+}
+
+
 <div class="modal fade" id="updatemodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
     <div class="modal-dialog">
@@ -17,7 +22,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="u_name" class="form-label">Name : </label>
+                                <label for="u_name" class="form-label">PName : </label>
                                 <input id="u_name" type="text" name="u_name" class="form-control" />
                             </div>
                         </div>
@@ -44,29 +49,27 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                   @*  <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="u_department" class="form-label">Department : </label>
                                 <input id="u_department" type="text" name="u_department" class="form-control" />
                             </div>
                         </div>
+
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="u_doctor" class="form-label">Doctor Name : </label>
-                                <input id="u_doctor" type="text" name="u_doctor" class="form-control" />
+                                <label for="u_status" class="form-label">Status : </label>
+                                <select id="u_status" type="text" name="u_status" class="form-control">
+                                    <option value="Requested">Requested</option>
+                                    <option value="Booked Appointment">Booked Appointment</option>
+                                    <option value="Doctor Not Available">Doctor Not Available</option>
+                                    <option value="Cancelled Appointment">Cancelled Appointment</option>
+                                </select>
                             </div>
                         </div>
-                    </div>
-                        <div class="mb-3">
-                            <label for="u_status" class="form-label">Status : </label>
-                            <select id="u_status" type="text" name="u_status" class="form-control">
-                                <option value="Requested">Requested</option>
-                                <option value="Booked Appointment">Booked Appointment</option>
-                                <option value="Doctor Not Available">Doctor Not Available</option>
-                                <option value="Cancelled Appointment">Cancelled Appointment</option>
-                            </select>
-                        </div>
+                    </div> *@
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" onclick="updateStatus()" class="btn btn-primary">Update changes</button>
@@ -77,25 +80,24 @@
     </div>
 </div>
 
-
 <div class="card w-100 shadow-sm">
     <div class="card-body">
         <table class="table table-striped" id="myTable" style="width:100% !important">
             <thead class="table-dark">
                 <tr>
-                    <th>Req Id</th>
-                    <th>Name</th>
+                    <th>Scheduled_Id</th>
+                    <th>Patient_Name</th>
                     <th>Appointment Date</th>
                     <th>Appointment Time</th>
-                    <th>Department</th>
-                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
         </table>
     </div>
 </div>
+
 <script>
+
     $(document).ready(function () {
         get();
     });
@@ -109,7 +111,7 @@
 
         $.ajax({
             type: "GET",
-            url: "/Requested_appointments/RequestedPatientList",
+            url: "/Scheduled_Appointments/ScheduledPatientList",
             success: function (data) {
                 $('#myTable').DataTable({
                     data: data,
@@ -134,8 +136,6 @@
                         },
 
                         { data: 'appointment_time' },
-                        { data: 'department' },
-                        { data: 'status' },
                         {
                             data: null,
                             render: function (data, type, row) {
@@ -151,78 +151,5 @@
         });
     }
 
-
-    function popupdatedata(id) {
-        debugger;
-
-        $.ajax({
-            type: "GET",
-            url: "/Requested_appointments/GetRequested_Appointment/" + id,
-            success: function (data) {
-                $('#update_id').val(data.id);
-                $('#u_name').val(data.name);
-                $('#u_email').val(data.email);
-                // var date = moment(data.appointment_date);
-                // $('#u_appointment_date').val(date.format('YYYY-MM-DD'));
-                var date = moment(data.appointment_date, 'M/D/YYYY h:mm:ss A');
-
-                // Ensure that date is valid before formatting
-                if (date.isValid()) {
-                    $('#u_appointment_date').val(date.format('YYYY-MM-DD'));
-                } else {
-                    // Handle invalid date
-                    console.error("Invalid date format:", data.appointment_date);
-                }
-                $('#u_appointment_time').val(data.appointment_time);
-                $('#u_department').val(data.department);
-                $('#u_status').val(data.status);
-                $('#u_doctor').val(data.doctor_name);
-            }
-        });
-    }
-
-    function updateStatus() {
-        debugger;
-
-        var updatedModel = {
-            id: $('#update_id').val(),
-            name: $('#u_name').val(),
-            email: $('#u_email').val(),
-            appointment_date: $('#u_appointment_date').val(),
-            appointment_time: $('#u_appointment_time').val(),
-            department: $('#u_department').val(),
-            status: $('#u_status').val(),
-        };
-        console.log(updatedModel);
-        debugger;
-
-        $.ajax({
-            type: "POST",
-            url: "/Requested_appointments/UpdateStatus",
-            data: JSON.stringify(updatedModel),
-            contentType: 'application/json',  // Set the content type to application/json
-            cache: false,
-            success: function (data) {
-                $('#updatemodal').modal('hide');
-                Swal.fire({
-                    title: "Good job!",
-                    text: "Appointment Book successfully!",
-                    icon: "success",
-                    button: "Ok",
-                });
-
-                // datatable.destroy();
-                get();
-            },
-            error: function () {
-                Swal.fire({
-                    title: "Error while booking appointment!",
-                    text: "close",
-                    icon: "error"
-                });
-            }
-        });
-
-    }
 
 </script>

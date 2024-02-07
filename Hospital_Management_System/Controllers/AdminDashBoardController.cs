@@ -8,7 +8,8 @@ namespace Hospital_Management_System.Controllers
         //[Authorize(Roles ="Admin")]
         public IActionResult AdminDashBoard()
         {
-           return View();
+            Console.WriteLine(HttpContext.Session.GetInt32("id"));
+            return View();
         }
 
      
