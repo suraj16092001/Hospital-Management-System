@@ -25,7 +25,7 @@
 
             <div class="modal-body">
 
-                <form enctype="multipart/form-data">
+                <form id="AddDoctor" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -328,6 +328,12 @@
     </div>
 </div>
 
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
 <script>
 
     $(document).ready(function () {
@@ -395,53 +401,55 @@
 
     function AddDoctor() {
         debugger;
-        var oModel = {
-            User: {
-                name: $('#name').val(),
-                email: $('#email').val(),
-                password: $('#password').val(),
-            },
-            admin_Doctor: {
-                qualification: $('#qualification').val(),
-                specialist: $('#specialist').val(),
-                gender: $('#gender').val(),
-                phone: $('#phone').val(),
-                DateOfBirth: $('#DateOfBirth').val(),
-                address: $('#address').val(),
-                imagePath: $('#imageFile').val(),
+        if ($("#AddDoctor").valid()) {
+            var oModel = {
+                User: {
+                    name: $('#name').val(),
+                    email: $('#email').val(),
+                    password: $('#password').val(),
+                },
+                admin_Doctor: {
+                    qualification: $('#qualification').val(),
+                    specialist: $('#specialist').val(),
+                    gender: $('#gender').val(),
+                    phone: $('#phone').val(),
+                    DateOfBirth: $('#DateOfBirth').val(),
+                    address: $('#address').val(),
+                    imagePath: $('#imageFile').val(),
+                }
+
             }
-        
+
+            debugger;
+            console.log(oModel);
+            debugger;
+            $.ajax({
+                type: "POST",
+                url: "/Admin_DoctorPage/AddDoctor",
+                contentType: "application/json",
+                data: JSON.stringify(oModel),
+                dataType: 'json',
+                cache: false,
+                async: false,
+                success: function (data) {
+
+                    if (data.status === "success") {
+                        alert(data.message);
+                    }
+                    else if (data.status === "warning") {
+                        alert(data.message);
+                    }
+
+                    ClearForm();
+                    $('#AddDoctorModal').modal('hide');
+                    get();
+                },
+                error: function (error) {
+                    console.log("Error saving Doctor:", error);
+                    Swal.fire("Oops", "An error occurred while saving your data, Please try again later.", "error");
+                }
+            })
         }
-
-        debugger;
-        console.log(oModel);
-        debugger;
-        $.ajax({
-            type: "POST",
-            url: "/Admin_DoctorPage/AddDoctor",
-            contentType: "application/json",
-            data: JSON.stringify(oModel),
-            dataType: 'json',
-            cache: false,
-            async: false,
-            success: function (data) {
-
-                debugger;
-                Swal.fire({
-                    title: "Good job!",
-                    text: "Doctor saved successfully!",
-                    icon: "success",
-                    button: "Ok",
-                });
-                ClearForm();
-                $('#AddDoctorModal').modal('hide');
-                get();
-            },
-            error: function (error) {
-                console.log("Error saving Doctor:", error);
-                Swal.fire("Oops", "An error occurred while saving your data, Please try again later.", "error");
-            }
-        })
     }
 
     function DeleteDoctor(id) {

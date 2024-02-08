@@ -13,9 +13,10 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
             _IScheduled_AppointmentsDAL = new Scheduled_AppointmentsDAL(dBManager);
         }
 
-        public List<Requested_AppointmentModel> ScheduledPatientList()
+        public List<Requested_AppointmentModel> ScheduledPatientList(Requested_AppointmentModel model)
         {
-            return _IScheduled_AppointmentsDAL.ScheduledPatientList();
+            return _IScheduled_AppointmentsDAL.ScheduledPatientList(model);
         }
+
     }
 }

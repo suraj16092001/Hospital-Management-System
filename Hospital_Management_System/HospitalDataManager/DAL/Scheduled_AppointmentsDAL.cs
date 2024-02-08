@@ -15,13 +15,13 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             _dBManager = dBManager;
         }
 
-        public List<Requested_AppointmentModel> ScheduledPatientList()
+        public List<Requested_AppointmentModel> ScheduledPatientList(Requested_AppointmentModel model)
         {
             List<Requested_AppointmentModel> ScheduledPatientList = new List<Requested_AppointmentModel>();
-            _dBManager.InitDbCommand("GetRequestedPatientList");
-
+            _dBManager.InitDbCommand("Scheduled_appointmentByID");
+            _dBManager.AddCMDParam("p_Doctor_id", model.doctor_name);
             DataSet ds = _dBManager.ExecuteDataSet();
-
+            
             foreach (DataRow item in ds.Tables[0].Rows)
             {
                 Requested_AppointmentModel oModel = new Requested_AppointmentModel();
@@ -34,7 +34,6 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 oModel.department = item["department"].ConvertDBNullToString();
                 oModel.status = item["status"].ConvertDBNullToString();
                 oModel.patient_id = item["patient_id"].ConvertDBNullToInt();
-                oModel.doctor_name = item["doctor_name"].ConvertDBNullToString();
 
                 ScheduledPatientList.Add(oModel);
             }

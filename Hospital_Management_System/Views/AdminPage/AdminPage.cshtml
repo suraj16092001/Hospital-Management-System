@@ -16,7 +16,7 @@
 
             <div class="modal-body">
 
-                <form>
+                <form id="AddAdmin">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -289,7 +289,7 @@
         });
     }
 
-     function ClearForm() {
+    function ClearForm() {
 
         $('#name').val('');
         $('#email').val('');
@@ -299,63 +299,64 @@
         $('#address').val('');
         $('#gender').val('');
 
-    } 
+    }
 
     function AddAdmin() {
 
-
-        var oModel = {
-            User: {
-                name: $('#name').val(),
-                email: $('#email').val(),
-                password: $('#password').val(),
-            },
-            AdminPage: {
-                phone: $('#phone').val(),
-                DateOfBirth: $('#DOB').val(),
-                gender: $('#gender').val(),
-                address: $('#address').val(),
+        if ($("#AddAdmin").valid()) {
+            var oModel = {
+                User: {
+                    name: $('#name').val(),
+                    email: $('#email').val(),
+                    password: $('#password').val(),
+                },
+                AdminPage: {
+                    phone: $('#phone').val(),
+                    DateOfBirth: $('#DOB').val(),
+                    gender: $('#gender').val(),
+                    address: $('#address').val(),
+                }
             }
+            debugger;
+            debugger;
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, add it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/AdminPage/AddAdmin",
+                        contentType: "application/json",
+                        data: JSON.stringify(oModel),
+                        dataType: 'json',
+                        cache: false,
+                        async: false,
+                        success: function (data) {
+                            ClearForm();
+                            Swal.fire({
+                                title: "Good job!",
+                                text: "Admin saved successfully!",
+                                icon: "success",
+                                button: "Ok",
+                            });
+                            $('#AdminModal').modal('hide');
+                            get();
+                            ClearForm();
+                        },
+                        error: function (error) {
+                            console.log("Error saving User:", error);
+                            Swal.fire("Oops", "An error occurred while saving your data, Please try again later.", "error");
+                        }
+                    });
+                }
+            });
         }
-        debugger;
-        debugger;
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, add it!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    type: "POST",
-                    url: "/AdminPage/AddAdmin",
-                    contentType: "application/json",
-                    data: JSON.stringify(oModel),
-                    dataType: 'json',
-                    cache: false,
-                    async: false,
-                    success: function (data) {
-                        ClearForm();
-                        Swal.fire({
-                            title: "Good job!",
-                            text: "Admin saved successfully!",
-                            icon: "success",
-                            button: "Ok",
-                        });
-                        $('#AdminModal').modal('hide');
-                        get();
-                        ClearForm();
-                    },
-                    error: function (error) {
-                        console.log("Error saving User:", error);
-                        Swal.fire("Oops", "An error occurred while saving your data, Please try again later.", "error");
-                    }
-                });
-            }
-        });
     }
 
     function DeleteAdmin(id) {
@@ -495,7 +496,7 @@
         });
     }
 
-   
+
 
 
 </script>

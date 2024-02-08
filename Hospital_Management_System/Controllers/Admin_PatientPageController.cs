@@ -12,6 +12,7 @@ using System.Data;
 using System.Globalization;
 using System.Text.Json;
 using System.Collections.Generic;
+using MySqlX.XDevAPI.Common;
 
 namespace Hospital_Management_System.Controllers
 {
@@ -49,8 +50,13 @@ namespace Hospital_Management_System.Controllers
         [HttpPost]
         public IActionResult AddPatientDetails([FromBody] PatientAllDataViewModel oModel)
         {
-            _IAdmin_PatientPageBAL.AddPatient(oModel);
-            return Json("PatientList");
+            var result = _IAdmin_PatientPageBAL.AddPatient(oModel);
+
+            if (result == "exists")
+            {
+                return Json(new { status = "warning", message = "Email Id Already Exists!" });
+            }
+            return Json(new { status = "success", message = "Patient add successfully!" });
         }
 
         public IActionResult DeletePatient(int id)

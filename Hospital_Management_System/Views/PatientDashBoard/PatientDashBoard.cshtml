@@ -65,16 +65,20 @@
             success: function (data) {
                 var dropdown = $('#doctor');
                 dropdown.empty();
-
-                $.each(data, function (i, doctor) {
-                    dropdown.append($('<option></option>').text(doctor.name));
-                });
+                if (data) {
+                    $.each(data, function (i, doctor) {
+                        if (doctor && doctor.name && doctor.id) {
+                            dropdown.append($('<option></option>').text(doctor.name).val(doctor.id));
+                        }
+                    });
+                }
             },
             error: function (xhr, status, error) {
                 console.error(xhr.responseText);
             }
         });
     }
+
 
 
     function BookAppointment() {

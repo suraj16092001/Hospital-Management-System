@@ -9,9 +9,11 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
     public class AdminPageBAL:IAdminPageBAL
     {
         IAdminPageDAL _IAdminPageDAL;
+        ILoginDAL _ILoginDAL;
         public AdminPageBAL(IDBManager dBManager)
         {
             _IAdminPageDAL = new AdminPageDAL(dBManager);
+            _ILoginDAL = new LoginDAL(dBManager);
         }
 
         List<AdminAllDataViewModel> IAdminPageBAL.GetAdminList()
@@ -19,10 +21,17 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
             return _IAdminPageDAL.GetAdminList();
         }
 
-        public AdminAllDataViewModel AddAdmin(AdminAllDataViewModel model)
+        public string AddAdmin(AdminAllDataViewModel model)
         {
-			model.User.role = 1;
-			return _IAdminPageDAL.AddAdmin(model);
+            bool emailExists = _ILoginDAL.CheckEmailExistence(model.User.email);
+
+            if (emailExists)
+            {
+                return "exists";
+            }
+            model.User.role = 1;
+            _IAdminPageDAL.AddAdmin(model);
+            return "success";
         }
 
         public void DeleteAdmin(int id)

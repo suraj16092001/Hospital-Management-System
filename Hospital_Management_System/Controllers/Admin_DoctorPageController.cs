@@ -31,8 +31,14 @@ namespace Hospital_Management_System.Controllers
         [HttpPost]
         public IActionResult AddDoctor([FromBody] DoctorAllDataViewModel model,IFormFile file)
         {
-            _IAdmin_DoctorPageBAL.AddDoctor(model, file);
-            return Json("DoctorList");
+                var result = _IAdmin_DoctorPageBAL.AddDoctor(model, file);
+
+                if (result == "exists")
+                {
+                    return Json(new { status = "warning", message = "Email Id Already Exists!" });
+                }
+                return Json(new { status = "success", message = "Doctor add successfully!" });
+            
         }
 
         public IActionResult DeleteDoctor(int id)

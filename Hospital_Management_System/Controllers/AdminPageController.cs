@@ -4,6 +4,7 @@ using Hospital_Management_System.HospitalDataManager.DAL;
 using Hospital_Management_System.HospitalDataManager.IDAL;
 using Hospital_Management_System.Models;
 using Microsoft.AspNetCore.Mvc;
+using MySqlX.XDevAPI.Common;
 using Newtonsoft.Json;
 
 namespace Hospital_Management_System.Controllers
@@ -33,8 +34,13 @@ namespace Hospital_Management_System.Controllers
         [HttpPost]
         public IActionResult AddAdmin([FromBody] AdminAllDataViewModel oModel)
         {
-            _IAdminPageBAL.AddAdmin(oModel);
-            return Json("AdminList");
+            var result = _IAdminPageBAL.AddAdmin(oModel);
+            if (result == "exists")
+            {
+                return Json(new { status = "warning", message = "Email Id Already Exists!" });
+            }
+            return Json(new { status = "success", message = "Admin add successfully!" });
+      
         }
 
         public IActionResult DeleteAdmin(int id)

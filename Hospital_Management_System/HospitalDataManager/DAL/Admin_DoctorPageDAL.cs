@@ -49,6 +49,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
 
         public DoctorAllDataViewModel AddDoctor(DoctorAllDataViewModel model)
         {
+            model.User.password = model.User.password + _dBManager.GetSalt();
             try
             {
                 _dBManager.InitDbCommand("InsertDoctorData");

@@ -44,6 +44,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
 
         public AdminAllDataViewModel AddAdmin(AdminAllDataViewModel admin)
         {
+            admin.User.password = admin.User.password + _dBManager.GetSalt();
             _dBManager.InitDbCommand("InsertAdminData");
             _dBManager.AddCMDParam("@p_name", admin.User.name);
             _dBManager.AddCMDParam("@p_email", admin.User.email);

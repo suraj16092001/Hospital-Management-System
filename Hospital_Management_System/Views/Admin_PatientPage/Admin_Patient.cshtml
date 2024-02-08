@@ -21,7 +21,7 @@
 
             <div class="modal-body">
 
-                <form method="post">
+                <form id="AddPatient" method="post">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -423,43 +423,45 @@
 
 
     function AddPatient() {
-        var oModel = {
-            User: {
-                name: $('#name').val(),
-                email: $('#email').val(),
-                password: $('#password').val(),
-            },
-            Admin_PatientPage: {
-                phone: $('#phone').val(),
-                DateOfBirth: $('#DOB').val(),
-                address: $('#address').val(),
-                gender: $('#gender').val(),
+        if ($("#AddPatient").valid()) {
+            var oModel = {
+                User: {
+                    name: $('#name').val(),
+                    email: $('#email').val(),
+                    password: $('#password').val(),
+                },
+                Admin_PatientPage: {
+                    phone: $('#phone').val(),
+                    DateOfBirth: $('#DOB').val(),
+                    address: $('#address').val(),
+                    gender: $('#gender').val(),
+                }
             }
-        }
 
-        $.ajax({
-            type: "POST",
-            url: "/Admin_PatientPage/AddPatientDetails",
-            contentType: "application/json",
-            data: JSON.stringify(oModel),
-            dataType: 'json',
-            cache: false,
-            async: false,
-            success: function (data) {
-                Swal.fire({
-                    title: "Good job!",
-                    text: "Patient saved successfully!",
-                    icon: "success",
-                    button: "Ok",
-                });
-                $('#exampleModal').modal('hide');
-                get();
-            },
-            error: function (error) {
-                console.log("Error saving employee:", error);
-                Swal.fire("Oops", "An error occurred while saving your data, Please try again later.", "error");
-            }
-        });
+            $.ajax({
+                type: "POST",
+                url: "/Admin_PatientPage/AddPatientDetails",
+                contentType: "application/json",
+                data: JSON.stringify(oModel),
+                dataType: 'json',
+                cache: false,
+                async: false,
+                success: function (data) {
+                    if (data.status === "success") {
+                        alert(data.message);
+                    }
+                    else if (data.status === "warning") {
+                        alert(data.message);
+                    }
+                    $('#exampleModal').modal('hide');
+                    get();
+                },
+                error: function (error) {
+                    console.log("Error saving employee:", error);
+                    Swal.fire("Oops", "An error occurred while saving your data, Please try again later.", "error");
+                }
+            });
+        }
     }
 
     function DeletePatient(id) {

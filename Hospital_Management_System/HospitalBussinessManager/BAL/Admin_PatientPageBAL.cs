@@ -23,10 +23,17 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
             return _IAdmin_PatientPageDAL.GetPatientList();
         }
 
-        public PatientAllDataViewModel AddPatient(PatientAllDataViewModel oModel)
+        public string AddPatient(PatientAllDataViewModel oModel)
         {
+            bool emailExists = _ILoginDAL.CheckEmailExistence(oModel.User.email);
+
+            if (emailExists)
+            {
+                return "exists";
+            }
             oModel.User.role = 2;
-            return _IAdmin_PatientPageDAL.AddPatient(oModel);
+            _IAdmin_PatientPageDAL.AddPatient(oModel);
+            return "success";
         }
 
         public PatientAllDataViewModel GetPatientByID(int id)

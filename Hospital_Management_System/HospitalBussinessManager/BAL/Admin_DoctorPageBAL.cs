@@ -10,11 +10,12 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
     public class Admin_DoctorPageBAL: IAdmin_DoctorPageBAL
     {
         IAdmin_DoctorPageDAL _IAdmin_DoctorPageDAL;
+        ILoginDAL _ILoginDAL;
         public Admin_DoctorPageBAL(IDBManager dBManager)
         {
 
             _IAdmin_DoctorPageDAL = new Admin_DoctorPageDAL(dBManager) ;
-
+            _ILoginDAL =new LoginDAL(dBManager) ;
         }
 
         public List<DoctorAllDataViewModel> GetDoctorList()
@@ -22,12 +23,19 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
            return _IAdmin_DoctorPageDAL.GetDoctorList(); 
         }
 
-        public DoctorAllDataViewModel AddDoctor(DoctorAllDataViewModel model, IFormFile file)
+        public string AddDoctor(DoctorAllDataViewModel model, IFormFile file)
         {
+            bool emailExists = _ILoginDAL.CheckEmailExistence(model.User.email);
+
+            if (emailExists)
+            {
+                return "exists";
+            }
             model.admin_Doctor.imageFile = file;
             model.admin_Doctor.imagePath = UploadImage(model.admin_Doctor.imageFile);
             model.User.role = 3;
-            return _IAdmin_DoctorPageDAL.AddDoctor(model);
+            _IAdmin_DoctorPageDAL.AddDoctor(model);
+            return "success";
         }
 
         public string UploadImage(IFormFile imageFile)

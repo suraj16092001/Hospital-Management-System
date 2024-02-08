@@ -1,6 +1,8 @@
 ﻿using Hospital_Management_System.HospitalBussinessManager.BAL;
 using Hospital_Management_System.HospitalBussinessManager.IBAL;
+using Hospital_Management_System.Models;
 using Microsoft.AspNetCore.Mvc;
+using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 namespace Hospital_Management_System.Controllers
 {
@@ -15,11 +17,16 @@ namespace Hospital_Management_System.Controllers
         }
         public IActionResult Scheduled_Appointments()
         {
+
             return View();
         }
-        public IActionResult ScheduledPatientList()
+        public IActionResult ScheduledPatientList(Requested_AppointmentModel model)
         {
-            return Json(_IScheduled_AppointmentsBAL.ScheduledPatientList());
+            int? test = HttpContext.Session.GetInt32("id");
+            model.doctor_name = test.Value;
+            return Json(_IScheduled_AppointmentsBAL.ScheduledPatientList(model));
         }
+
+
     }
 }
