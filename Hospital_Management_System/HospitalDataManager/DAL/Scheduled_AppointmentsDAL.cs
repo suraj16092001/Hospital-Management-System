@@ -19,7 +19,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
         {
             List<Requested_AppointmentModel> ScheduledPatientList = new List<Requested_AppointmentModel>();
             _dBManager.InitDbCommand("Scheduled_appointmentByID");
-            _dBManager.AddCMDParam("p_Doctor_id", model.doctor_name);
+            _dBManager.AddCMDParam("p_Doctor_id", model.doctor_id);
             DataSet ds = _dBManager.ExecuteDataSet();
             
             foreach (DataRow item in ds.Tables[0].Rows)
@@ -32,7 +32,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 oModel.appointment_time = item["appointment_time"].ConvertDBNullToString();
                 oModel.description = item["description"].ConvertDBNullToString();
                 oModel.department = item["department"].ConvertDBNullToString();
-                oModel.status = item["status"].ConvertDBNullToString();
+                oModel.status_id = item["status_id"].ConvertDBNullToInt();
                 oModel.patient_id = item["patient_id"].ConvertDBNullToInt();
 
                 ScheduledPatientList.Add(oModel);

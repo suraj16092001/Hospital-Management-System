@@ -23,7 +23,7 @@ namespace Hospital_Management_System.Controllers
         public IActionResult ScheduledPatientList(Requested_AppointmentModel model)
         {
             int? test = HttpContext.Session.GetInt32("id");
-            model.doctor_name = test.Value;
+            model.doctor_id = test.Value;
             return Json(_IScheduled_AppointmentsBAL.ScheduledPatientList(model));
         }
 

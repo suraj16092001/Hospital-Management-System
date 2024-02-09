@@ -34,5 +34,11 @@ namespace Hospital_Management_System.Controllers
             _IRequested_appointmentsBAL.UpdateStatus(oModel);
             return Json("Status");
         }
+
+        public IActionResult GetStatus()
+        {
+            List<Appointment_StatusModel> doctors = _IRequested_appointmentsBAL.GetStatus();
+            return Json(doctors);
+        }
     }
 }

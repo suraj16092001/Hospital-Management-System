@@ -7,5 +7,6 @@ namespace Hospital_Management_System.HospitalDataManager.IDAL
         List<Requested_AppointmentModel> RequestedPatientList();
         public Requested_AppointmentModel GetRequested_Appointment(int id);
         public Requested_AppointmentModel UpdateStatus(Requested_AppointmentModel model);
+        public List<Appointment_StatusModel> GetStatus();
     }
 }

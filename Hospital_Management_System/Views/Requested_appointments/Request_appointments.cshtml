@@ -58,15 +58,11 @@
                             </div>
                         </div>
                     </div>
-                        <div class="mb-3">
-                            <label for="u_status" class="form-label">Status : </label>
-                            <select id="u_status" type="text" name="u_status" class="form-control">
-                                <option value="Requested">Requested</option>
-                                <option value="Booked Appointment">Booked Appointment</option>
-                                <option value="Doctor Not Available">Doctor Not Available</option>
-                                <option value="Cancelled Appointment">Cancelled Appointment</option>
-                            </select>
-                        </div>
+                    <div class="mb-3">
+                        <label for="u_status_id" class="form-label">Status Id: </label>
+                        <select id="u_status_id" type="text" name="u_status_id" class="form-control"></select>
+
+                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" onclick="updateStatus()" class="btn btn-primary">Update changes</button>
@@ -98,6 +94,7 @@
 <script>
     $(document).ready(function () {
         get();
+        GetStatus();
     });
 
     function get() {
@@ -135,7 +132,7 @@
 
                         { data: 'appointment_time' },
                         { data: 'department' },
-                        { data: 'status' },
+                        { data: 'statusModel.Status' },
                         {
                             data: null,
                             render: function (data, type, row) {
@@ -151,6 +148,28 @@
         });
     }
 
+
+    function GetStatus() {
+        $.ajax({
+            url: '/Requested_appointments/GetStatus',
+            type: 'GET',
+            dataType: 'json', // assuming your server returns JSON
+            success: function (data) {
+                var dropdown = $('#u_status_id');
+                dropdown.empty();
+                if (data) {
+                    $.each(data, function (i, doctor) {
+                        if (doctor && doctor.Status && doctor.Status_id) {
+                            dropdown.append($('<option></option>').text(doctor.Status).val(doctor.Status_id));
+                        }
+                    });
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+        });
+    }
 
     function popupdatedata(id) {
         debugger;
@@ -175,8 +194,10 @@
                 }
                 $('#u_appointment_time').val(data.appointment_time);
                 $('#u_department').val(data.department);
-                $('#u_status').val(data.status);
-                $('#u_doctor').val(data.doctor_name);
+                $('#u_status_id').val(data.status_id);
+                $('#u_doctor').val(data.User.name);
+
+                console.log(data);
             }
         });
     }
@@ -191,7 +212,7 @@
             appointment_date: $('#u_appointment_date').val(),
             appointment_time: $('#u_appointment_time').val(),
             department: $('#u_department').val(),
-            status: $('#u_status').val(),
+            status_id: $('#u_status_id').val(),
         };
         console.log(updatedModel);
         debugger;

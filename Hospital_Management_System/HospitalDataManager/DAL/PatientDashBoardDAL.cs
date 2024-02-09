@@ -22,10 +22,9 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             _dBManager.AddCMDParam("@p_appointment_date", model.appointment_date);
             _dBManager.AddCMDParam("@p_appointment_time", model.appointment_time);
             _dBManager.AddCMDParam("@p_department", model.department);
-            _dBManager.AddCMDParam("@p_status", model.status);
+            _dBManager.AddCMDParam("@p_status_id", model.status_id);
             _dBManager.AddCMDParam("@p_description", model.description);
-            _dBManager.AddCMDParam("@p_doctor", model.doctor_name);
-
+            _dBManager.AddCMDParam("@p_doctor", model.doctor_id);
 
             _dBManager.ExecuteNonQuery();
             return model;

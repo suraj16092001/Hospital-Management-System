@@ -16,7 +16,7 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
 
         public Requested_AppointmentModel RequestedAppointment(Requested_AppointmentModel model)
         {
-            model.status = "Requested";
+            model.status_id = 1;
             return _IPatientDashBoardDAL.RequestedAppointment(model);
         }
     }

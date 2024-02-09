@@ -14,9 +14,13 @@ namespace Hospital_Management_System.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:hh:mm:ss A}")]
         public string appointment_time { get; set;}
         public string department { get; set;}
-        public string status { get; set;}
+        public int status_id { get; set;}
         public string description { get; set;}
-        public int doctor_name { get; set; }
+        public int doctor_id { get; set; }
         public int patient_id { get; set;}
+
+        public Appointment_StatusModel statusModel { get; set;}
+
+       public UserModel User { get; set;}
     }
 }

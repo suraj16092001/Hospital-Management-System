@@ -28,5 +28,9 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
             return _IRequested_appointmentsDAL.UpdateStatus(model);
         }
 
+        public List<Appointment_StatusModel> GetStatus()
+        {
+            return _IRequested_appointmentsDAL.GetStatus();
+        }
     }
 }
