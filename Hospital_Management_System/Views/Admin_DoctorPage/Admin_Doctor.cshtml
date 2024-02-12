@@ -313,8 +313,8 @@
 
 <div class="card w-100 shadow-sm">
     <div class="card-body">
-        <table class="table table-striped" id="DrTable" style="width:100% !important">
-            <thead class="table-dark">
+        <table class="table table-bordered" id="DrTable" style="width:100% !important">
+            <thead>
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
@@ -543,6 +543,7 @@
                     icon: "success",
                     button: "Ok",
                 });
+                get();
             },
             error: function () {
                 Swal.fire({

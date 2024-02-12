@@ -6,5 +6,6 @@ namespace Hospital_Management_System.HospitalBussinessManager.IBAL
     public interface IScheduled_AppointmentsBAL
     {
         public List<Requested_AppointmentModel> ScheduledPatientList(Requested_AppointmentModel model);
+        public Requested_AppointmentModel GetScheduledAppointments(int id);
     }
 }

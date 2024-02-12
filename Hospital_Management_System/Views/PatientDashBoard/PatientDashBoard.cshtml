@@ -46,6 +46,10 @@
                 <option value="">Loading Available Doctors...</option>
             </select>
             <input id="appointment_time" type="time" name="appointment_time" class="box" />
+            @* <select id="appointment_time" name="appointment_time" class="box" size="5" style="overflow-y: scroll;">
+                <!-- Options will be dynamically populated here -->
+            </select> *@
+
             <input id="appointment_date" type="date" name="appointment_date" class="box datepicker" />
             <textarea class="box" id="message" placeholder="Write a message...." rows="3"></textarea>
             <button type="button" onclick="BookAppointment()" class="btn btn-primary text-white">Request Appointment</button>
@@ -54,7 +58,46 @@
 </section>
 
 <script>
+    // // Get reference to the select element
+    // var selectElement = document.getElementById("appointment_time");
 
+    // // Function to add options with 15-minute intervals from 9:00 AM to 7:00 PM
+    // function populateTimeIntervals() {
+    //     var startTime = 9 * 60; // Start time in minutes (9:00 AM)
+    //     var endTime = 19 * 60; // End time in minutes (7:00 PM)
+    //     var interval = 15; // Interval in minutes
+
+    //     var selectElement = document.getElementById("appointment_time");
+    //     selectElement.size = 5; // Set the size of the select element to 5 to display 5 options initially
+
+    //     for (var i = startTime; i <= endTime; i += interval) {
+    //         var hours = Math.floor(i / 60);
+    //         var minutes = i % 60;
+    //         var ampm = hours >= 12 ? 'PM' : 'AM';
+    //         hours = hours % 12;
+    //         hours = hours ? hours : 12; // Convert 0 to 12
+    //         minutes = minutes < 10 ? '0' + minutes : minutes; // Add leading zero to minutes
+    //         var timeString = hours + ':' + minutes + ' ' + ampm;
+
+    //         var option = document.createElement("option");
+    //         option.text = timeString;
+    //         option.value = timeString;
+    //         selectElement.add(option);
+
+    //         // After adding the first 5 options, remove the size attribute to allow scrolling
+    //         if (i === (startTime + (interval * 4))) {
+    //             selectElement.removeAttribute("size");
+    //         }
+    //     }
+    // }
+
+
+    // // Call the function to populate time intervals when the page loads
+    // window.onload = function () {
+    //     populateTimeIntervals();
+    // };
+
+    // retrive doctors list of specific department/ specialization
     function FetchDoctors(department) {
         debugger;
         $.ajax({
@@ -80,7 +123,7 @@
     }
 
 
-
+    // Requested_appointments
     function BookAppointment() {
         var oModel = {
                 name: $('#name').val(),
@@ -89,7 +132,7 @@
                 appointment_time: $('#appointment_time').val(),
                 department: $('#department').val(),
                 description: $('#message').val(),
-                doctor_name: $('#doctor').val(),
+                doctor_id: $('#doctor').val(),
         }
 
         debugger;
@@ -132,71 +175,3 @@
 </script>
 
 
-
-
-
-
-
-
-
-@* <div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
-
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="appointmentModalLabel">Request for an Appointment</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <div class="modal-body">
-
-                <form enctype="multipart/form-data" method="post">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Name:</label>
-                        <input id="name" name="name" class="form-control"></input>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email:</label>
-                        <input id="email" type="email" name="email" class="form-control"></input>
-                    </div>
-                    <div class="mb-3">
-                        <label for="department" class="form-label">Department : </label>
-                        <select id="department" name="department" class="form-control">
-                            <option value="">Select One...</option>
-                            <option value="Dentist">Dentist</option>
-                            <option value="Heart Specialist">Heart Specialist</option>
-                            <option value="Diabetes">Diabetes</option>
-                            <option value="Oncology(Cancer)">Oncology(Cancer)</option>
-                            <option value="General Physician">General Physician</option>
-                            <option value="Orthopedic">Orthopedic</option>
-                            <option value="Neurology">Neurology</option>
-                            <option value="Radiology">Radiology</option>
-                            <option value="Surgery">Surgery</option>
-                            <option value="Skin Specialist">Skin Specialist</option>
-                            <option value="Emergency Department">Emergency Department</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="appointment_time" class="form-label">Appointment Time : </label>
-                        <input id="appointment_time" type="time" name="appointment_time" class="form-control" />
-                    </div>
-                    <div class="mb-3">
-                        <label for="appointment_date" class="form-label">Appointment Date :</label>
-                        <input id="appointment_date" type="date" name="appointment_date" class="form-control datepicker" />
-                    </div>
-                    <div class="mb-3">
-                        <label for="message" class="form-label">Description :</label>
-                        <textarea class="form-control" id="message" rows="3"></textarea>
-                    </div>
-
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
-                        <button type="button" onclick="BookAppointment()" class="btn">Book Appointment</button>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-    </div>
-</div> *@

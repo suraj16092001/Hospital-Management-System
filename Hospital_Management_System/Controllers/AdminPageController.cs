@@ -56,7 +56,7 @@ namespace Hospital_Management_System.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateAdmin(AdminAllDataViewModel model)
+        public IActionResult UpdateAdmin([FromBody] AdminAllDataViewModel model)
         {
             _IAdminPageBAL.UpdateAdmin(model);
             return Json("AdminList");

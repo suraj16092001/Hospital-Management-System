@@ -48,7 +48,10 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="mb-3">
+                        <label for="u_description" class="form-label">Description: </label>
+                        <input id="u_description" type="text" name="u_description" class="form-control" />
+                    </div>
                    @*  <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -82,8 +85,8 @@
 
 <div class="card w-100 shadow-sm">
     <div class="card-body">
-        <table class="table table-striped" id="myTable" style="width:100% !important">
-            <thead class="table-dark">
+        <table class="table table-bordered" id="myTable" style="width:100% !important">
+            <thead>
                 <tr>
                     <th>Scheduled_Id</th>
                     <th>Patient_Name</th>
@@ -139,7 +142,7 @@
                         {
                             data: null,
                             render: function (data, type, row) {
-                                return `<button type="button" onclick="popupdatedata(` + row.id + `)" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square"></i></button>`;
+                                return `<button type="button" onclick="GetScheduledAppointments(` + row.id + `)" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square"></i></button>`;
                             }
                         }
                     ]
@@ -151,5 +154,32 @@
         });
     }
 
+    function GetScheduledAppointments(id){
+        debugger;
+        $.ajax({
+            type: "GET",
+            url: "/Scheduled_Appointments/GetScheduledAppointments/" + id,
+            success: function (data) {
+                $('#update_id').val(data.id);
+                $('#u_name').val(data.name);
+                $('#u_email').val(data.email);
+                // var date = moment(data.appointment_date);
+                // $('#u_appointment_date').val(date.format('YYYY-MM-DD'));
+                var date = moment(data.appointment_date, 'M/D/YYYY h:mm:ss A');
+
+                // Ensure that date is valid before formatting
+                if (date.isValid()) {
+                    $('#u_appointment_date').val(date.format('YYYY-MM-DD'));
+                } else {
+                    // Handle invalid date
+                    console.error("Invalid date format:", data.appointment_date);
+                }
+                $('#u_appointment_time').val(data.appointment_time);
+                $('#u_description').val(data.description);
+
+                console.log(data);
+            }
+        });
+    }
 
 </script>

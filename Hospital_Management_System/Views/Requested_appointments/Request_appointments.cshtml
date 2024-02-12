@@ -63,6 +63,13 @@
                         <select id="u_status_id" type="text" name="u_status_id" class="form-control"></select>
 
                     </div>
+
+                    <div>
+                        To: <input type="text" id="toField" /><br />
+                        Subject: <input type="text" id="subjectField" /><br />
+                        Body: <textarea id="bodyField"></textarea><br />
+                        <button id="sendEmailButton">Send Email</button>
+                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" onclick="updateStatus()" class="btn btn-primary">Update changes</button>
@@ -74,10 +81,11 @@
 </div>
 
 
+
 <div class="card w-100 shadow-sm">
     <div class="card-body">
-        <table class="table table-striped" id="myTable" style="width:100% !important">
-            <thead class="table-dark">
+        <table class="table table-bordered" id="myTable" style="width:100% !important">
+            <thead>
                 <tr>
                     <th>Req Id</th>
                     <th>Name</th>

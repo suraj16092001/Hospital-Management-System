@@ -305,8 +305,8 @@
 
 <div class="card w-100 shadow-sm">
     <div class="card-body">
-        <table class="table table-striped" id="myTable" style="width:100% !important">
-            <thead class="table-dark">
+        <table class="table table-bordered" id="myTable" style="width:100% !important">
+            <thead>
                 <tr>
                     <th>id</th>
                     <th>Name</th>
@@ -321,6 +321,14 @@
         </table>
     </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+
 <script>
 
     $(document).ready(function () {
@@ -538,7 +546,6 @@
                 gender: $('#u_gender').val()
             }
         };
-        console.log(updatedModel);
         debugger;
 
         $.ajax({

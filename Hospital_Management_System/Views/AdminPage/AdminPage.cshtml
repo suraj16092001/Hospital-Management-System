@@ -208,7 +208,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="DOB" class="form-label">Date of Birth :</label>
-                                <input id="v_DOB" type="date" name="DOB" class="form-control" />
+                                <input id="v_DOB" type="date" name="DOB" class="form-control" readonly />
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -246,6 +246,13 @@
         </table>
     </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
 
 <script>
     $(document).ready(function () {
@@ -338,13 +345,12 @@
                         cache: false,
                         async: false,
                         success: function (data) {
-                            ClearForm();
-                            Swal.fire({
-                                title: "Good job!",
-                                text: "Admin saved successfully!",
-                                icon: "success",
-                                button: "Ok",
-                            });
+                            if (data.status === "success") {
+                                alert(data.message);
+                            }
+                            else if (data.status === "warning") {
+                                alert(data.message);
+                            }
                             $('#AdminModal').modal('hide');
                             get();
                             ClearForm();
@@ -433,43 +439,31 @@
             }
         };
 
-
+        console.log(updatedModel);
         debugger;
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, update it!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    type: "POST",
-                    url: "/AdminPage/UpdateAdmin",
-                    ata: JSON.stringify(updatedModel),
-                    contentType: 'application/json',  // Set the content type to application/json
-                    cache: false,
-                    success: function (data) {
-                        $('#updatemodal').modal('hide');
-                        Swal.fire({
-                            title: "Good job!",
-                            text: "Admin update successfully!",
-                            icon: "success",
-                            button: "Ok",
-                        });
+        $.ajax({
+            type: "POST",
+            url: "/AdminPage/UpdateAdmin",
+            data: JSON.stringify(updatedModel),
+            contentType: 'application/json',  // Set the content type to application/json
+            cache: false,
+            success: function (data) {
+                $('#updatemodal').modal('hide');
+                Swal.fire({
+                    title: "Good job!",
+                    text: "Admin update successfully!",
+                    icon: "success",
+                    button: "Ok",
+                });
 
-                        // datatable.destroy();
-                        get();
-                    },
-                    error: function () {
-                        Swal.fire({
-                            title: "Error while updating!",
-                            text: "close",
-                            icon: "error"
-                        });
-                    }
+                // datatable.destroy();
+                get();
+            },
+            error: function () {
+                Swal.fire({
+                    title: "Error while updating!",
+                    text: "close",
+                    icon: "error"
                 });
             }
         });

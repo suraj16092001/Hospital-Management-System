@@ -102,7 +102,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             _dBManager.AddCMDParam("@p_id", admin.AdminPage.id);
             _dBManager.AddCMDParam("@p_name", admin.User.name);
             _dBManager.AddCMDParam("@p_email", admin.User.email);
-            _dBManager.AddCMDParam("@p_DOB", admin.AdminPage.DateOfBirth);
+            _dBManager.AddCMDParam("@p_DateOfBirth", admin.AdminPage.DateOfBirth);
             _dBManager.AddCMDParam("@p_gender", admin.AdminPage.gender);
             _dBManager.AddCMDParam("@p_phone", admin.AdminPage.phone);
             _dBManager.AddCMDParam("@p_address", admin.AdminPage.address);

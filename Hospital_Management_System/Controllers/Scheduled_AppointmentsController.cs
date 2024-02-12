@@ -27,6 +27,9 @@ namespace Hospital_Management_System.Controllers
             return Json(_IScheduled_AppointmentsBAL.ScheduledPatientList(model));
         }
 
-
+        public IActionResult GetScheduledAppointments(int id)
+        {
+            return Json(_IScheduled_AppointmentsBAL.GetScheduledAppointments(id));
+        }
     }
 }
