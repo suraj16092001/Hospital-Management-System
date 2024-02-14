@@ -60,8 +60,12 @@
                     </div>
                     <div class="mb-3">
                         <label for="u_status_id" class="form-label">Status: </label>
-                        <select id="u_status_id" type="text" name="u_status_id" class="form-control"></select>
+                        <select id="u_status_id" type="text" name="u_status" class="form-control"></select>
 
+                    </div>
+                    <div class="mb-3 d-none">
+                        <label for="u_status" class="form-label">Status: </label>
+                        <input id="u_status" type="text" name="u_status" class="form-control"/>
                     </div>
 
                    @*  <div>
@@ -73,48 +77,6 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" onclick="updateStatus()" class="btn btn-primary">Update changes</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="SendEmailModal" tabindex="-1" aria-labelledby="SendEmailModalLabel" aria-hidden="true">
-
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="SendEmailModalLabel">Send Mail</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <div class="modal-body">
-
-                <form id="SendEmail" enctype="multipart/form-data">
-
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="Id" class="form-label">Apoointment Id : </label>
-                                <input id="Id" type="text" name="Id" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Patient Name : </label>
-                                <input id="name" type="text" name="name" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email : </label>
-                        <input id="email" type="text" name="email" class="form-control" />
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" onclick="SendEmail()" class="btn btn-primary">Approve</button>
                     </div>
                 </form>
             </div>
@@ -185,7 +147,7 @@
                         {
                             data: null,
                             render: function (data, type, row) {
-                                return `<button type="button" onclick="popupdatedata(` + row.id + `)" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square"></i></button> <button type="button" onclick="PopulateEmail(` + row.id + `)" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#SendEmailModal"><i class="fa-solid fa-eye"></i></button>`;
+                                return `<button type="button" onclick="popupdatedata(` + row.id + `)" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square"></i></button>`;
                             }
                         }
                     ]
@@ -245,6 +207,7 @@
                 $('#u_department').val(data.department);
                 $('#u_status_id').val(data.status_id);
                 $('#u_doctor').val(data.User.name);
+                $('#u_status').val(data.statusModel.Status);
 
                 console.log(data);
             }
@@ -295,55 +258,6 @@
 
     }
 
-    function PopulateEmail(id) {
-        debugger;
 
-        $.ajax({
-            type: "GET",
-            url: "/Requested_appointments/PopulateEmail/" + id,
-            success: function (data) {
-                $('#Id').val(data.id);
-                $('#name').val(data.name);
-                $('#email').val(data.email);
-
-                console.log(data);
-            }
-        });
-    }
-
-    function SendEmail(){
-        var emailData = {
-            email: $("#email").val()
-        };
-        console.log(emailData);
-
-        // var formData = new FormData();
-        // formData.append("email", emailData.Email);
-        debugger;
-        $.ajax({
-            type: "POST",
-            url: "/Requested_appointments/SendEmail",
-            contentType: "application/json",
-            data: JSON.stringify(emailData),
-            dataType: 'json',
-            cache: false,
-            async: false,
-            success: function (data) {
-                Swal.fire({
-                    title: "Good job!",
-                    text: "Email sent successfully!",
-                    icon: "success",
-                    button: "Ok",
-                });
-                $('#SendEmailModal').modal('hide');
-                console.log("Successfully email sent!");
-                // alert(data.message);
-            },
-            error: function (error) {
-                console.log("Email Data Error: ", error);
-            },
-
-        });
-    }
 
 </script>

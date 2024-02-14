@@ -31,8 +31,9 @@ namespace Hospital_Management_System.Controllers
 
         //update status 
         [HttpPost]
-        public IActionResult UpdateStatus([FromBody] Requested_AppointmentModel oModel)
+        public async Task<IActionResult> UpdateStatus([FromBody] Requested_AppointmentModel oModel)
         {
+            await _EmailSender.EmailSendAsync(oModel.email, "Appointment Confirm", "Congratulation Your Appointment Is confirmed!");
             _IRequested_appointmentsBAL.UpdateStatus(oModel);
             return Json("Status");
         }
@@ -48,11 +49,5 @@ namespace Hospital_Management_System.Controllers
             return Json(_IRequested_appointmentsBAL.PopulateEmail(id));
         }
 
-        [HttpPost]
-        public async Task<IActionResult> SendEmail([FromBody] Requested_AppointmentModel email)
-        {
-            await _EmailSender.EmailSendAsync(email.email, "Booking Confirm", "Congratulation Your Appointment Is confirmed!");
-            return Json("Request_appointments");
-        }
     }
 }

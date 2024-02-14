@@ -318,8 +318,9 @@
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
-                    <th>Phone</th>
-                    <th>Specialist</th>
+                    <th>email</th>
+                   @*  <th>Phone</th>
+                    <th>Specialist</th> *@
                   @*   <th>Photo</th> *@
                     <th>Action</th>
                 </tr>
@@ -360,9 +361,10 @@
                     columns: [
                         { data: 'admin_Doctor.id' },
                         { data: 'User.name' },
+                        { data: 'User.email' },
                       
-                        { data: 'admin_Doctor.phone' },
-                        { data: 'admin_Doctor.specialist' },
+                        // { data: 'admin_Doctor.phone' },
+                        // { data: 'admin_Doctor.specialist' },
                         // {
                         //     data: 'admin_Doctor.imagePath',
                         //     render: function (data, type, row) {

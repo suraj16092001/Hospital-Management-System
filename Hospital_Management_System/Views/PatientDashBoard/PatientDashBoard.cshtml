@@ -146,14 +146,8 @@
             cache: false,
             async: false,
             success: function (data) {
-                
-                Swal.fire({
-                    position: "top",
-                    title: "Good job!",
-                    text: "Your appointment request has been sent we will contact you soon",
-                    icon: "success",
-                    button: "Ok",
-                });
+
+                alert("Your appointment request has been sent we will contact you soon");
                 ClearForm();
             },
             error: function (error) {

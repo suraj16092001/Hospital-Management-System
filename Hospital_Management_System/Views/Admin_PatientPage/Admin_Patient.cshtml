@@ -311,8 +311,8 @@
                     <th>id</th>
                     <th>Name</th>
                     <th>email</th>
-                    <th>Phone</th>
-                    <th>Address</th>
+                   @*  <th>Phone</th>
+                    <th>Address</th> *@
                     <th>Action</th>
                 </tr>
 
@@ -352,8 +352,8 @@
                         { data: 'Admin_PatientPage.id' },
                         { data: 'User.name' },
                         { data: 'User.email' },
-                        { data: 'Admin_PatientPage.phone' },
-                        { data: 'Admin_PatientPage.address' },
+                        // { data: 'Admin_PatientPage.phone' },
+                        // { data: 'Admin_PatientPage.address' },
                         {
                             data: null,
                             render: function (data, type, row) {
@@ -510,11 +510,12 @@
 
     function popupdatedata(id) {
         debugger;
-
+        ClearForm();
         $.ajax({
             type: "POST",
             url: "/Admin_PatientPage/GetPatientByID/" + id,
             success: function (data) {
+                ClearForm();
                 $('#u_email').val(data.User.email);
                 $('#u_name').val(data.User.name);
                 $('#update_id').val(data.Admin_PatientPage.id);
@@ -523,11 +524,20 @@
                 $('#u_DOB').val(date.format('YYYY-MM-DD'));
                 $('#u_address').val(data.Admin_PatientPage.address);
                 $('#u_gender').val(data.Admin_PatientPage.gender);
-
             }
         });
     }
+    function ClearForm() {
 
+        $('#u_name').val('');
+        $('#u_email').val('');
+        $('#update_id').val('');
+        $('#u_phone').val('');
+        $('#u_DOB').val('');
+        $('#u_address').val('');
+        $('#u_gender').val('');
+
+    }
 
     function updatePatient() {
         debugger;
@@ -597,6 +607,17 @@
         });
     }
 
+    function ClearForm() {
+
+        $('#name').val('');
+        $('#email').val('');
+        $('#password').val('');
+        $('#phone').val('');
+        $('#DOB').val('');
+        $('#address').val('');
+        $('#gender').val('');
+
+    }
     function ClearForm() {
 
         $('#name').val('');

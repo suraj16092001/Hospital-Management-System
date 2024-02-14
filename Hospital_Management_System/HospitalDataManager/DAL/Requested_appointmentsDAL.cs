@@ -65,7 +65,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 oModel.User.name = item["Doctor_name"].ConvertDBNullToString(); // Fetch Doctor_name
                 oModel.appointment_date = item["appointment_date"].ConvertDBNullToString();
                 oModel.appointment_time = item["appointment_time"].ConvertDBNullToString();
-                //oModel.statusModel.Status = item["status"].ConvertDBNullToString(); // Fetch status
+                oModel.statusModel.Status = item["status"].ConvertDBNullToString(); // Fetch status
                 oModel.status_id = item["status_id"].ConvertDBNullToInt(); // Fetch status id
 
             }
