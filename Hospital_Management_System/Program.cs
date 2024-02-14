@@ -1,4 +1,6 @@
 using Hospital_Management_System.Extension;
+using Hospital_Management_System.HospitalBussinessManager.BAL;
+using Hospital_Management_System.HospitalBussinessManager.IBAL;
 
 namespace Hospital_Management_System
 {
@@ -10,6 +12,7 @@ namespace Hospital_Management_System
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
             builder.Services.AddSession();//
             builder.Services.AddDistributedMemoryCache();//
             builder.Services.AddControllers().AddJsonOptions(options =>

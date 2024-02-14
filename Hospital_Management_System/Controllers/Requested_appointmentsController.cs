@@ -7,9 +7,11 @@ namespace Hospital_Management_System.Controllers
     public class Requested_appointmentsController : Controller
     {
         IRequested_appointmentsBAL _IRequested_appointmentsBAL;
-        public Requested_appointmentsController(IRequested_appointmentsBAL requested_AppointmentsBAL)
+        IEmailSenderBAL _EmailSender;
+        public Requested_appointmentsController(IRequested_appointmentsBAL requested_AppointmentsBAL,IEmailSenderBAL emailSender)
         {
             _IRequested_appointmentsBAL = requested_AppointmentsBAL;
+            _EmailSender = emailSender;
         }
         public IActionResult Request_appointments()
         {
@@ -39,6 +41,18 @@ namespace Hospital_Management_System.Controllers
         {
             List<Appointment_StatusModel> doctors = _IRequested_appointmentsBAL.GetStatus();
             return Json(doctors);
+        }
+
+        public IActionResult PopulateEmail(int id)
+        {
+            return Json(_IRequested_appointmentsBAL.PopulateEmail(id));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SendEmail([FromBody] Requested_AppointmentModel email)
+        {
+            await _EmailSender.EmailSendAsync(email.email, "Booking Confirm", "Congratulation Your Appointment Is confirmed!");
+            return Json("Request_appointments");
         }
     }
 }

@@ -2,6 +2,7 @@
 using Hospital_Management_System.HospitalDataManager.DAL;
 using Hospital_Management_System.HospitalDataManager.IDAL;
 using Hospital_Management_System.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_Management_System.HospitalBussinessManager.BAL
 {
@@ -31,6 +32,11 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
         public List<Appointment_StatusModel> GetStatus()
         {
             return _IRequested_appointmentsDAL.GetStatus();
+        }
+
+        public Requested_AppointmentModel PopulateEmail(int id)
+        {
+            return _IRequested_appointmentsDAL.PopulateEmail(id);
         }
     }
 }

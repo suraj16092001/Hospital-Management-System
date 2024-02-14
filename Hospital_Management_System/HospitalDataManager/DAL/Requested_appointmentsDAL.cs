@@ -103,5 +103,25 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             return StatusList;
 
         }
+
+        public Requested_AppointmentModel PopulateEmail(int id)
+        {
+            Requested_AppointmentModel oModel = null;
+            _dBManager.InitDbCommand("GetRequested_Appointment");
+            _dBManager.AddCMDParam("@p_id", id);
+            DataSet ds = _dBManager.ExecuteDataSet();
+
+            foreach (DataRow item in ds.Tables[0].Rows)
+            {
+                oModel = new Requested_AppointmentModel();
+
+
+                oModel.id = item["id"].ConvertDBNullToInt();
+                oModel.name = item["name"].ConvertDBNullToString();
+                oModel.email = item["email"].ConvertDBNullToString();
+
+            }
+            return oModel;
+        }
     }
 }

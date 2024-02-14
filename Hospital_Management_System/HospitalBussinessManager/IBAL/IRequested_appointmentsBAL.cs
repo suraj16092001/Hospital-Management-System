@@ -9,5 +9,7 @@ namespace Hospital_Management_System.HospitalBussinessManager.IBAL
         public Requested_AppointmentModel GetRequested_Appointment(int id);
         public Requested_AppointmentModel UpdateStatus(Requested_AppointmentModel model);
         public List<Appointment_StatusModel> GetStatus();
+
+        public Requested_AppointmentModel PopulateEmail(int id);
     }
 }
