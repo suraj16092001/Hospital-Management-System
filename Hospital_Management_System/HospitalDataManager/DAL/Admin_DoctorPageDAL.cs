@@ -98,9 +98,10 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 oModel.User = new UserModel();
                 oModel.admin_Doctor = new Admin_DoctorPageModel();
 
+                oModel.User.id= item["id"].ConvertDBNullToInt();
                 oModel.User.name = item["name"].ConvertDBNullToString();
                 oModel.User.email = item["email"].ConvertDBNullToString();
-                oModel.admin_Doctor.id = item["id"].ConvertDBNullToInt();
+                oModel.admin_Doctor.id = item["register_id"].ConvertDBNullToInt();
                 oModel.admin_Doctor.qualification = item["qualification"].ConvertDBNullToString();
                 oModel.admin_Doctor.specialist = item["specialist"].ConvertDBNullToString();
                 oModel.admin_Doctor.gender = item["gender"].ConvertDBNullToString();
@@ -118,7 +119,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             _dBManager.InitDbCommand("UpdateDoctorData");
             _dBManager.AddCMDParam("@p_name", model.User.name);
             _dBManager.AddCMDParam("@p_email", model.User.email);
-            _dBManager.AddCMDParam("@p_id", model.admin_Doctor.id);
+            _dBManager.AddCMDParam("@p_id", model.User.id);
             _dBManager.AddCMDParam("@p_qualification", model.admin_Doctor.qualification);
             _dBManager.AddCMDParam("@p_specialist", model.admin_Doctor.specialist);
             _dBManager.AddCMDParam("@p_gender", model.admin_Doctor.gender);

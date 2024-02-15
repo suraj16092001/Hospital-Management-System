@@ -101,7 +101,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
         public string verifiedPassword(string password)
         {
             password = password + _dBManager.GetSalt();
-            _dBManager.InitDbCommand("getPassword")
+            _dBManager.InitDbCommand("verifiedPasswordUsingMD5")
                 .AddCMDParam ("p_password", password);
 
             var result = _dBManager.ExecuteScalar();

@@ -1,0 +1,80 @@
+﻿$(document).ready(function () {
+    get();
+});
+
+function get() {
+    debugger;
+    // Destroy the existing DataTable
+    if ($.fn.DataTable.isDataTable('#myTable')) {
+        $('#myTable').DataTable().destroy();
+    }
+
+    $.ajax({
+        type: "GET",
+        url: "/Scheduled_Appointments/ScheduledPatientList",
+        success: function (data) {
+            $('#myTable').DataTable({
+                data: data,
+                columns: [
+                    { data: 'id' },
+                    { data: 'name' },
+                    {
+                        data: 'appointment_date',
+                        render: function (data, type, row) {
+                            // Parse the date with the correct format
+                            var parsedDate = moment(data, 'M/D/YYYY h:mm:ss A');
+
+                            // Check if the parsed date is valid
+                            if (parsedDate.isValid()) {
+                                // Format the valid date to display only the date part
+                                return parsedDate.format('YYYY-MM-DD');
+                            } else {
+                                // Handle invalid date
+                                return 'Invalid date';
+                            }
+                        }
+                    },
+
+                    { data: 'appointment_time' },
+                    {
+                        data: null,
+                        render: function (data, type, row) {
+                            return `<button type="button" onclick="GetScheduledAppointments(` + row.id + `)" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square"></i></button>`;
+                        }
+                    }
+                ]
+            });
+        },
+        error: function (textStatus, errorThrown) {
+            Success = false;
+        }
+    });
+}
+
+function GetScheduledAppointments(id) {
+    debugger;
+    $.ajax({
+        type: "GET",
+        url: "/Scheduled_Appointments/GetScheduledAppointments/" + id,
+        success: function (data) {
+            $('#update_id').val(data.id);
+            $('#u_name').val(data.name);
+            $('#u_email').val(data.email);
+            // var date = moment(data.appointment_date);
+            // $('#u_appointment_date').val(date.format('YYYY-MM-DD'));
+            var date = moment(data.appointment_date, 'M/D/YYYY h:mm:ss A');
+
+            // Ensure that date is valid before formatting
+            if (date.isValid()) {
+                $('#u_appointment_date').val(date.format('YYYY-MM-DD'));
+            } else {
+                // Handle invalid date
+                console.error("Invalid date format:", data.appointment_date);
+            }
+            $('#u_appointment_time').val(data.appointment_time);
+            $('#u_description').val(data.description);
+
+            console.log(data);
+        }
+    });
+}
