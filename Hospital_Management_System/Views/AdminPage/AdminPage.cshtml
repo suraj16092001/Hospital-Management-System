@@ -5,13 +5,13 @@
     <h2>Admin Details</h2>
     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#AdminModal">Add Admin</button>
 </div>
-<div class="modal fade" id="AdminModal" tabindex="-1" aria-labelledby="AdminModalLabel" aria-hidden="true">
+<div class="modal fade" id="AdminModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="AdminModalLabel" aria-hidden="true">
 
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="AdminModalLabel">Add Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="ClearAddAdminForm()"></button>
             </div>
 
             <div class="modal-body">
@@ -75,7 +75,6 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" onclick="AddAdmin()" class="btn btn-primary">Save changes</button>
                     </div>
 
@@ -85,13 +84,13 @@
     </div>
 </div>
 
-<div class="modal fade" id="updatemodal" tabindex="-1" aria-labelledby="UpdateModalLabel" aria-hidden="true">
+<div class="modal fade" id="updatemodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="UpdateModalLabel" aria-hidden="true">
 
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="UpdateModalLabel">Update Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="ClearUpdateAdminForm()"></button>
             </div>
 
             <div class="modal-body">
@@ -147,7 +146,6 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" onclick="UpdateAdmin()" class="btn btn-primary">Save changes</button>
                     </div>
 
@@ -158,13 +156,13 @@
 </div>
 
 
-<div class="modal fade" id="Viewmodal" tabindex="-1" aria-labelledby="ViewmodalLabel" aria-hidden="true">
+<div class="modal fade" id="Viewmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewmodalLabel" aria-hidden="true">
 
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="ViewmodalLabel">View Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="ClearViewAdminForm()"></button>
             </div>
 
             <div class="modal-body">
@@ -217,11 +215,6 @@
                                 <input id="v_address" type="text" name="address" class="form-control" readonly />
                             </div>
                         </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" onclick="ViewAdmin()" class="btn btn-primary">Save changes</button>
                     </div>
 
                 </form>

@@ -29,10 +29,10 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 model.User = new UserModel();
                 model.admin_Doctor = new Admin_DoctorPageModel();
 
+                model.User.id = item["id"].ConvertDBNullToInt();
                 model.User.name = item["name"].ConvertDBNullToString();
                 model.User.email = item["email"].ConvertDBNullToString();
                 model.admin_Doctor.qualification = item["qualification"].ConvertDBNullToString();
-                model.admin_Doctor.id = item["id"].ConvertDBNullToInt();
                 model.admin_Doctor.specialist = item["specialist"].ConvertDBNullToString();
                 model.admin_Doctor.qualification = item["qualification"].ConvertDBNullToString();
                 model.admin_Doctor.gender = item["gender"].ConvertDBNullToString();

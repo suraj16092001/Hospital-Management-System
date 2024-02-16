@@ -32,9 +32,9 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 oModel.User = new UserModel();
                 oModel.Admin_PatientPage = new Admin_PatientPageModel();
 
+                oModel.User.id = item["id"].ConvertDBNullToInt();
                 oModel.User.name = item["name"].ConvertDBNullToString();
                 oModel.User.email = item["email"].ConvertDBNullToString();
-                oModel.Admin_PatientPage.id = item["id"].ConvertDBNullToInt();
                 oModel.Admin_PatientPage.phone = item["phone"].ConvertDBNullToString();
                 oModel.Admin_PatientPage.gender = item["gender"].ConvertDBNullToString();
                 oModel.Admin_PatientPage.DateOfBirth = item["DOB"].ConvertDBNullToString();
@@ -90,6 +90,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 oModel.User = new UserModel();
                 oModel.Admin_PatientPage = new Admin_PatientPageModel();
 
+                oModel.User.id = item["id"].ConvertDBNullToInt();
                 oModel.User.name = item["name"].ConvertDBNullToString();
                 oModel.User.email = item["email"].ConvertDBNullToString();
                 oModel.Admin_PatientPage.id = item["id"].ConvertDBNullToInt();
@@ -105,12 +106,12 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
 
         public PatientAllDataViewModel UpdatePatient(PatientAllDataViewModel patient)
         {
-            _dBManager.InitDbCommand("UpdatePData");
-            _dBManager.AddCMDParam("@p_id", patient.Admin_PatientPage.id);
+            _dBManager.InitDbCommand("UpdatePatientData");
+            _dBManager.AddCMDParam("@p_id", patient.User.id);
             _dBManager.AddCMDParam("@p_name", patient.User.name);
             _dBManager.AddCMDParam("@p_email", patient.User.email);
             _dBManager.AddCMDParam("@p_gender", patient.Admin_PatientPage.gender);
-            _dBManager.AddCMDParam("@p_DOB", patient.Admin_PatientPage.DateOfBirth);
+            _dBManager.AddCMDParam("@p_DateOfBirth", patient.Admin_PatientPage.DateOfBirth);
             _dBManager.AddCMDParam("@p_phone", patient.Admin_PatientPage.phone);
             _dBManager.AddCMDParam("@p_address", patient.Admin_PatientPage.address);
 

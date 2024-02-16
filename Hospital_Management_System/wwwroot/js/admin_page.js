@@ -20,13 +20,13 @@ function get() {
             $('#myTable').DataTable({
                 data: data,
                 columns: [
-                    { data: 'AdminPage.id' },
+                    { data: 'User.id' },
                     { data: 'User.name' },
                     { data: 'User.email' },
                     {
                         data: null,
                         render: function (data, type, row) {
-                            return `<button type="button" onclick="popupdatedata(` + row.AdminPage.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square"></i></button>|<button type="button" onclick="ViewAdmin(` + row.AdminPage.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Viewmodal"><i class="fa-solid fa-eye"></i></button>|<button type="button" onclick="DeleteAdmin(` + row.AdminPage.id + `)" class="btn btn-primary" ><i class="fa-solid fa-trash-can-arrow-up"></i></button>`;
+                            return `<button type="button" onclick="popupdatedata(` + row.User.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square"></i></button>|<button type="button" onclick="ViewAdmin(` + row.User.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Viewmodal"><i class="fa-solid fa-eye"></i></button>|<button type="button" onclick="DeleteAdmin(` + row.User.id + `)" class="btn btn-primary" ><i class="fa-solid fa-trash-can-arrow-up"></i></button>`;
                         }
                     }
                 ]
@@ -38,17 +38,7 @@ function get() {
     });
 }
 
-function ClearForm() {
 
-    $('#name').val('');
-    $('#email').val('');
-    $('#password').val('');
-    $('#phone').val('');
-    $('#DOB').val('');
-    $('#address').val('');
-    $('#gender').val('');
-
-}
 
 function AddAdmin() {
 
@@ -151,7 +141,7 @@ function popupdatedata(id) {
         type: "POST",
         url: "/AdminPage/GetAdminByID/" + id,
         success: function (data) {
-            $('#u_id').val(data.AdminPage.id);
+            $('#u_id').val(data.User.id);
             $('#u_name').val(data.User.name);
             $('#u_email').val(data.User.email);
             $('#u_gender').val(data.AdminPage.gender);
@@ -169,11 +159,12 @@ function UpdateAdmin() {
 
     var updatedModel = {
         User: {
+            id: $('#u_id').val(),
             name: $('#u_name').val(),
             email: $('#u_email').val(),
         },
         AdminPage: {
-            id: $('#u_id').val(),
+           
             gender: $('#u_gender').val(),
             phone: $('#u_phone').val(),
             DateOfBirth: $('#u_DOB').val(),
@@ -219,7 +210,7 @@ function ViewAdmin(id) {
         type: "POST",
         url: "/AdminPage/GetAdminByID/" + id,
         success: function (data) {
-            $('#v_id').val(data.AdminPage.id);
+            $('#v_id').val(data.User.id);
             $('#v_name').val(data.User.name);
             $('#v_email').val(data.User.email);
             $('#v_phone').val(data.AdminPage.phone);
@@ -232,3 +223,38 @@ function ViewAdmin(id) {
     });
 }
 
+function ClearViewAdminForm() {
+
+    $('#v_id').val('');
+    $('#v_name').val('');
+    $('#v_email').val('');
+    $('#v_phone').val('');
+    $('#v_DOB').val('');
+    $('#v_address').val('');
+    $('#v_gender').val('');
+
+}
+
+function ClearAddAdminForm() {
+
+    $('#name').val('');
+    $('#email').val('');
+    $('#password').val('');
+    $('#phone').val('');
+    $('#DOB').val('');
+    $('#address').val('');
+    $('#gender').val('');
+
+}
+
+function ClearUpdateAdminForm() {
+
+    $('#u_id').val('');
+    $('#u_name').val('');
+    $('#u_email').val('');
+    $('#u_gender').val('');
+    $('#u_phone').val('');
+    $('#u_DOB').val('');
+    $('#u_address').val('');
+
+}

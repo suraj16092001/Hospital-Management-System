@@ -20,7 +20,7 @@ function get() {
             $('#DrTable').DataTable({
                 data: data,
                 columns: [
-                    { data: 'admin_Doctor.id' },
+                    { data: 'User.id' },
                     { data: 'User.name' },
                     { data: 'User.email' },
 
@@ -35,7 +35,7 @@ function get() {
                     {
                         data: null,
                         render: function (data, type, row) {
-                            return ` <button type="button" onclick="popupdatedata(` + row.admin_Doctor.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#UpdateDoctorModal"><i class="fa-solid fa-pen-to-square"></i></button>|<button type="button" onclick="Viewdata(` + row.admin_Doctor.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ViewDoctorModal"><i class="fa-solid fa-eye"></i></button>|<button type="button" onclick="DeleteDoctor(` + row.admin_Doctor.id + `)" class="btn btn-primary" ><i class="fa-solid fa-trash-can-arrow-up"></button>`;
+                            return ` <button type="button" onclick="popupdatedata(` + row.User.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#UpdateDoctorModal"><i class="fa-solid fa-pen-to-square"></i></button>|<button type="button" onclick="Viewdata(` + row.User.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ViewDoctorModal"><i class="fa-solid fa-eye"></i></button>|<button type="button" onclick="DeleteDoctor(` + row.User.id + `)" class="btn btn-primary" ><i class="fa-solid fa-trash-can-arrow-up"></button>`;
                         }
                     }
                 ]
@@ -87,7 +87,6 @@ function ClearAddDoctorForm() {
     $('#qualification').val('');
     $('#DateOfBirth').val('');
     $('#imageFile').val('');
-
 }
 
 function AddDoctor() {
@@ -255,7 +254,7 @@ function Viewdata(id) {
         type: "GET",
         url: "/Admin_DoctorPage/GetDoctorByID/" + id,
         success: function (data) {
-            $('#v_id').val(data.admin_Doctor.id);
+            $('#v_id').val(data.User.id);
             $('#v_name').val(data.User.name);
             $('#v_email').val(data.User.email);
             $('#v_phone').val(data.admin_Doctor.phone);

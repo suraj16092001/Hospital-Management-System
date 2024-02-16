@@ -10,13 +10,13 @@
 </div>
 
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Add Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="ClearAddPatientForm()"></button>
             </div>
 
             <div class="modal-body">
@@ -78,7 +78,6 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" onclick="AddPatient();" class="btn btn-primary">Save changes</button>
                     </div>
 
@@ -89,13 +88,13 @@
 </div>
 
 @* update and populate data  *@
-<div class="modal fade" id="updatemodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="updatemodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Add Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="ClearUpdatePatientForm()"></button>
             </div>
 
             <div class="modal-body">
@@ -155,7 +154,6 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" onclick="updatePatient()" class="btn btn-primary">Update changes</button>
                     </div>
 
@@ -168,13 +166,13 @@
 </div>
 
 @* view patient details *@
-<div class="modal fade" id="ViewModal" tabindex="-1" aria-labelledby="ViewModalLabel" aria-hidden="true">
+<div class="modal fade" id="ViewModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ViewModalLabel" aria-hidden="true">
 
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="ViewModalLabel">Add Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="ClearViewPatientForm()"></button>
             </div>
 
             <div class="modal-body">
@@ -237,13 +235,13 @@
     </div>
 </div>
 
-<div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
+<div class="modal fade" id="appointmentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
 
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="appointmentModalLabel">Add Appointment</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="ClearBookingForm()"></button>
             </div>
 
             <div class="modal-body">
@@ -292,7 +290,6 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" onclick="BookAppointment($)" class="btn btn-primary">Book Appointment</button>
                     </div>
 
@@ -322,11 +319,10 @@
     </div>
 </div>
 
+<script src="~/js/admin_patient.js"></script>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
 
-
-<script src="~/js/admin_patient.js"></script>

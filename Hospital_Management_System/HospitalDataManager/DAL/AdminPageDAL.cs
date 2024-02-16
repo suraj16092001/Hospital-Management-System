@@ -28,7 +28,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
 				oModel.User = new UserModel();
 				oModel.AdminPage = new AdminPageModel();
 
-				oModel.AdminPage.id = item["id"].ConvertDBNullToInt();
+				oModel.User.id = item["id"].ConvertDBNullToInt();
 				oModel.User.name = item["name"].ConvertDBNullToString();
 				oModel.User.email = item["email"].ConvertDBNullToString();
 				oModel.AdminPage.DateOfBirth = item["DOB"].ConvertDBNullToString();
@@ -83,7 +83,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
 				model.User = new UserModel();
 				model.AdminPage = new AdminPageModel();
 
-				model.AdminPage.id = item["id"].ConvertDBNullToInt();
+				model.User.id = item["id"].ConvertDBNullToInt();
 				model.User.name = item["name"].ConvertDBNullToString();
 				model.User.email = item["email"].ConvertDBNullToString();
 				model.AdminPage.DateOfBirth = item["DOB"].ConvertDBNullToString();
@@ -99,7 +99,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
         public AdminAllDataViewModel UpdateAdmin(AdminAllDataViewModel admin)
         {
             _dBManager.InitDbCommand("UpdateAdminData");
-            _dBManager.AddCMDParam("@p_id", admin.AdminPage.id);
+            _dBManager.AddCMDParam("@p_id", admin.User.id);
             _dBManager.AddCMDParam("@p_name", admin.User.name);
             _dBManager.AddCMDParam("@p_email", admin.User.email);
             _dBManager.AddCMDParam("@p_DateOfBirth", admin.AdminPage.DateOfBirth);

@@ -17,7 +17,7 @@ function get() {
             $('#myTable').DataTable({
                 data: data,
                 columns: [
-                    { data: 'Admin_PatientPage.id' },
+                    { data: 'User.id' },
                     { data: 'User.name' },
                     { data: 'User.email' },
                     // { data: 'Admin_PatientPage.phone' },
@@ -25,7 +25,7 @@ function get() {
                     {
                         data: null,
                         render: function (data, type, row) {
-                            return `<button type="button" onclick="popupdatedata(` + row.Admin_PatientPage.id + `)" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square"></i></button>|<button type="button" onclick="ViewModal(` + row.Admin_PatientPage.id + `)" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#ViewModal"><i class="fa-solid fa-eye"></i></button>|<button type="button" onclick="DeletePatient(` + row.Admin_PatientPage.id + `)" class="btn btn-danger" ><i class="fa-solid fa-trash-can-arrow-up"></i></button>|<button type="button" class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#appointmentModal"><i class="fa-solid fa-clipboard-list"></i></button>`;
+                            return `<button type="button" onclick="popupdatedata(` + row.User.id + `)" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square"></i></button>|<button type="button" onclick="ViewModal(` + row.User.id + `)" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#ViewModal"><i class="fa-solid fa-eye"></i></button>|<button type="button" onclick="DeletePatient(` + row.User.id + `)" class="btn btn-danger" ><i class="fa-solid fa-trash-can-arrow-up"></i></button>|<button type="button" class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#appointmentModal"><i class="fa-solid fa-clipboard-list"></i></button>`;
                         }
                     }
                 ]
@@ -178,15 +178,13 @@ function DeletePatient(id) {
 
 function popupdatedata(id) {
     debugger;
-    ClearForm();
     $.ajax({
         type: "POST",
         url: "/Admin_PatientPage/GetPatientByID/" + id,
         success: function (data) {
-            ClearForm();
+            $('#update_id').val(data.User.id);
             $('#u_email').val(data.User.email);
             $('#u_name').val(data.User.name);
-            $('#update_id').val(data.Admin_PatientPage.id);
             $('#u_phone').val(data.Admin_PatientPage.phone);
             var date = moment(data.Admin_PatientPage.DateOfBirth);
             $('#u_DOB').val(date.format('YYYY-MM-DD'));
@@ -195,17 +193,7 @@ function popupdatedata(id) {
         }
     });
 }
-function ClearForm() {
 
-    $('#u_name').val('');
-    $('#u_email').val('');
-    $('#update_id').val('');
-    $('#u_phone').val('');
-    $('#u_DOB').val('');
-    $('#u_address').val('');
-    $('#u_gender').val('');
-
-}
 
 function updatePatient() {
     debugger;
@@ -213,11 +201,12 @@ function updatePatient() {
     var updatedModel = {
 
         User: {
+            id: $('#update_id').val(),
             name: $('#u_name').val(),
             email: $('#u_email').val(),
         },
         Admin_PatientPage: {
-            id: $('#update_id').val(),
+            
             phone: $('#u_phone').val(),
             DateOfBirth: $('#u_DOB').val(),
             address: $('#u_address').val(),
@@ -262,7 +251,7 @@ function ViewModal(id) {
         type: "POST",
         url: "/Admin_PatientPage/GetPatientByID/" + id,
         success: function (data) {
-            $('#view_id').val(data.Admin_PatientPage.id);
+            $('#view_id').val(data.User.id);
             $('#view_email').val(data.User.email);
             $('#view_name').val(data.User.name);
             $('#view_phone').val(data.Admin_PatientPage.phone);
@@ -275,7 +264,18 @@ function ViewModal(id) {
     });
 }
 
-function ClearForm() {
+function ClearUpdatePatientForm() {
+
+    $('#u_name').val('');
+    $('#u_email').val('');
+    $('#update_id').val('');
+    $('#u_phone').val('');
+    $('#u_DOB').val('');
+    $('#u_address').val('');
+    $('#u_gender').val('');
+
+}
+function ClearAddPatientForm() {
 
     $('#name').val('');
     $('#email').val('');
@@ -286,14 +286,22 @@ function ClearForm() {
     $('#gender').val('');
 
 }
-function ClearForm() {
+function ClearViewPatientForm() {
 
-    $('#name').val('');
-    $('#email').val('');
-    $('#password').val('');
-    $('#phone').val('');
-    $('#DOB').val('');
-    $('#address').val('');
-    $('#gender').val('');
+    $('#view_id').val('');
+    $('#view_email').val('');
+    $('#view_name').val('');
+    $('#view_phone').val('');
+    $('#viev_DOB').val('');
+    $('#view_address').val('');
+    $('#view_gender').val('');
 
+}
+
+function ClearBookingForm() {
+
+    $('#a_doctor').val('');
+    $('#a_disease').val('');
+    $('#a_appointment_date').val('');
+    $('#a_appointment_time').val('');
 }
