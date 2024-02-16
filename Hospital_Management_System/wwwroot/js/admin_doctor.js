@@ -47,80 +47,39 @@ function get() {
     });
 }
 
-function ClearViewDoctorForm() {
-    $('#v_id').val('');
-    $('#v_name').val('');
-    $('#v_email').val('');
-    $('#v_phone').val('');
-    $('#v_specialist').val('');
-    $('#v_gender').val('');
-    $('#v_qualification').val('');
-    $('#v_DateOfBirth').val('');
-    $('#v_address').val('');
-    $('#v_imageFile').val('');
-
-}
-
-function ClearUpdateDoctorForm() {
-    $('#u_id').val('');
-    $('#u_name').val('');
-    $('#u_email').val('');
-    $('#u_phone').val('');
-    $('#u_specialist').val('');
-    $('#u_gender').val('');
-    $('#u_qualification').val('');
-    $('#u_DateOfBirth').val('');
-    $('#u_address').val('');
-    $('#u_imageFile').val('');
-
-}
-
-function ClearAddDoctorForm() {
-
-    $('#name').val('');
-    $('#email').val('');
-    $('#password').val('');
-    $('#phone').val('');
-    $('#address').val('');
-    $('#gender').val('');
-    $('#specialist').val('');
-    $('#qualification').val('');
-    $('#DateOfBirth').val('');
-    $('#imageFile').val('');
-}
 
 function AddDoctor() {
     debugger;
     if ($("#AddDoctor").valid()) {
         var oModel = {
-            User: {
-                name: $('#name').val(),
-                email: $('#email').val(),
-                password: $('#password').val(),
-            },
-            admin_Doctor: {
-                qualification: $('#qualification').val(),
-                specialist: $('#specialist').val(),
-                gender: $('#gender').val(),
-                phone: $('#phone').val(),
-                DateOfBirth: $('#DateOfBirth').val(),
-                address: $('#address').val(),
-                imagePath: $('#imageFile').val(),
-            }
+           
+                'User.name': $('#name').val(),
+                'User.email': $('#email').val(),
+                'User.password': $('#password').val(),
+           
+                'admin_Doctor.qualification': $('#qualification').val(),
+                'admin_Doctor.specialist': $('#specialist').val(),
+                'admin_Doctor.gender': $('#gender').val(),
+                'admin_Doctor.phone': $('#phone').val(),
+                'admin_Doctor.DateOfBirth': $('#DateOfBirth').val(),
+                'admin_Doctor.address': $('#address').val(),
+         
 
         }
 
+        var formData = new FormData();
+        for (var key in oModel) {
+            formData.append(key, oModel[key]);
+        }
+        formData.append("file", $('#imageFile')[0].files[0]);
         debugger;
         console.log(oModel);
-        debugger;
         $.ajax({
             type: "POST",
             url: "/Admin_DoctorPage/AddDoctor",
-            contentType: "application/json",
-            data: JSON.stringify(oModel),
-            dataType: 'json',
-            cache: false,
-            async: false,
+            data: formData,
+            processData: false, // Prevent jQuery from automatically transforming the data into a query string
+            contentType: false, // Set content type to false for FormData
             success: function (data) {
 
                 if (data.status === "success") {
@@ -267,4 +226,47 @@ function Viewdata(id) {
         }
 
     });
+}
+
+
+function ClearViewDoctorForm() {
+    $('#v_id').val('');
+    $('#v_name').val('');
+    $('#v_email').val('');
+    $('#v_phone').val('');
+    $('#v_specialist').val('');
+    $('#v_gender').val('');
+    $('#v_qualification').val('');
+    $('#v_DateOfBirth').val('');
+    $('#v_address').val('');
+    $('#v_imageFile').val('');
+
+}
+
+function ClearUpdateDoctorForm() {
+    $('#u_id').val('');
+    $('#u_name').val('');
+    $('#u_email').val('');
+    $('#u_phone').val('');
+    $('#u_specialist').val('');
+    $('#u_gender').val('');
+    $('#u_qualification').val('');
+    $('#u_DateOfBirth').val('');
+    $('#u_address').val('');
+    $('#u_imageFile').val('');
+
+}
+
+function ClearAddDoctorForm() {
+
+    $('#name').val('');
+    $('#email').val('');
+    $('#password').val('');
+    $('#phone').val('');
+    $('#address').val('');
+    $('#gender').val('');
+    $('#specialist').val('');
+    $('#qualification').val('');
+    $('#DateOfBirth').val('');
+    $('#imageFile').val('');
 }

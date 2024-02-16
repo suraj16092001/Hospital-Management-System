@@ -32,7 +32,7 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
                 return "exists";
             }
             model.admin_Doctor.imageFile = file;
-            model.admin_Doctor.imagePath = UploadImage(model.admin_Doctor.imageFile);
+            model.admin_Doctor.profileImage = UploadImage(model.admin_Doctor.imageFile);
             model.User.role = 3;
             _IAdmin_DoctorPageDAL.AddDoctor(model);
             return "success";
