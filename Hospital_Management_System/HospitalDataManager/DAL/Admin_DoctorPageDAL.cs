@@ -70,7 +70,6 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-
             }
 
             return model;
@@ -108,10 +107,29 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 oModel.admin_Doctor.phone = item["phone"].ConvertDBNullToString();
                 oModel.admin_Doctor.DateOfBirth = item["DOB"].ConvertDBNullToString();
                 oModel.admin_Doctor.address = item["address"].ConvertDBNullToString();
+                oModel.admin_Doctor.profileImage = item["image"].ConvertDBNullToString();
 
             }
 
             return oModel;
+        }
+
+        public string GetDBImagebyID(int ID)
+        {
+            string existingImage = null;
+
+            _dBManager.InitDbCommand("GetDBImagebyID");
+
+            _dBManager.AddCMDParam("@u_ID", ID);
+
+            DataSet ds = _dBManager.ExecuteDataSet();
+
+            foreach (DataRow item in ds.Tables[0].Rows)
+            {
+                existingImage = item["image"].ConvertJSONNullToString();
+            }
+
+            return existingImage;
         }
 
         public DoctorAllDataViewModel UpdateDoctor(DoctorAllDataViewModel model)

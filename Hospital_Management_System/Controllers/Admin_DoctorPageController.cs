@@ -29,10 +29,10 @@ namespace Hospital_Management_System.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddDoctor(string model,IFormFile file)
+        public IActionResult AddDoctor(DoctorAllDataViewModel model, IFormFile file)
         {
-            DoctorAllDataViewModel doctor = JsonSerializer.Deserialize<DoctorAllDataViewModel>(model)!;
-            var result = _IAdmin_DoctorPageBAL.AddDoctor(doctor, file);
+            ////DoctorAllDataViewModel doctor = JsonSerializer.Deserialize<DoctorAllDataViewModel>(model)!;
+            var result = _IAdmin_DoctorPageBAL.AddDoctor(model, file);
 
                 if (result == "exists")
                 {

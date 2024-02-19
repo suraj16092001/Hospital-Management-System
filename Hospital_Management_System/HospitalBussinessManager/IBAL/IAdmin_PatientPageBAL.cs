@@ -12,8 +12,8 @@ namespace Hospital_Management_System.HospitalBussinessManager.IBAL
         public PatientAllDataViewModel GetPatientByID(int id);
         public PatientAllDataViewModel UpdatePatient(PatientAllDataViewModel model);
         public void DeletePatient(int id);
-        public AppointmentModel BookAppointment(AppointmentModel model);
         public List<UserModel> GetDoctors(Admin_DoctorPageModel specialist);
+        public Requested_AppointmentModel AdminSidePatientAppointment([FromBody] Requested_AppointmentModel oModel);
 
     }
 }

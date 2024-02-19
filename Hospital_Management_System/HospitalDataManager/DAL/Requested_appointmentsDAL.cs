@@ -115,7 +115,6 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             {
                 oModel = new Requested_AppointmentModel();
 
-
                 oModel.id = item["id"].ConvertDBNullToInt();
                 oModel.name = item["name"].ConvertDBNullToString();
                 oModel.email = item["email"].ConvertDBNullToString();

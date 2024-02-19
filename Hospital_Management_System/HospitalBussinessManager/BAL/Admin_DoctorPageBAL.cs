@@ -46,7 +46,7 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
 
                 if (imageFile != null)
                 {
-                    string uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+                    string uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot","DoctorImages");
 
                     // Create the directory if it doesn't exist
 

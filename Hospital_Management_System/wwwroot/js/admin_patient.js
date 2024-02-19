@@ -25,7 +25,7 @@ function get() {
                     {
                         data: null,
                         render: function (data, type, row) {
-                            return `<button type="button" onclick="popupdatedata(` + row.User.id + `)" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square"></i></button>|<button type="button" onclick="ViewModal(` + row.User.id + `)" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#ViewModal"><i class="fa-solid fa-eye"></i></button>|<button type="button" onclick="DeletePatient(` + row.User.id + `)" class="btn btn-danger" ><i class="fa-solid fa-trash-can-arrow-up"></i></button>|<button type="button" class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#appointmentModal"><i class="fa-solid fa-clipboard-list"></i></button>`;
+                            return `<button type="button" onclick="popupdatedata(` + row.User.id + `)" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square"></i></button>|<button type="button" onclick="ViewModal(` + row.User.id + `)" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#ViewModal"><i class="fa-solid fa-eye"></i></button>|<button type="button" onclick="DeletePatient(` + row.User.id + `)" class="btn btn-danger" ><i class="fa-solid fa-trash-can-arrow-up"></i></button>|<button type="button" onclick="popupdatedataforBooking(` + row.User.id + `)" class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#appointmentModal"><i class="fa-solid fa-clipboard-list"></i></button>`;
                         }
                     }
                 ]
@@ -35,66 +35,71 @@ function get() {
             Success = false;
         }
     });
-}
+} 
 
-function BookAppointment() {
-    var oModel = {
-        doctor: $('#a_doctor').val(),
-        disease: $('#a_disease').val(),
-        appointment_date: $('#a_appointment_date').val(),
-        appointment_time: $('#a_appointment_time').val(),
-    }
-
-    debugger;
-    var formData = new FormData();
-    for (var key in oModel) {
-        formData.append(key, oModel[key])
-    }
-    $.ajax({
-        type: "POST",
-        url: "/Admin_PatientPage/BookAppointment",
-        data: formData,
-        processData: false,
-        contentType: false,
-        cache: false,
-        success: function (data) {
-
-            Swal.fire({
-                title: "Good job!",
-                text: "Appointment saved successfully!",
-                icon: "success",
-                button: "Ok",
-            });
-            $('#appointmentModal').modal('hide');
-            get();
-        },
-        error: function (error) {
-            console.log("Error saving employee:", error);
-            Swal.fire("Oops", "An error occurred while saving your data, Please try again later.", "error");
-        }
-    })
-}
-
-function FetchDoctors(specialist) {
+function FetchDoctors(department) {
     debugger;
     $.ajax({
         url: '/Admin_PatientPage/GetDoctors',
         type: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify({ specialist: specialist }),
+        data: JSON.stringify({ specialist: department }),
         success: function (data) {
             var dropdown = $('#a_doctor');
             dropdown.empty();
-
-            $.each(data, function (i, doctor) {
-                dropdown.append($('<option></option>').text(doctor.name));
-            });
+            if (data) {
+                $.each(data, function (i, doctor) {
+                    if (doctor && doctor.name && doctor.id) {
+                        dropdown.append($('<option></option>').text(doctor.name).val(doctor.id));
+                    }
+                });
+            }
         },
         error: function (xhr, status, error) {
             console.error(xhr.responseText);
         }
     });
 }
+
+
+// Requested_appointmentsModel
+function BookAppointment() {
+    var oModel = {
+        patient_id: $('#a_id').val(),
+        name: $('#a_name').val(),
+        email: $('#a_email').val(),
+        appointment_date: $('#a_appointment_date').val(),
+        appointment_time: $('#a_appointment_time').val(),
+        department: $('#a_department').val(),
+        description: $('#a_Description').val(),
+        doctor_id: $('#a_doctor').val(),
+    }
+
+    debugger;
+
+    $.ajax({
+        type: "POST",
+        url: "/Admin_PatientPage/AdminSidePatientAppointment",
+        contentType: "application/json",
+        data: JSON.stringify(oModel),
+        dataType: 'json',
+        cache: false,
+        async: false,
+        success: function (data) {
+
+            alert("Appointment Book Successfully!");
+            ClearForm();
+            get();
+            $('#appointmentModal').modal('hide');
+        },
+        error: function (error) {
+            console.log("Error saving employee:", error);
+            Swal.fire("Oops", "An error occurred while saving your request, Please try again later.", "error");
+        }
+    })
+}
+
+
 
 
 
@@ -175,6 +180,22 @@ function DeletePatient(id) {
         }
     });
 }
+
+
+
+function popupdatedataforBooking(id) {
+    debugger;
+    $.ajax({
+        type: "POST",
+        url: "/Admin_PatientPage/GetPatientByID/" + id,
+        success: function (data) {
+            $('#a_id').val(data.User.id);
+            $('#a_name').val(data.User.email);
+            $('#a_email').val(data.User.name);
+        }
+    });
+}
+
 
 function popupdatedata(id) {
     debugger;
@@ -299,9 +320,11 @@ function ClearViewPatientForm() {
 }
 
 function ClearBookingForm() {
-
-    $('#a_doctor').val('');
-    $('#a_disease').val('');
-    $('#a_appointment_date').val('');
-    $('#a_appointment_time').val('');
+    $('#name').val('');
+    $('#email').val('');
+    $('#appointment_date').val('');
+    $('#appointment_time').val('');
+    $('#department').val('');
+    $('#message').val('');
+    $('#doctor').val('');
 }

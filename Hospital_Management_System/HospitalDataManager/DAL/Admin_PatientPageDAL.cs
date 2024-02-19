@@ -119,18 +119,6 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             return patient;
         }
 
-        public AppointmentModel BookAppointment(AppointmentModel appointment)
-        {
-
-            _dBManager.InitDbCommand("InsertPatientAppointment");
-            _dBManager.AddCMDParam("@p_disease", appointment.disease);
-            _dBManager.AddCMDParam("@p_doctor", appointment.doctor);
-            _dBManager.AddCMDParam("@p_appointment_date", appointment.appointment_date);
-            _dBManager.AddCMDParam("@p_appointment_time", appointment.appointment_time);
-
-            _dBManager.ExecuteNonQuery();
-            return appointment;
-        }
 
         public List<UserModel> GetDoctors(Admin_DoctorPageModel specialist)
         {

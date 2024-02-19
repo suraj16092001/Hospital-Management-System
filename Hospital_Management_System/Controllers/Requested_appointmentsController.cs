@@ -33,7 +33,19 @@ namespace Hospital_Management_System.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateStatus([FromBody] Requested_AppointmentModel oModel)
         {
-            await _EmailSender.EmailSendAsync(oModel.email, "Appointment Confirm", "Congratulation Your Appointment Is confirmed!");
+            if (oModel.status_id == 1)
+            {
+                await _EmailSender.EmailSendAsync(oModel.email, "Appointment Requested", "Appointment Is requested,we will contact You soon");
+            }
+            else if (oModel.status_id == 2)
+            {
+                await _EmailSender.EmailSendAsync(oModel.email, "Appointment Confirm", "Congratulation Your Appointment Is confirmed!");
+            }
+            else if (oModel.status_id == 3)
+            {
+                await _EmailSender.EmailSendAsync(oModel.email, "Doctors Not Available", "Sorry For Inconvenience,For Some Reason Doctor Not Available!");
+            }
+
             _IRequested_appointmentsBAL.UpdateStatus(oModel);
             return Json("Status");
         }

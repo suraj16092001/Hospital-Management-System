@@ -49,46 +49,39 @@ function get() {
 
 
 function AddDoctor() {
-    debugger;
     if ($("#AddDoctor").valid()) {
         var oModel = {
-           
-                'User.name': $('#name').val(),
-                'User.email': $('#email').val(),
-                'User.password': $('#password').val(),
-           
-                'admin_Doctor.qualification': $('#qualification').val(),
-                'admin_Doctor.specialist': $('#specialist').val(),
-                'admin_Doctor.gender': $('#gender').val(),
-                'admin_Doctor.phone': $('#phone').val(),
-                'admin_Doctor.DateOfBirth': $('#DateOfBirth').val(),
-                'admin_Doctor.address': $('#address').val(),
-         
-
-        }
+            User: {
+                name: $('#name').val(),
+                email: $('#email').val(),
+                password: $('#password').val(),
+            },
+            admin_Doctor: {
+                qualification: $('#qualification').val(),
+                specialist: $('#specialist').val(),
+                gender: $('#gender').val(),
+                phone: $('#phone').val(),
+                DateOfBirth: $('#DateOfBirth').val(),
+                address: $('#address').val(),
+            }
+        };
 
         var formData = new FormData();
-        for (var key in oModel) {
-            formData.append(key, oModel[key]);
-        }
+        formData.append('model', JSON.stringify(oModel));
         formData.append("file", $('#imageFile')[0].files[0]);
-        debugger;
-        console.log(oModel);
+
         $.ajax({
             type: "POST",
             url: "/Admin_DoctorPage/AddDoctor",
             data: formData,
-            processData: false, // Prevent jQuery from automatically transforming the data into a query string
-            contentType: false, // Set content type to false for FormData
+            processData: false,
+            contentType: false,
             success: function (data) {
-
                 if (data.status === "success") {
                     alert(data.message);
-                }
-                else if (data.status === "warning") {
+                } else if (data.status === "warning") {
                     alert(data.message);
                 }
-
                 ClearAddDoctorForm();
                 $('#AddDoctorModal').modal('hide');
                 get();
@@ -97,9 +90,10 @@ function AddDoctor() {
                 console.log("Error saving Doctor:", error);
                 Swal.fire("Oops", "An error occurred while saving your data, Please try again later.", "error");
             }
-        })
+        });
     }
 }
+
 
 function DeleteDoctor(id) {
     // var ans = confirm("Are you sure you want to delete this Record?");
@@ -137,6 +131,23 @@ function DeleteDoctor(id) {
     });
 }
 
+
+function previewImage(input) {
+    var file = input.files[0];
+
+    if (file) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#imagePreviewUpdate').attr('src', e.target.result).show();
+        };
+
+        reader.readAsDataURL(file);
+    } else {
+        // Clear the image preview if no file is selected
+        $('#imagePreviewUpdate').attr('src', '').hide();
+    }
+}
 function popupdatedata(id) {
     debugger;
 
@@ -154,10 +165,14 @@ function popupdatedata(id) {
             var date = moment(data.admin_Doctor.DateOfBirth);
             $('#u_DateOfBirth').val(date.format('YYYY-MM-DD'));
             $('#u_address').val(data.admin_Doctor.address);
+
+            var imagePreview = "/DoctorImages/" + data.admin_Doctor.profileImage;
+            $('#imagePreviewUpdate').attr('src', imagePreview).show();
         }
 
     });
 }
+
 
 
 function UpdateDoctor() {

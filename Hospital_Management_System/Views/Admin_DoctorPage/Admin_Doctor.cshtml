@@ -204,10 +204,21 @@
                         </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="image" class="form-label">Photo : </label>
-                        <input id="u_imageFile" name="imageFile" type="file" class="form-control">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="image" class="form-label">Photo : </label>
+                                <input id="u_imageFile" name="imageFile" type="file" class="form-control" onchange="previewImage(this)">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3" style="display: flex; flex-direction: column;">
+                                <img id="imagePreviewUpdate" src="#" alt="Image Preview" style="max-width: 30%; max-height: 150px; margin-top: 10px; display: none;">
+                            </div>
+                        </div>
                     </div>
+                    
+                  
 
                     <div class="modal-footer">
                         <button type="button" onclick="UpdateDoctor()" class="btn btn-primary">Update</button>
