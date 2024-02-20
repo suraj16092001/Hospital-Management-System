@@ -1,52 +1,38 @@
 ﻿$(document).ready(function () {
-
-    get();
+    getDoctorList();
 });
 
 
-function get() {
-    debugger;
-    // Destroy the existing DataTable
-    if ($.fn.DataTable.isDataTable('#DrTable')) {
-        $('#DrTable').DataTable().destroy();
-    }
 
+function getDoctorList() {
     $.ajax({
-
-        type: "GET",
+        type: "Get",
         url: "/Admin_DoctorPage/DoctorList",
-
         success: function (data) {
-            $('#DrTable').DataTable({
-                data: data,
-                columns: [
-                    { data: 'User.id' },
-                    { data: 'User.name' },
-                    { data: 'User.email' },
-
-                    // { data: 'admin_Doctor.phone' },
-                    // { data: 'admin_Doctor.specialist' },
-                    // {
-                    //     data: 'admin_Doctor.imagePath',
-                    //     render: function (data, type, row) {
-                    //         return '<img src="~/images/' + row.admin_Doctor.imagePath + '"class="rounded-image" width="35px" height="35px" />';
-                    //     }
-                    // },
-                    {
-                        data: null,
-                        render: function (data, type, row) {
-                            return ` <button type="button" onclick="popupdatedata(` + row.User.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#UpdateDoctorModal"><i class="fa-solid fa-pen-to-square"></i></button>|<button type="button" onclick="Viewdata(` + row.User.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ViewDoctorModal"><i class="fa-solid fa-eye"></i></button>|<button type="button" onclick="DeleteDoctor(` + row.User.id + `)" class="btn btn-primary" ><i class="fa-solid fa-trash-can-arrow-up"></button>`;
-                        }
-                    }
-                ]
+            var cardContainer = $('#cardContainer');
+            data.forEach(function (item) {
+                var card =
+                    `<div class="col-md-4 mb-4">
+                        <div class="card h-100 mb-4" onclick="Viewdata(${item.User.id})" data-bs-toggle="modal" data-bs-target="#ViewDoctorModal">
+                            <img src="/DoctorImages/${item.admin_Doctor.profileImage}" class="card-img-top" style="width:100%; aspect-ratio:3/2; object-fit:contain" alt="Image">
+                                <div class="card-body">
+                                <h5 class="card-title fw-bold">${item.User.name}</h5>
+                                <p class="card-text">specialist: ${item.admin_Doctor.specialist}</p>
+                                <a class="btn btn-primary" onclick="popupdatedata(${item.User.id})" data-bs-toggle="modal" data-bs-target="#UpdateDoctorModal">Edit</a>
+                                <a class="btn btn-primary" onclick="Viewdata(${item.User.id})" data-bs-toggle="modal" data-bs-target="#ViewDoctorModal">View</a>
+                                <a class="btn btn-primary" onclick="DeleteDoctor(${item.User.id})">Delete</a>
+                                </div>
+                        </div>
+                    </div>`
+                    ;
+                cardContainer.append(card);
             });
         },
         error: function (textStatus, errorThrown) {
-            Success = false;
+            console.log('Error: ' + textStatus);
         }
     });
 }
-
 
 function AddDoctor() {
     if ($("#AddDoctor").valid()) {
@@ -67,9 +53,9 @@ function AddDoctor() {
         };
 
         var formData = new FormData();
-        formData.append('model', JSON.stringify(oModel));
+        formData.append("model", JSON.stringify(oModel));
         formData.append("file", $('#imageFile')[0].files[0]);
-
+        debugger;
         $.ajax({
             type: "POST",
             url: "/Admin_DoctorPage/AddDoctor",
@@ -84,7 +70,8 @@ function AddDoctor() {
                 }
                 ClearAddDoctorForm();
                 $('#AddDoctorModal').modal('hide');
-                get();
+                $('#cardContainer').empty();
+                getDoctorList();
             },
             error: function (error) {
                 console.log("Error saving Doctor:", error);
@@ -116,7 +103,8 @@ function DeleteDoctor(id) {
                     swal.fire("Doctor deleted successfully!", {
                         icon: "success",
                     }).then(() => {
-                        get(); // Refresh data after deletion
+                        $('#cardContainer').empty();
+                        getDoctorList(); // Refresh data after deletion
                     });
                 },
                 error: function (errormessage) {
@@ -177,9 +165,12 @@ function popupdatedata(id) {
 
 function UpdateDoctor() {
 
+    var ID = {
+        id: $('#u_id').val(),
+    }
     var updatedModel = {
         User: {
-            id: $('#u_id').val(),
+
             name: $('#u_name').val(),
             email: $('#u_email').val(),
         },
@@ -193,13 +184,20 @@ function UpdateDoctor() {
             address: $('#u_address').val(),
         }
     };
+
     debugger;
+
+    var formData = new FormData();
+    formData.append("Id", ID.id);
+    formData.append("model", JSON.stringify(updatedModel));
+    formData.append("file", $('#u_imageFile')[0].files[0]);
+
     $.ajax({
         type: "POST",
         url: "/Admin_DoctorPage/UpdateDoctor",
-        data: JSON.stringify(updatedModel),
-        contentType: 'application/json',  // Set the content type to application/json
-        cache: false,
+        data: formData,
+        processData: false,
+        contentType: false,
         success: function (data) {
             $('#UpdateDoctorModal').modal('hide');
             Swal.fire({
@@ -208,7 +206,8 @@ function UpdateDoctor() {
                 icon: "success",
                 button: "Ok",
             });
-            get();
+            $('#cardContainer').empty();
+            getDoctorList();
         },
         error: function () {
             Swal.fire({
@@ -238,6 +237,8 @@ function Viewdata(id) {
             var date = moment(data.admin_Doctor.DateOfBirth);
             $('#v_DateOfBirth').val(date.format('YYYY-MM-DD'));
             $('#v_address').val(data.admin_Doctor.address);
+            var imagePreview = "/DoctorImages/" + data.admin_Doctor.profileImage;
+            $('#imagePreviewView').attr('src', imagePreview).show();
         }
 
     });

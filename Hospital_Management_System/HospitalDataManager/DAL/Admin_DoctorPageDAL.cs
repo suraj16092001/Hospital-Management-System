@@ -39,7 +39,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 model.admin_Doctor.phone = item["phone"].ConvertDBNullToString();
                 model.admin_Doctor.DateOfBirth = item["DOB"].ConvertDBNullToString();
                 model.admin_Doctor.address = item["address"].ConvertDBNullToString();
-                //model.admin_Doctor.imagePath = item["image"].ConvertDBNullToString();
+                model.admin_Doctor.profileImage = item["image"].ConvertDBNullToString();
 
                 doctorList.Add(model);
             }
@@ -97,7 +97,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 oModel.User = new UserModel();
                 oModel.admin_Doctor = new Admin_DoctorPageModel();
 
-                oModel.User.id= item["id"].ConvertDBNullToInt();
+                oModel.User.id = item["id"].ConvertDBNullToInt();
                 oModel.User.name = item["name"].ConvertDBNullToString();
                 oModel.User.email = item["email"].ConvertDBNullToString();
                 oModel.admin_Doctor.id = item["register_id"].ConvertDBNullToInt();
@@ -120,7 +120,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
 
             _dBManager.InitDbCommand("GetDBImagebyID");
 
-            _dBManager.AddCMDParam("@u_ID", ID);
+            _dBManager.AddCMDParam("@p_ID", ID);
 
             DataSet ds = _dBManager.ExecuteDataSet();
 
@@ -144,6 +144,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             _dBManager.AddCMDParam("@p_phone", model.admin_Doctor.phone);
             _dBManager.AddCMDParam("@p_DOB", model.admin_Doctor.DateOfBirth);
             _dBManager.AddCMDParam("@p_address", model.admin_Doctor.address);
+            _dBManager.AddCMDParam("@p_image", model.admin_Doctor.profileImage);
 
             _dBManager.ExecuteNonQuery();
             return model;

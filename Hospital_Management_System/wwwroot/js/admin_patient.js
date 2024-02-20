@@ -25,10 +25,15 @@ function get() {
                     {
                         data: null,
                         render: function (data, type, row) {
-                            return `<button type="button" onclick="popupdatedata(` + row.User.id + `)" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square"></i></button>|<button type="button" onclick="ViewModal(` + row.User.id + `)" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#ViewModal"><i class="fa-solid fa-eye"></i></button>|<button type="button" onclick="DeletePatient(` + row.User.id + `)" class="btn btn-danger" ><i class="fa-solid fa-trash-can-arrow-up"></i></button>|<button type="button" onclick="popupdatedataforBooking(` + row.User.id + `)" class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#appointmentModal"><i class="fa-solid fa-clipboard-list"></i></button>`;
+                            return `<button type="button" onclick="popupdatedata(` + row.User.id + `); event.stopPropagation();" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square"></i></button>|<button type="button" onclick="ViewModal(` + row.User.id + `)" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#ViewModal"><i class="fa-solid fa-eye"></i></button>|<button type="button" onclick="DeletePatient(` + row.User.id + `); event.stopPropagation();" class="btn btn-danger" ><i class="fa-solid fa-trash-can-arrow-up"></i></button>|<button type="button" onclick="popupdatedataforBooking(` + row.User.id + `)" class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#appointmentModal"><i class="fa-solid fa-clipboard-list"></i></button>`;
                         }
                     }
-                ]
+                ],
+                rowCallback: function (row, data) {
+                    $(row).on('click', function () {
+                        ViewModal(data.User.id);
+                    });
+                }
             });
         },
         error: function (textStatus, errorThrown) {
@@ -281,6 +286,8 @@ function ViewModal(id) {
             $('#view_address').val(data.Admin_PatientPage.address);
             $('#view_gender').val(data.Admin_PatientPage.gender);
 
+
+            $('#ViewModal').modal('show');
         }
     });
 }

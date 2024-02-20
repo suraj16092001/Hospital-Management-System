@@ -29,10 +29,10 @@ namespace Hospital_Management_System.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddDoctor(DoctorAllDataViewModel model, IFormFile file)
+        public IActionResult AddDoctor(string model, IFormFile file)
         {
-            ////DoctorAllDataViewModel doctor = JsonSerializer.Deserialize<DoctorAllDataViewModel>(model)!;
-            var result = _IAdmin_DoctorPageBAL.AddDoctor(model, file);
+            DoctorAllDataViewModel doctor = JsonSerializer.Deserialize<DoctorAllDataViewModel>(model)!;
+            var result = _IAdmin_DoctorPageBAL.AddDoctor(doctor, file);
 
                 if (result == "exists")
                 {
@@ -55,9 +55,10 @@ namespace Hospital_Management_System.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateDoctor([FromBody]DoctorAllDataViewModel model)
+        public IActionResult UpdateDoctor(string model, int Id, IFormFile file)
         {
-            _IAdmin_DoctorPageBAL.UpdateDoctor(model);
+            DoctorAllDataViewModel doctor = JsonSerializer.Deserialize<DoctorAllDataViewModel>(model)!;
+            _IAdmin_DoctorPageBAL.UpdateDoctor(doctor,Id, file);
             return Json("DoctorList");
         }
 

@@ -11,5 +11,6 @@ namespace Hospital_Management_System.HospitalDataManager.IDAL
         public void DeleteDoctor(int id);
         public DoctorAllDataViewModel GetDoctorByID(int id);
         public DoctorAllDataViewModel UpdateDoctor(DoctorAllDataViewModel model);
+        public string GetDBImagebyID(int ID);
     }
 }

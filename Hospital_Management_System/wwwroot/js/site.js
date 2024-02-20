@@ -54,3 +54,23 @@
     });
 
 })(jQuery); // End of use strict
+
+
+$(document).ready(function () {
+    populateProfile_image();
+});
+function populateProfile_image() {
+    debugger;
+
+    $.ajax({
+        type: "POST",
+        url: "/DoctorDashBoard/GetProfileImageBySessionID/",
+        success: function (data) {
+            $('#u_id').val(data.User.id);
+
+            var imagePreview = "/DoctorImages/" + data.admin_Doctor.profileImage;
+            $('#user_profile').attr('src', imagePreview).show();
+        }
+
+    });
+}

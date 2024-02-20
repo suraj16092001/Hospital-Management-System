@@ -11,6 +11,6 @@ namespace Hospital_Management_System.HospitalBussinessManager.IBAL
         public void DeleteDoctor(int id);
 
         public DoctorAllDataViewModel GetDoctorByID(int id);
-        public DoctorAllDataViewModel UpdateDoctor(DoctorAllDataViewModel model);
+        public DoctorAllDataViewModel UpdateDoctor(DoctorAllDataViewModel model, int Id, IFormFile file);
     }
 }

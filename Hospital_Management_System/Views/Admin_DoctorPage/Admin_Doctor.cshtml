@@ -5,14 +5,14 @@
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddDoctorModal">Add Doctor</button>
 </div>
 
- @* <div class="card" style="width: 18rem;">
+@* <div class="card" style="width: 18rem;">
     <img src="~/images/1.jpg" class="card-img-top" alt="">
     <div class="card-body">
         <h5 class="card-title">Card title</h5>
         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
         <a href="#" class="btn btn-primary">Go somewhere</a>
     </div>
-</div> *@ 
+</div> *@
 
 <div class="modal fade" id="AddDoctorModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="AddDoctorModallLabel" aria-hidden="true">
 
@@ -164,7 +164,21 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="specialist" class="form-label">Specialist :</label>
-                                <input id="u_specialist" type="text" name="specialist" class="form-control" />
+                                @* <input id="u_specialist" type="text" name="specialist" class="form-control" /> *@
+                                <select id="u_specialist" name="u_specialist" class="form-control">
+                                    <option value="">Select one…</option>
+                                    <option value="Dentist">Dentist</option>
+                                    <option value="Heart Specialist">Heart Specialist</option>
+                                    <option value="Diabetes">Diabetes</option>
+                                    <option value="Oncology(Cancer)">Oncology(Cancer)</option>
+                                    <option value="General Physician">General Physician</option>
+                                    <option value="Orthopedic">Orthopedic</option>
+                                    <option value="Neurology">Neurology</option>
+                                    <option value="Radiology">Radiology</option>
+                                    <option value="Surgery">Surgery</option>
+                                    <option value="Skin Specialist">Skin Specialist</option>
+                                    <option value="Emergency Department">Emergency Department</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -217,8 +231,6 @@
                             </div>
                         </div>
                     </div>
-                    
-                  
 
                     <div class="modal-footer">
                         <button type="button" onclick="UpdateDoctor()" class="btn btn-primary">Update</button>
@@ -309,10 +321,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="image" class="form-label">Photo : </label>
-                        <input id="v_imageFile" name="imageFile" type="file" class="form-control" readonly>
+                    <div class="mb-3"> 
+                        <input id="v_imageFile" name="imageFile" type="file" class="form-control" onchange="previewImage(this)" hidden>
                     </div>
+
+                    <div class="mb-3" style="display: flex; flex-direction: column;">
+                        <label for="image" class="form-label">Photo : </label>
+                        <img id="imagePreviewView" src="#" alt="Image Preview" style="max-width: 30%; max-height: 150px; margin-top: 10px; display: none;">
+                    </div>
+
                 </form>
             </div>
         </div>
@@ -320,25 +337,13 @@
 </div>
 
 
-<div class="card w-100 shadow-sm">
-    <div class="card-body">
-        <table class="table table-bordered" id="DrTable" style="width:100% !important">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>email</th>
-                   @*  <th>Phone</th>
-                    <th>Specialist</th> *@
-                  @*   <th>Photo</th> *@
-                    <th>Action</th>
-                </tr>
-            </thead>
-        </table>
+
+
+<div class="container">
+    <div id="cardContainer" class="row">
+        <!-- Cards will be appended here -->
     </div>
 </div>
-
-
 
 <script src="~/js/admin_doctor.js"></script>
 @section Scripts {

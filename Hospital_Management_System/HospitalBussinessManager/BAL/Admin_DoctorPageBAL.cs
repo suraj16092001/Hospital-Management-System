@@ -89,9 +89,27 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
             return _IAdmin_DoctorPageDAL.GetDoctorByID(id);
         }
 
-        public DoctorAllDataViewModel UpdateDoctor(DoctorAllDataViewModel model)
+        public DoctorAllDataViewModel UpdateDoctor(DoctorAllDataViewModel model, int Id,IFormFile file)
         {
-
+            model.User.id=Id;
+            model.admin_Doctor.imageFile = file;
+            string existingImage = _IAdmin_DoctorPageDAL.GetDBImagebyID(Id);
+            if(model.admin_Doctor.imageFile != null)
+            {
+                if (!string.IsNullOrEmpty(existingImage))
+                {
+                    string oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "DoctorImages", existingImage);
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+                }
+                model.admin_Doctor.profileImage = UploadImage(model.admin_Doctor.imageFile);
+            }
+            else
+            {
+                model.admin_Doctor.profileImage = existingImage;
+            }
             return _IAdmin_DoctorPageDAL.UpdateDoctor(model);
         }
     }
