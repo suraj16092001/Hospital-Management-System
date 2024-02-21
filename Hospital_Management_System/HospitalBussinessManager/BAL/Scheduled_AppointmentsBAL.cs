@@ -23,5 +23,9 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
             return _IScheduled_AppointmentsDAL.GetScheduledAppointments(id);
         }
 
+        public List<Appointment_StatusModel> GetStatusForDoctor()
+        {
+            return _IScheduled_AppointmentsDAL.GetStatusForDoctor();
+        }
     }
 }

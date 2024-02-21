@@ -45,7 +45,16 @@ namespace Hospital_Management_System.Controllers
             {
                 await _EmailSender.EmailSendAsync(oModel.email, "Doctors Not Available", "Sorry For Inconvenience,For Some Reason Doctor Not Available!");
             }
+            else if (oModel.status_id == 4)
+            {
+                await _EmailSender.EmailSendAsync(oModel.email, "Check Up Completed", "Check-up completed; your report will be sent to you soon.");
 
+            }
+            else if (oModel.status_id == 5)
+            {
+                await _EmailSender.EmailSendAsync(oModel.email, "Your Appointment is rescheduled", "Your appointment has been rescheduled. Please make a note of this change.");
+
+            }
             _IRequested_appointmentsBAL.UpdateStatus(oModel);
             return Json("Status");
         }

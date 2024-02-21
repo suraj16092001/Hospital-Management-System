@@ -68,6 +68,8 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             return emailExists;
         }
 
+
+
         //retrieve role by emailID from database
         public string getRole(string email)
         {

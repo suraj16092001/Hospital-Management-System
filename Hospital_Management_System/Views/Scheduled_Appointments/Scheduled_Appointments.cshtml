@@ -4,13 +4,13 @@
 }
 
 
-<div class="modal fade" id="updatemodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="updatemodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Add Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="clearScheduledForm()"></button>
             </div>
 
             <div class="modal-body">
@@ -23,13 +23,13 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="u_name" class="form-label">PName : </label>
-                                <input id="u_name" type="text" name="u_name" class="form-control" />
+                                <input id="u_name" type="text" name="u_name" class="form-control" readonly />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="u_email" class="form-label">Email Id : </label>
-                                <input id="u_email" type="email" name="email" class="form-control" />
+                                <input id="u_email" type="email" name="email" class="form-control" readonly />
                             </div>
                         </div>
                     </div>
@@ -38,43 +38,31 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="u_appointment_date" class="form-label">Appointment Date:</label>
-                                <input id="u_appointment_date" type="date" name="u_appointment_date" class="form-control" />
+                                <input id="u_appointment_date" type="date" name="u_appointment_date" class="form-control" readonly />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="u_appointment_time" class="form-label">Appointment Time: </label>
-                                <input id="u_appointment_time" type="time" name="u_appointment_time" class="form-control" />
+                                <input id="u_appointment_time" type="time" name="u_appointment_time" class="form-control" readonly />
                             </div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="u_description" class="form-label">Description: </label>
-                        <input id="u_description" type="text" name="u_description" class="form-control" />
+                        <input id="u_description" type="text" name="u_description" class="form-control" readonly />
                     </div>
-                   @*  <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="u_department" class="form-label">Department : </label>
-                                <input id="u_department" type="text" name="u_department" class="form-control" />
-                            </div>
-                        </div>
 
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="u_status" class="form-label">Status : </label>
-                                <select id="u_status" type="text" name="u_status" class="form-control">
-                                    <option value="Requested">Requested</option>
-                                    <option value="Booked Appointment">Booked Appointment</option>
-                                    <option value="Doctor Not Available">Doctor Not Available</option>
-                                    <option value="Cancelled Appointment">Cancelled Appointment</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div> *@
+                    <div class="mb-3">
+                        <label for="u_status_id" class="form-label">Status: </label>
+                        <select id="u_status_id" type="text" name="u_status" class="form-control">     
+                           @*  <option value="">Select Status</option> *@
+                            </select>
+                   
+
+                    </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" onclick="updateStatus()" class="btn btn-primary">Update changes</button>
                     </div>
                 </form>

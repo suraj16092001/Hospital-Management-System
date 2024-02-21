@@ -60,9 +60,26 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 oModel.appointment_date = item["appointment_date"].ConvertDBNullToString();
                 oModel.appointment_time = item["appointment_time"].ConvertDBNullToString();
                 oModel.description = item["description"].ConvertDBNullToString();
-
+                oModel.status_id = item["status_id"].ConvertDBNullToInt();
             }
             return oModel;
+        }
+
+        public List<Appointment_StatusModel> GetStatusForDoctor()
+        {
+            List<Appointment_StatusModel> StatusList = new List<Appointment_StatusModel>();
+            _dBManager.InitDbCommand("sp_hospital_scheduledAppointments_GetStatusForDoctor");
+            DataSet ds = _dBManager.ExecuteDataSet();
+            foreach (DataRow item in ds.Tables[0].Rows)
+            {
+                Appointment_StatusModel oModel = new Appointment_StatusModel();
+                oModel.Status_id = item["status_id"].ConvertDBNullToInt();
+                oModel.Status = item["status"].ConvertDBNullToString();
+
+                StatusList.Add(oModel);
+            }
+            return StatusList;
+
         }
     }
 }

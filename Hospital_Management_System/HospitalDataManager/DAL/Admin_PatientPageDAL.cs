@@ -79,7 +79,6 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
         {
             PatientAllDataViewModel oModel = null;
           
-
             _dBManager.InitDbCommand("PopulatePatientData");
             _dBManager.AddCMDParam("@p_id", id);
             DataSet ds = _dBManager.ExecuteDataSet();
@@ -103,7 +102,6 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             return oModel;
         }
 
-
         public PatientAllDataViewModel UpdatePatient(PatientAllDataViewModel patient)
         {
             _dBManager.InitDbCommand("UpdatePatientData");
@@ -118,7 +116,6 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             _dBManager.ExecuteNonQuery();
             return patient;
         }
-
 
         public List<UserModel> GetDoctors(Admin_DoctorPageModel specialist)
         {
@@ -136,6 +133,21 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             }
             return DoctorList;
 
+        }
+
+        public bool CheckDateTimeOfDoctorsAvailability(Requested_AppointmentModel patient)
+        {
+            _dBManager.InitDbCommand("sp_hospital_adminpatientpage_CheckDateTimeOfDoctorsAvailability")
+                .AddCMDParam("@p_appointment_date_in", patient.appointment_date)
+                .AddCMDParam("@p_appointment_time_in", patient.appointment_time)
+                .AddCMDParam("@p_department_in", patient.department)
+                .AddCMDParam("@p_doctor_id_in", patient.doctor_id);
+
+            var result = _dBManager.ExecuteScalar();
+
+            bool TimeDateExists = Convert.ToBoolean(result);
+
+            return TimeDateExists;
         }
 
     }

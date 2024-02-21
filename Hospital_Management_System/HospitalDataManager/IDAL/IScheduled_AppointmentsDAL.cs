@@ -6,5 +6,6 @@ namespace Hospital_Management_System.HospitalDataManager.IDAL
     {
         public List<Requested_AppointmentModel> ScheduledPatientList(Requested_AppointmentModel model);
         public Requested_AppointmentModel GetScheduledAppointments(int id);
+        public List<Appointment_StatusModel> GetStatusForDoctor();
     }
 }

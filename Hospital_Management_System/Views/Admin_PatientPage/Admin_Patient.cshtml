@@ -1,7 +1,21 @@
 ﻿@*
 
 <h1>Patient</h1> *@
+<style>
+    .select-wrapper {
+        height: 50px;
+        overflow-y: visible;
+    }
 
+    .select {
+        width: 100%;
+        /* make it min-height*/
+        min-height: 50px;
+        border-radius: 25px;
+        border-color: #555;
+        padding: 10px;
+    }
+</style>
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h2>Patient Details</h2>
@@ -296,7 +310,15 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="appointment_time" class="form-label">Appointment Time : </label>
-                                <input id="a_appointment_time" type="time" name="appointment_time" class="form-control" />
+                               @*  <input id="a_appointment_time" type="time" name="appointment_time" class="form-control" /> *@
+                                @* <div class="select-wrapper form-column form-column-field"> *@
+                                <select id="a_appointment_time" name="a_appointment_time" class="form-control" size="5" height="5" onfocus='this.size=10;'
+                                        onblur='this.size=1;'
+                                        onchange='this.size=1; this.blur();'>
+                                    <option  value="">Select Appointment Time...</option>
+                                    <!-- Options will be dynamically populated here -->
+                                </select>
+                                @* </div> *@
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -309,7 +331,7 @@
 
                     <div class="mb-3">
                         <label for="a_Description" class="form-label">Description :</label>
-                        <input id="a_Description" name="a_Description" class="form-control"/>
+                        <input id="a_Description" type="text" name="a_Description" class="form-control"/>
                     </div>
                     <div class="modal-footer">
                         <button type="button" onclick="BookAppointment($)" class="btn btn-primary">Book Appointment</button>

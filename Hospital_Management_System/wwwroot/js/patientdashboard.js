@@ -49,7 +49,12 @@ function BookAppointment() {
         async: false,
         success: function (data) {
 
-            alert("Your appointment request has been sent we will contact you soon");
+            if (data.status === "success") {
+                alert(data.message);
+            }
+            else if (data.status === "warning") {
+                alert(data.message);
+            }
             ClearForm();
         },
         error: function (error) {
@@ -70,41 +75,42 @@ function ClearForm() {
 }
 
 
-// // Get reference to the select element
-// var selectElement = document.getElementById("appointment_time");
+var selectElement = document.getElementById("appointment_time");
 
-// // Function to add options with 15-minute intervals from 9:00 AM to 7:00 PM
-// function populateTimeIntervals() {
-//     var startTime = 9 * 60; // Start time in minutes (9:00 AM)
-//     var endTime = 19 * 60; // End time in minutes (7:00 PM)
-//     var interval = 15; // Interval in minutes
+// Function to add options with  15-minute intervals from  9:00 AM to  7:00 PM
+function populateTimeIntervals() {
+    var startTime = 9 * 60; // Start time in minutes (9:00 AM)
+    var endTime = 19 * 60; // End time in minutes (7:00 PM)
+    var interval = 15; // Interval in minutes
 
-//     var selectElement = document.getElementById("appointment_time");
-//     selectElement.size = 5; // Set the size of the select element to 5 to display 5 options initially
+    // Set the size of the select element to  5 to display  5 options initially
+    selectElement.size = 5;
 
-//     for (var i = startTime; i <= endTime; i += interval) {
-//         var hours = Math.floor(i / 60);
-//         var minutes = i % 60;
-//         var ampm = hours >= 12 ? 'PM' : 'AM';
-//         hours = hours % 12;
-//         hours = hours ? hours : 12; // Convert 0 to 12
-//         minutes = minutes < 10 ? '0' + minutes : minutes; // Add leading zero to minutes
-//         var timeString = hours + ':' + minutes + ' ' + ampm;
+    for (var i = startTime; i <= endTime; i += interval) {
+        var hours = Math.floor(i / 60);
+        var minutes = i % 60;
+        var ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // Convert  0 to  12
+        minutes = minutes < 10 ? '0' + minutes : minutes; // Add leading zero to minutes
+        var timeString = hours + ':' + minutes + ' ' + ampm;
 
-//         var option = document.createElement("option");
-//         option.text = timeString;
-//         option.value = timeString;
-//         selectElement.add(option);
+        var option = document.createElement("option");
+        option.text = timeString;
+        option.value = timeString;
+        selectElement.add(option);
 
-//         // After adding the first 5 options, remove the size attribute to allow scrolling
-//         if (i === (startTime + (interval * 4))) {
-//             selectElement.removeAttribute("size");
-//         }
-//     }
-// }
+        // After adding the first  5 options, remove the size attribute to allow scrolling
+        if (i === (startTime + (interval * 4))) {
+            selectElement.removeAttribute("size");
+        }
+    }
+}
 
 
-// // Call the function to populate time intervals when the page loads
-// window.onload = function () {
-//     populateTimeIntervals();
-// };
+
+
+ // Call the function to populate time intervals when the page loads
+ window.onload = function () {
+     populateTimeIntervals();
+ };

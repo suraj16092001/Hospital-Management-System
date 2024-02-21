@@ -2,22 +2,36 @@
 using Hospital_Management_System.HospitalDataManager.DAL;
 using Hospital_Management_System.HospitalDataManager.IDAL;
 using Hospital_Management_System.Models;
+using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 namespace Hospital_Management_System.HospitalBussinessManager.BAL
 {
     public class PatientDashBoardBAL : IPatientDashBoardBAL
     {
         IPatientDashBoardDAL _IPatientDashBoardDAL;
-
-        public PatientDashBoardBAL(IDBManager dBManager)
+        IAdmin_PatientPageDAL _IAdmin_PatientPageDAL;
+        IEmailSenderBAL _EmailSender;
+        public PatientDashBoardBAL(IDBManager dBManager, IEmailSenderBAL emailSender)
         {
             _IPatientDashBoardDAL = new PatientDashBoardDAL(dBManager);
+            _IAdmin_PatientPageDAL = new Admin_PatientPageDAL(dBManager);
+            _EmailSender = emailSender;
         }
 
-        public Requested_AppointmentModel RequestedAppointment(Requested_AppointmentModel model)
+        public async Task<string> RequestedAppointment(Requested_AppointmentModel model)
         {
+            bool TimeDateExists = _IAdmin_PatientPageDAL.CheckDateTimeOfDoctorsAvailability(model);
+            if (TimeDateExists)
+            {
+                return "exists";
+            }
             model.status_id = 1;
-            return _IPatientDashBoardDAL.RequestedAppointment(model);
+            if (model.status_id == 1)
+            {
+                await _EmailSender.EmailSendAsync(model.email, "Appointment Requested", "Appointment Is requested,we will contact You soon");
+            }
+            _IPatientDashBoardDAL.RequestedAppointment(model);
+            return "success";
         }
     }
 }

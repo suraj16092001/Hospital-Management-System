@@ -1,5 +1,6 @@
 ﻿using Hospital_Management_System.HospitalBussinessManager.BAL;
 using Hospital_Management_System.HospitalBussinessManager.IBAL;
+using Hospital_Management_System.HospitalDataManager.IDAL;
 using Hospital_Management_System.Models;
 using Microsoft.AspNetCore.Mvc;
 using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
@@ -9,11 +10,13 @@ namespace Hospital_Management_System.Controllers
     public class Scheduled_AppointmentsController : Controller
     {
         IScheduled_AppointmentsBAL _IScheduled_AppointmentsBAL;
-        public Scheduled_AppointmentsController(IScheduled_AppointmentsBAL iScheduled_Appointments)
+        IEmailSenderBAL _EmailSender;
+        public Scheduled_AppointmentsController(IScheduled_AppointmentsBAL iScheduled_Appointments, IEmailSenderBAL emailSender)
         {
 
             _IScheduled_AppointmentsBAL = iScheduled_Appointments;
 
+            _EmailSender = emailSender;
         }
         public IActionResult Scheduled_Appointments()
         {
@@ -30,6 +33,27 @@ namespace Hospital_Management_System.Controllers
         public IActionResult GetScheduledAppointments(int id)
         {
             return Json(_IScheduled_AppointmentsBAL.GetScheduledAppointments(id));
+        }
+
+        public IActionResult GetStatusForDoctor()
+        {
+            List<Appointment_StatusModel> doctors = _IScheduled_AppointmentsBAL.GetStatusForDoctor();
+            return Json(doctors);
+        }
+
+        public async Task<IActionResult> DoctorStatusToPatient([FromBody] Requested_AppointmentModel oModel)
+        {
+            if (oModel.status_id == 4)
+            {
+                await _EmailSender.EmailSendAsync(oModel.email, "Check Up Completed", "Check-up completed; your report will be sent to you soon.");
+
+            }
+            else if (oModel.status_id == 5)
+            {
+                await _EmailSender.EmailSendAsync(oModel.email, "Your Appointment is rescheduled", "Your appointment has been rescheduled. Please make a note of this change.");
+
+            }
+            return Json("Status");
         }
     }
 }

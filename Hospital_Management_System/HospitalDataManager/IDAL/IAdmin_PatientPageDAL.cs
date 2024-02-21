@@ -12,5 +12,6 @@ namespace Hospital_Management_System.HospitalDataManager.IDAL
         public PatientAllDataViewModel UpdatePatient(PatientAllDataViewModel patient);
         public void DeletePatient(int id);
         public List<UserModel> GetDoctors(Admin_DoctorPageModel specialist);
+        public bool CheckDateTimeOfDoctorsAvailability(Requested_AppointmentModel patient);
     }
 }

@@ -11,11 +11,13 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
         IAdmin_PatientPageDAL _IAdmin_PatientPageDAL;
         ILoginDAL _ILoginDAL;
         IPatientDashBoardDAL _IPatientDashBoardDAL;
-        public Admin_PatientPageBAL(IDBManager dBManager)
+        IEmailSenderBAL _EmailSender;
+        public Admin_PatientPageBAL(IDBManager dBManager, IEmailSenderBAL emailSender)
         {
             _IAdmin_PatientPageDAL = new Admin_PatientPageDAL(dBManager);
             _ILoginDAL = new LoginDAL(dBManager);
             _IPatientDashBoardDAL = new PatientDashBoardDAL(dBManager);
+            _EmailSender = emailSender;
         }
 
         List<PatientAllDataViewModel> IAdmin_PatientPageBAL.GetPatientList()
@@ -57,10 +59,39 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
             return _IAdmin_PatientPageDAL.GetDoctors(specialist);
         }
 
-        public Requested_AppointmentModel AdminSidePatientAppointment(Requested_AppointmentModel oModel)
+        public async Task<string> AdminSidePatientAppointment(Requested_AppointmentModel oModel)
         {
+            bool TimeDateExists = _IAdmin_PatientPageDAL.CheckDateTimeOfDoctorsAvailability(oModel);
+            if (TimeDateExists)
+            {
+                return "exists";
+            }
             oModel.status_id = 2;
-            return _IPatientDashBoardDAL.RequestedAppointment(oModel);
+
+            if (oModel.status_id == 1)
+            {
+                await _EmailSender.EmailSendAsync(oModel.email, "Appointment Requested", "Appointment Is requested,we will contact You soon");
+            }
+            else if (oModel.status_id == 2)
+            {
+                await _EmailSender.EmailSendAsync(oModel.email, "Appointment Confirm", "Congratulation Your Appointment Is confirmed!");
+            }
+            else if (oModel.status_id == 3)
+            {
+                await _EmailSender.EmailSendAsync(oModel.email, "Doctors Not Available", "Sorry For Inconvenience,For Some Reason Doctor Not Available!");
+            }
+            else if (oModel.status_id == 4)
+            {
+                await _EmailSender.EmailSendAsync(oModel.email, "Check Up Completed", "Check-up completed; your report will be sent to you soon.");
+
+            }
+            else if (oModel.status_id == 5)
+            {
+                await _EmailSender.EmailSendAsync(oModel.email, "Your Appointment is rescheduled", "Your appointment has been rescheduled. Please make a note of this change.");
+
+            }
+            _IPatientDashBoardDAL.RequestedAppointment(oModel);
+            return "success";
         }
     }
 }

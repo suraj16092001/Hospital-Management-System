@@ -45,10 +45,11 @@
             <select id="doctor" name="doctor" class="box">
                 <option value="">Loading Available Doctors...</option>
             </select>
-            <input id="appointment_time" type="time" name="appointment_time" class="box" />
-            @* <select id="appointment_time" name="appointment_time" class="box" size="5" style="overflow-y: scroll;">
+            @* <input id="appointment_time" type="time" name="appointment_time" class="box" /> *@
+            <select id="appointment_time" name="appointment_time" class="box" size="5" style="max-height: 5em; overflow-y: auto;">
+                <option value="">Select Appointment Time</option>
                 <!-- Options will be dynamically populated here -->
-            </select> *@
+            </select>
 
             <input id="appointment_date" type="date" name="appointment_date" class="box datepicker" />
             <textarea class="box" id="message" placeholder="Write a message...." rows="3"></textarea>

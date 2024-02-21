@@ -1,6 +1,7 @@
 ﻿
 $(document).ready(function () {
     get();
+    populateTimeIntervals();
 });
 
 function get() {
@@ -25,7 +26,7 @@ function get() {
                     {
                         data: null,
                         render: function (data, type, row) {
-                            return `<button type="button" onclick="popupdatedata(` + row.User.id + `); event.stopPropagation();" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square"></i></button>|<button type="button" onclick="ViewModal(` + row.User.id + `)" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#ViewModal"><i class="fa-solid fa-eye"></i></button>|<button type="button" onclick="DeletePatient(` + row.User.id + `); event.stopPropagation();" class="btn btn-danger" ><i class="fa-solid fa-trash-can-arrow-up"></i></button>|<button type="button" onclick="popupdatedataforBooking(` + row.User.id + `)" class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#appointmentModal"><i class="fa-solid fa-clipboard-list"></i></button>`;
+                            return `<button type="button" onclick="popupdatedata(` + row.User.id + `); event.stopPropagation();" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square"></i></button>|<button type="button" onclick="DeletePatient(` + row.User.id + `); event.stopPropagation();" class="btn btn-danger" ><i class="fa-solid fa-trash-can-arrow-up"></i></button>|<button type="button" onclick="popupdatedataforBooking(` + row.User.id + `); event.stopPropagation();" class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#appointmentModal"><i class="fa-solid fa-clipboard-list"></i></button>`;
                         }
                     }
                 ],
@@ -66,6 +67,44 @@ function FetchDoctors(department) {
     });
 }
 
+// Get reference to the select element
+var selectElement = document.getElementById("a_appointment_time");
+
+// Function to add options with 15-minute intervals from 9:00 AM to 7:00 PM
+function populateTimeIntervals() {
+    var startTime = 9 * 60; // Start time in minutes (9:00 AM)
+    var endTime = 19 * 60; // End time in minutes (7:00 PM)
+    var interval = 15; // Interval in minutes
+
+    var selectElement = document.getElementById("a_appointment_time");
+    selectElement.size = 5; // Set the size of the select element to 5 to display 5 options initially
+
+    for (var i = startTime; i <= endTime; i += interval) {
+        var hours = Math.floor(i / 60);
+        var minutes = i % 60;
+        var ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // Convert 0 to 12
+        minutes = minutes < 10 ? '0' + minutes : minutes; // Add leading zero to minutes
+        var timeString = hours + ':' + minutes + ' ' + ampm;
+
+        var option = document.createElement("option");
+        option.text = timeString;
+        option.value = timeString;
+        selectElement.add(option);
+
+        // After adding the first 5 options, remove the size attribute to allow scrolling
+        if (i === (startTime + (interval * 4))) {
+            selectElement.removeAttribute("size");
+        }
+    }
+}
+
+
+// Call the function to populate time intervals when the page loads
+//window.onload = function () {
+//    populateTimeIntervals();
+//};
 
 // Requested_appointmentsModel
 function BookAppointment() {
@@ -91,11 +130,14 @@ function BookAppointment() {
         cache: false,
         async: false,
         success: function (data) {
-
-            alert("Appointment Book Successfully!");
-            ClearForm();
-            get();
+            if (data.status === "success") {
+                alert(data.message);
+            }
+            else if (data.status === "warning") {
+                alert(data.message);
+            }
             $('#appointmentModal').modal('hide');
+            get();
         },
         error: function (error) {
             console.log("Error saving employee:", error);
@@ -103,8 +145,6 @@ function BookAppointment() {
         }
     })
 }
-
-
 
 
 
@@ -190,13 +230,14 @@ function DeletePatient(id) {
 
 function popupdatedataforBooking(id) {
     debugger;
+   /* $('#ViewModal').modal('hide');*/
     $.ajax({
         type: "POST",
         url: "/Admin_PatientPage/GetPatientByID/" + id,
         success: function (data) {
             $('#a_id').val(data.User.id);
-            $('#a_name').val(data.User.email);
-            $('#a_email').val(data.User.name);
+            $('#a_name').val(data.User.name);
+            $('#a_email').val(data.User.email);
         }
     });
 }

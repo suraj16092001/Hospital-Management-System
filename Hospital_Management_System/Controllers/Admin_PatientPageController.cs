@@ -13,6 +13,7 @@ using System.Globalization;
 using System.Text.Json;
 using System.Collections.Generic;
 using MySqlX.XDevAPI.Common;
+using Google.Protobuf.Collections;
 
 namespace Hospital_Management_System.Controllers
 {
@@ -20,10 +21,11 @@ namespace Hospital_Management_System.Controllers
     {
         IAdmin_PatientPageBAL _IAdmin_PatientPageBAL;
 
-
-        public Admin_PatientPageController(IAdmin_PatientPageBAL admin_PatientPageBAL)
+        IEmailSenderBAL _EmailSender;
+        public Admin_PatientPageController(IAdmin_PatientPageBAL admin_PatientPageBAL, IEmailSenderBAL emailSenderBAL)
         {
             _IAdmin_PatientPageBAL = admin_PatientPageBAL;
+            _EmailSender = emailSenderBAL;
         }
 
         public IActionResult Admin_Patient()
@@ -45,6 +47,7 @@ namespace Hospital_Management_System.Controllers
         {
             return View();
         }
+
 
         //Adding patient data in database
         [HttpPost]
@@ -91,18 +94,30 @@ namespace Hospital_Management_System.Controllers
         [HttpPost]
         public IActionResult AdminSidePatientAppointment([FromBody] Requested_AppointmentModel oModel)
         {
-            //DateTime appointmentDate = DateTime.ParseExact(oModel.appointment_date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-            //TimeSpan appointmentTime = TimeSpan.Parse(oModel.appointment_time);
+          
+            DateTime appointmentDate = DateTime.ParseExact(oModel.appointment_date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
-            //// Combine the date and time into one DateTime
-            //DateTime appointmentDateTime = appointmentDate.Date + appointmentTime;
+            // Parse the time of day string into a DateTime object
+            DateTime appointmentTimeDateTime = DateTime.ParseExact(oModel.appointment_time, "h:mm tt", CultureInfo.InvariantCulture);
+            // Extract the TimeSpan from the DateTime object
+            TimeSpan appointmentTime = appointmentTimeDateTime.TimeOfDay;
 
-            //// Format the DateTime to MySQL format
-            //oModel.appointment_date = appointmentDateTime.ToString("yyyy-MM-dd");
-            //oModel.appointment_time = appointmentDateTime.ToString("HH:mm:ss");
+            // Combine the date and time into one DateTime
+            DateTime appointmentDateTime = new DateTime(appointmentDate.Year, appointmentDate.Month, appointmentDate.Day, appointmentTime.Hours, appointmentTime.Minutes, appointmentTime.Seconds);
 
-            _IAdmin_PatientPageBAL.AdminSidePatientAppointment(oModel);
-            return Json("Requested");
+            // Format the DateTime to MySQL format
+            oModel.appointment_date = appointmentDateTime.ToString("yyyy-MM-dd");
+            oModel.appointment_time = appointmentDateTime.ToString("HH:mm:ss");
+
+
+            var result = _IAdmin_PatientPageBAL.AdminSidePatientAppointment(oModel);
+
+            if (result.Equals("exists"))
+            {
+                return Json(new { status = "warning", message = "Please select another slot!" });
+            }
+            return Json(new { status = "success", message = "Appointment Book Successfully!" });
         }
+
     }
 }
