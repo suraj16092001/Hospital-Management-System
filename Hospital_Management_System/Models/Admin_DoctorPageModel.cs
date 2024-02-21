@@ -9,6 +9,7 @@ namespace Hospital_Management_System.Models
         public string specialist { get; set; }
         public string gender  { get; set; }
         public string phone { get; set; }
+
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/DD/YYYY}")]
         public string DateOfBirth { get; set; } // age instead dob
         public string address { get; set; }

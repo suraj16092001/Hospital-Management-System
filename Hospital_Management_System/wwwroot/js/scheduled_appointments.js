@@ -108,6 +108,49 @@ function GetScheduledAppointments(id) {
     });
 }
 
+
+function UpdateStatusByEmailFromDoctor() {
+    debugger;
+
+    var updatedModel = {
+        id: $('#update_id').val(),
+        name: $('#u_name').val(),
+        email: $('#u_email').val(),
+        appointment_date: $('#u_appointment_date').val(),
+        appointment_time: $('#u_appointment_time').val(),
+        department: $('#u_description').val(),
+    };
+    console.log(updatedModel);
+    debugger;
+
+    $.ajax({
+        type: "POST",
+        url: "/Scheduled_Appointments/UpdateStatusByEmailFromDoctor",
+        data: JSON.stringify(updatedModel),
+        contentType: 'application/json',  // Set the content type to application/json
+        cache: false,
+        success: function (data) {
+            $('#updatemodal').modal('hide');
+            Swal.fire({
+                title: "Good job!",
+                text: "Appointment Book successfully!",
+                icon: "success",
+                button: "Ok",
+            });
+
+            // datatable.destroy();
+            get();
+        },
+        error: function () {
+            Swal.fire({
+                title: "Error while booking appointment!",
+                text: "close",
+                icon: "error"
+            });
+        }
+    });
+
+}
 function clearScheduledForm() {
     $('#update_id').val('');
     $('#u_name').val('');

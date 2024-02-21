@@ -25,9 +25,9 @@
         <form action="">
 
             <h3>Request appointment</h3>
-            <input id="name" type="text" name="name" class="box" placeholder="Enter Name.." />
-            <input id="email" type="email" name="email" class="box" placeholder="Enter Email.." />
-            <select id="department" name="department" class="box" onchange="FetchDoctors(this.value)">
+            <input id="name" type="text" name="name" class="box" placeholder="Enter Name.." required/>
+            <input id="email" type="email" name="email" class="box" placeholder="Enter Email.." required />
+            <select id="department" name="department" class="box" onchange="FetchDoctors(this.value)" required>
                 <option value="">Select One...</option>
                 <option value="Dentist">Dentist</option>
                 <option value="Heart Specialist">Heart Specialist</option>
@@ -42,17 +42,17 @@
                 <option value="Emergency Department">Emergency Department</option>
             </select>
             
-            <select id="doctor" name="doctor" class="box">
+            <select id="doctor" name="doctor" class="box" required>
                 <option value="">Loading Available Doctors...</option>
             </select>
             @* <input id="appointment_time" type="time" name="appointment_time" class="box" /> *@
-            <select id="appointment_time" name="appointment_time" class="box" size="5" style="max-height: 5em; overflow-y: auto;">
+            <select id="appointment_time" name="appointment_time" class="box" size="5" style="max-height: 5em; overflow-y: auto;" required>
                 <option value="">Select Appointment Time</option>
                 <!-- Options will be dynamically populated here -->
             </select>
 
-            <input id="appointment_date" type="date" name="appointment_date" class="box datepicker" />
-            <textarea class="box" id="message" placeholder="Write a message...." rows="3"></textarea>
+            <input id="appointment_date" type="date" name="appointment_date" class="box datepicker" required />
+            <textarea class="box" id="message" placeholder="Write a message...." rows="3" required></textarea>
             <button type="button" onclick="BookAppointment()" class="btn btn-primary text-white">Request Appointment</button>
         </form>
     </div>

@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace Hospital_Management_System.Controllers
 {
-    public class Admin_DoctorPageController: Controller
+    public class Admin_DoctorPageController : Controller
     {
         IAdmin_DoctorPageBAL _IAdmin_DoctorPageBAL;
 
