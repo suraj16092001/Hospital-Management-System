@@ -100,7 +100,9 @@ function GetScheduledAppointments(id) {
                 console.error("Invalid date format:", data.appointment_date);
             }
             $('#u_appointment_time').val(data.appointment_time);
+            $('#u_appointment_time').val(data.appointment_time);
             $('#u_description').val(data.description);
+            $('#u_department').val(data.department);
 /*            $('#u_status_id').val(data.status_id);*/
             $('#updatemodal').modal('show');
             console.log(data);
@@ -118,8 +120,9 @@ function UpdateStatusByEmailFromDoctor() {
         email: $('#u_email').val(),
         appointment_date: $('#u_appointment_date').val(),
         appointment_time: $('#u_appointment_time').val(),
-        department: $('#u_description').val(),
-        Status_id: $('#u_status_id').val(),
+        description: $('#u_description').val(),
+        department: $('#u_department').val(),
+        status_id: $('#u_status_id').val(),
     };
     console.log(updatedModel);
     debugger;
@@ -134,7 +137,7 @@ function UpdateStatusByEmailFromDoctor() {
             $('#updatemodal').modal('hide');
             Swal.fire({
                 title: "Good job!",
-                text: "Appointment Book successfully!",
+                text: "Status Book successfully!",
                 icon: "success",
                 button: "Ok",
             });

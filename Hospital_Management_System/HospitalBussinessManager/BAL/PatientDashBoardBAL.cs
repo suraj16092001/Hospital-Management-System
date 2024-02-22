@@ -31,7 +31,7 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
             {
                 await _EmailSender.EmailSendAsync(model.email, "Appointment Requested", "Appointment Is requested,we will contact You soon");
             }
-            _IPatientDashBoardDAL.RequestedAppointment(model);
+            _IPatientDashBoardDAL.RequestedPatientAppointment(model);
             return "success";
         }
     }

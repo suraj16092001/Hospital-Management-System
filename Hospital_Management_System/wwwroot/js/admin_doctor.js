@@ -19,7 +19,6 @@ function getDoctorList() {
                                 <h5 class="card-title fw-bold">${item.User.name}</h5>
                                 <p class="card-text">specialist: ${item.admin_Doctor.specialist}</p>
                                 <a class="btn btn-primary" onclick="popupdatedata(${item.User.id})" data-bs-toggle="modal" data-bs-target="#UpdateDoctorModal">Edit</a>
-                                <a class="btn btn-primary" onclick="Viewdata(${item.User.id})" data-bs-toggle="modal" data-bs-target="#ViewDoctorModal">View</a>
                                 <a class="btn btn-primary" onclick="DeleteDoctor(${item.User.id})">Delete</a>
                                 </div>
                         </div>

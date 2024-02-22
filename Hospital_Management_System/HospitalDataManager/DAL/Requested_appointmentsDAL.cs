@@ -62,6 +62,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 oModel.name = item["name"].ConvertDBNullToString();
                 oModel.email = item["email"].ConvertDBNullToString();
                 oModel.department = item["department"].ConvertDBNullToString();
+                oModel.description = item["description"].ConvertDBNullToString();
                 oModel.User.name = item["Doctor_name"].ConvertDBNullToString(); // Fetch Doctor_name
                 oModel.appointment_date = item["appointment_date"].ConvertDBNullToString();
                 oModel.appointment_time = item["appointment_time"].ConvertDBNullToString();
@@ -81,6 +82,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             _dBManager.AddCMDParam("@p_appointment_date", model.appointment_date);
             _dBManager.AddCMDParam("@p_appointment_time", model.appointment_time);
             _dBManager.AddCMDParam("@p_department", model.department);
+            _dBManager.AddCMDParam("@p_description", model.description);
             _dBManager.AddCMDParam("@p_status_id", model.status_id);
 
             _dBManager.ExecuteNonQuery();

@@ -26,7 +26,7 @@ function get() {
                     {
                         data: null,
                         render: function (data, type, row) {
-                            return `<button type="button" onclick="popupdatedata(` + row.User.id + `); event.stopPropagation();"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square"></i></button>|<button type="button" onclick="ViewAdmin(` + row.User.id + `)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Viewmodal"><i class="fa-solid fa-eye"></i></button>|<button type="button" onclick="DeleteAdmin(` + row.User.id + `); event.stopPropagation();" class="btn btn-primary" ><i class="fa-solid fa-trash-can-arrow-up"></i></button>`;
+                            return `<button type="button" onclick="popupdatedata(` + row.User.id + `); event.stopPropagation();"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square"></i></button>|<button type="button" onclick="DeleteAdmin(` + row.User.id + `); event.stopPropagation();" class="btn btn-primary" ><i class="fa-solid fa-trash-can-arrow-up"></i></button>`;
                         }
                     }
                 ],

@@ -9,13 +9,14 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
     public class Scheduled_AppointmentsBAL : IScheduled_AppointmentsBAL
     {
         IScheduled_AppointmentsDAL _IScheduled_AppointmentsDAL;
-        IPatientDashBoardDAL _IPatientDashBoardDAL;
+        //IPatientDashBoardDAL _IPatientDashBoardDAL;
+        IRequested_appointmentsDAL  _IRequested_appointmentsDAL;
  
         public Scheduled_AppointmentsBAL(IDBManager dBManager)
         {
             _IScheduled_AppointmentsDAL = new Scheduled_AppointmentsDAL(dBManager);
-            _IPatientDashBoardDAL = new PatientDashBoardDAL(dBManager);
-           
+            //_IPatientDashBoardDAL = new PatientDashBoardDAL(dBManager);
+            _IRequested_appointmentsDAL = new Requested_appointmentsDAL(dBManager);
         }
 
         public List<Requested_AppointmentModel> ScheduledPatientList(Requested_AppointmentModel model)
@@ -34,11 +35,10 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
 
         }
 
-        public async Task<string> UpdateStatusByEmailFromDoctor(Requested_AppointmentModel model)
+        public Requested_AppointmentModel UpdateStatusByEmailFromDoctor(Requested_AppointmentModel model)
         {
-           
-            _IPatientDashBoardDAL.RequestedAppointment(model);
-            return "success";
+
+            return _IRequested_appointmentsDAL.UpdateStatus(model);
         }
     }
 }

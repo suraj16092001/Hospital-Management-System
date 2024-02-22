@@ -39,12 +39,6 @@ function get() {
                     { data: 'appointment_time' },
                     { data: 'department' },
                     { data: 'statusModel.Status' },
-                    {
-                        data: null,
-                        render: function (data, type, row) {
-                            return `<button type="button" onclick="popupdatedata(` + row.id + `); event.stopPropagation();" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square"></i></button>`;
-                        }
-                    }
                 ],
                 rowCallback: function (row, data) {
                     $(row).on('click', function () {
@@ -115,61 +109,4 @@ function popupdatedata(id) {
             console.log(data);
         }
     });
-}
-
-function updateStatus() {
-    debugger;
-
-    var updatedModel = {
-        id: $('#update_id').val(),
-        name: $('#u_name').val(),
-        email: $('#u_email').val(),
-        appointment_date: $('#u_appointment_date').val(),
-        appointment_time: $('#u_appointment_time').val(),
-        department: $('#u_department').val(),
-        description: $('#u_description').val(),
-        status_id: $('#u_status_id').val(),
-    };
-    console.log(updatedModel);
-    debugger;
-
-    $.ajax({
-        type: "POST",
-        url: "/Requested_appointments/UpdateStatus",
-        data: JSON.stringify(updatedModel),
-        contentType: 'application/json',  // Set the content type to application/json
-        cache: false,
-        success: function (data) {
-            $('#updatemodal').modal('hide');
-            Swal.fire({
-                title: "Good job!",
-                text: "Appointment Book successfully!",
-                icon: "success",
-                button: "Ok",
-            });
-
-            // datatable.destroy();
-            get();
-        },
-        error: function () {
-            Swal.fire({
-                title: "Error while booking appointment!",
-                text: "close",
-                icon: "error"
-            });
-        }
-    });
-
-}
-
-function AdminStatusUpdateForm() {
-
-    $('#u_name').val('');
-    $('#u_email').val('');
-    $('#u_appointment_date').val('');
-    $('#u_appointment_time').val('');
-    $('#u_department').val('');
-    $('#u_doctor').val('');
-    $('#u_status_id').val('');
-    $('#u_status').val('');
 }

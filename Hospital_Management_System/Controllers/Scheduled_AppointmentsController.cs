@@ -41,8 +41,10 @@ namespace Hospital_Management_System.Controllers
             return Json(doctors);
         }
 
+        [HttpPost]
         public async Task<IActionResult> UpdateStatusByEmailFromDoctor([FromBody] Requested_AppointmentModel oModel)
         {
+           
             if (oModel.status_id == 1)
             {
                 await _EmailSender.EmailSendAsync(oModel.email, "Appointment Requested", "Appointment Is requested,we will contact You soon");
