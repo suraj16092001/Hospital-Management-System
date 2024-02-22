@@ -20,12 +20,13 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
 
         public async Task<string> RequestedAppointment(Requested_AppointmentModel model)
         {
+            model.status_id = 1;
             bool TimeDateExists = _IAdmin_PatientPageDAL.CheckDateTimeOfDoctorsAvailability(model);
             if (TimeDateExists)
             {
                 return "exists";
             }
-            model.status_id = 1;
+           
             if (model.status_id == 1)
             {
                 await _EmailSender.EmailSendAsync(model.email, "Appointment Requested", "Appointment Is requested,we will contact You soon");

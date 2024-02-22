@@ -9,11 +9,13 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
     public class Scheduled_AppointmentsBAL : IScheduled_AppointmentsBAL
     {
         IScheduled_AppointmentsDAL _IScheduled_AppointmentsDAL;
-        IEmailSenderBAL _EmailSender;
-        public Scheduled_AppointmentsBAL(IDBManager dBManager, IEmailSenderBAL emailSender)
+        IPatientDashBoardDAL _IPatientDashBoardDAL;
+ 
+        public Scheduled_AppointmentsBAL(IDBManager dBManager)
         {
             _IScheduled_AppointmentsDAL = new Scheduled_AppointmentsDAL(dBManager);
-            _EmailSender = emailSender;
+            _IPatientDashBoardDAL = new PatientDashBoardDAL(dBManager);
+           
         }
 
         public List<Requested_AppointmentModel> ScheduledPatientList(Requested_AppointmentModel model)
@@ -34,17 +36,9 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
 
         public async Task<string> UpdateStatusByEmailFromDoctor(Requested_AppointmentModel model)
         {
-            if (model.status_id == 4)
-            {
-                await _EmailSender.EmailSendAsync(model.email, "Check Up Completed", "Check-up completed; your report will be sent to you soon.");
-
-            }
-            else if (model.status_id == 5)
-            {
-                await _EmailSender.EmailSendAsync(model.email, "Your Appointment is rescheduled", "Your appointment has been rescheduled. Please make a note of this change.");
-
-            }
-            return "doctorstatus";
+           
+            _IPatientDashBoardDAL.RequestedAppointment(model);
+            return "success";
         }
     }
 }

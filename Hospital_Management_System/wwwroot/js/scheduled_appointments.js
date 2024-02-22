@@ -119,6 +119,7 @@ function UpdateStatusByEmailFromDoctor() {
         appointment_date: $('#u_appointment_date').val(),
         appointment_time: $('#u_appointment_time').val(),
         department: $('#u_description').val(),
+        Status_id: $('#u_status_id').val(),
     };
     console.log(updatedModel);
     debugger;

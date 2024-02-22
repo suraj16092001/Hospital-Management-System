@@ -40,7 +40,7 @@ namespace Hospital_Management_System.Controllers
 
             var result=_IPatientDashBoardBAL.RequestedAppointment(oModel);
 
-            if (result.Equals("exists"))
+            if (result.Result.Contains("exists"))
             {
                 return Json(new { status = "warning", message = "Please select another slot!" });
             }

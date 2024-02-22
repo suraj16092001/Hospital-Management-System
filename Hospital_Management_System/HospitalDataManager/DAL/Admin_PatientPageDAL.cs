@@ -142,6 +142,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 .AddCMDParam("@p_appointment_time_in", patient.appointment_time)
                 .AddCMDParam("@p_department_in", patient.department)
                 .AddCMDParam("@p_doctor_id_in", patient.doctor_id);
+                //.AddCMDParam("@p_status_id_in", patient.status_id);
 
             var result = _dBManager.ExecuteScalar();
 

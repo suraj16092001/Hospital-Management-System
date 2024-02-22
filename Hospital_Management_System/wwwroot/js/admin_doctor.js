@@ -151,7 +151,7 @@ function popupdatedata(id) {
             $('#u_gender').val(data.admin_Doctor.gender);
             $('#u_qualification').val(data.admin_Doctor.qualification);
             var date = moment(data.admin_Doctor.DateOfBirth);
-            $('#u_DateOfBirth').val(date.format('MM/DD/YYYY'));
+            $('#u_DateOfBirth').val(date.format('YYYY-MM-DD'));
             $('#u_address').val(data.admin_Doctor.address);
 
             var imagePreview = "/DoctorImages/" + data.admin_Doctor.profileImage;

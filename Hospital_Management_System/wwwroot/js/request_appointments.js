@@ -42,10 +42,16 @@ function get() {
                     {
                         data: null,
                         render: function (data, type, row) {
-                            return `<button type="button" onclick="popupdatedata(` + row.id + `)" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square"></i></button>`;
+                            return `<button type="button" onclick="popupdatedata(` + row.id + `); event.stopPropagation();" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square"></i></button>`;
                         }
                     }
-                ]
+                ],
+                rowCallback: function (row, data) {
+                    $(row).on('click', function () {
+                        popupdatedata(data.id);
+                    });
+                }
+
             });
         },
         error: function (textStatus, errorThrown) {
@@ -104,6 +110,7 @@ function popupdatedata(id) {
             $('#u_doctor').val(data.User.name);
             $('#u_status').val(data.statusModel.Status);
 
+            $('#updatemodal').modal('show');
             console.log(data);
         }
     });
@@ -151,4 +158,16 @@ function updateStatus() {
         }
     });
 
+}
+
+function AdminStatusUpdateForm() {
+
+    $('#u_name').val('');
+    $('#u_email').val('');
+    $('#u_appointment_date').val('');
+    $('#u_appointment_time').val('');
+    $('#u_department').val('');
+    $('#u_doctor').val('');
+    $('#u_status_id').val('');
+    $('#u_status').val('');
 }

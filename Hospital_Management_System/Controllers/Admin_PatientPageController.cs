@@ -111,8 +111,11 @@ namespace Hospital_Management_System.Controllers
 
 
             var result = _IAdmin_PatientPageBAL.AdminSidePatientAppointment(oModel);
-
-            if (result.Equals("exists"))
+            //string test1="";
+            //string test2=string.Empty;
+            //if (test1 == test2)
+            //if (result.Result == "exists")
+            if (result.Result.Contains("exists"))
             {
                 return Json(new { status = "warning", message = "Please select another slot!" });
             }
