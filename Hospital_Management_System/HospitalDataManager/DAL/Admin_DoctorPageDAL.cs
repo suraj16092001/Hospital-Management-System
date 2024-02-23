@@ -13,7 +13,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
         {
             _dBManager = dBManager;
         }
-
+            
         public List<DoctorAllDataViewModel> GetDoctorList()
         {
             List<DoctorAllDataViewModel> doctorList = new List<DoctorAllDataViewModel>();

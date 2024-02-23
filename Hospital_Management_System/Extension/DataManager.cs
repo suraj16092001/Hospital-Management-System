@@ -20,6 +20,7 @@ namespace Hospital_Management_System.Extension
             services.AddScoped<IRequested_appointmentsBAL, Requested_appointmentsBAL>();
             services.AddScoped<IScheduled_AppointmentsBAL, Scheduled_AppointmentsBAL>();
             services.AddScoped<ICompletedAppointmentHistoryBAL, CompletedAppointmentHistoryBAL>();
+            services.AddScoped<IDoctorAppointmentHistoryBAL, DoctorAppointmentHistoryBAL>();
             services.AddTransient<IEmailSenderBAL, EmailSenderBAL>();
 
             return services;

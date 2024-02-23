@@ -1,23 +1,25 @@
 ﻿using CRUDoperation.CommonCode;
-using Hospital_Management_System.HospitalBussinessManager.BAL;
 using Hospital_Management_System.HospitalDataManager.IDAL;
 using Hospital_Management_System.Models;
 using System.Data;
 
 namespace Hospital_Management_System.HospitalDataManager.DAL
 {
-    public class CompletedAppointmentHistoryDAL : ICompletedAppointmentHistoryDAL
+    public class DoctorAppointmentHistoryDAL: IDoctorAppointmentHistoryDAL
     {
         readonly IDBManager _dBManager;
-        public CompletedAppointmentHistoryDAL(IDBManager dBManager)
+        public DoctorAppointmentHistoryDAL(IDBManager dBManager)
         {
+
             _dBManager = dBManager;
+
         }
 
-        public List<Requested_AppointmentModel> CompletedAppointmentPatientList()
+        public List<Requested_AppointmentModel> PastAppointmentPatientList(Requested_AppointmentModel model)
         {
             List<Requested_AppointmentModel> appointmentHistory = new List<Requested_AppointmentModel>();
-            _dBManager.InitDbCommand("sp_hospital_CompletedAppointmentHistory_PatientList");
+            _dBManager.InitDbCommand("sp_hospital_DoctorAppointmentHistory_PatientList");
+            _dBManager.AddCMDParam("p_doctor_id", model.doctor_id);
             DataSet ds = _dBManager.ExecuteDataSet();
             foreach (DataRow item in ds.Tables[0].Rows)
             {
@@ -40,7 +42,5 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             return appointmentHistory;
         }
     }
+
 }
-
-    
-

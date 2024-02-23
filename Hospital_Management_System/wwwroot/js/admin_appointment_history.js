@@ -12,7 +12,7 @@ function get() {
 
     $.ajax({
         type: "GET",
-        url: "/Requested_appointments/RequestedPatientList",
+        url: "/AdminAppointmentHistory/AdminAppointmentHistoryList",
         success: function (data) {
             $('#myTable').DataTable({
                 data: data,
