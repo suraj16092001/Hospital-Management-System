@@ -37,13 +37,13 @@ namespace Hospital_Management_System.Controllers
 
        
         [HttpPost]
-        public IActionResult LoginPost(string email, string password)
+        public IActionResult LoginPost(string email, string password,int id)
         {
             LoginModel login = new LoginModel();
             
             if (ModelState.IsValid)
             {
-               login = _ILoginBAL.LoginPost(email, password);
+               login = _ILoginBAL.LoginPost(email, password,id);
 
                 if (!login.EmailExists)
                 {

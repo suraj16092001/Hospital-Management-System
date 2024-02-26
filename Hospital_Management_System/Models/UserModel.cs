@@ -8,7 +8,7 @@ namespace Hospital_Management_System.Models
         public int id { get; set; }
 
         [Required(ErrorMessage = "Please enter your name.")]
-        [RegularExpression(@"^[A-Z][a-z]{1,}$", ErrorMessage = "Please Insert Valid Name.")]
+        [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Name must contain only letters.")]
         public string name { get; set; }
 
         [Required(ErrorMessage = "Please enter your email address.")]

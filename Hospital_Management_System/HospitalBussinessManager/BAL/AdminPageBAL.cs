@@ -23,7 +23,7 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
 
         public string AddAdmin(AdminAllDataViewModel model)
         {
-            bool emailExists = _ILoginDAL.CheckEmailExistence(model.User.email);
+            bool emailExists = _ILoginDAL.CheckEmailExistence(model.User.email,model.User.id);
 
             if (emailExists)
             {
@@ -44,11 +44,19 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
             return _IAdminPageDAL.GetAdminByID(id);
         }
 
-        public AdminAllDataViewModel UpdateAdmin(AdminAllDataViewModel model)
+        public string UpdateAdmin(AdminAllDataViewModel model)
         {
-            
-            return _IAdminPageDAL.UpdateAdmin(model);
-		}
+            bool emailExists = _ILoginDAL.CheckEmailExistence(model.User.email, model.User.id);
+
+            if (emailExists)
+            {
+                return "exists";
+            }
+
+             _IAdminPageDAL.UpdateAdmin(model);
+            return "success";
+
+        }
 
 
     }

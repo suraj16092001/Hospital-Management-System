@@ -67,7 +67,6 @@ function AddDoctor() {
                 } else if (data.status === "warning") {
                     alert(data.message);
                 }
-                ClearAddDoctorForm();
                 $('#AddDoctorModal').modal('hide');
                 $('#cardContainer').empty();
                 getDoctorList();
@@ -164,60 +163,60 @@ function popupdatedata(id) {
 
 
 function UpdateDoctor() {
+    if ($("#UpdateDoctor").valid()) {
+        var ID = {
+            id: $('#u_id').val(),
+        }
+        var updatedModel = {
+            User: {
 
-    var ID = {
-        id: $('#u_id').val(),
+                name: $('#u_name').val(),
+                email: $('#u_email').val(),
+            },
+            admin_Doctor: {
+
+                phone: $('#u_phone').val(),
+                specialist: $('#u_specialist').val(),
+                gender: $('#u_gender').val(),
+                qualification: $('#u_qualification').val(),
+                DateOfBirth: $('#u_DateOfBirth').val(),
+                address: $('#u_address').val(),
+            }
+        };
+
+        debugger;
+
+        var formData = new FormData();
+        formData.append("Id", ID.id);
+        formData.append("model", JSON.stringify(updatedModel));
+        formData.append("file", $('#u_imageFile')[0].files[0]);
+
+        $.ajax({
+            type: "POST",
+            url: "/Admin_DoctorPage/UpdateDoctor",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                $('#UpdateDoctorModal').modal('hide');
+                if (data.status === "success") {
+                    alert(data.message);
+                }
+                else if (data.status === "warning") {
+                    alert(data.message);
+                }
+                $('#cardContainer').empty();
+                getDoctorList();
+            },
+            error: function () {
+                Swal.fire({
+                    title: "Error while updating!",
+                    text: "close",
+                    icon: "error"
+                });
+            }
+        });
     }
-    var updatedModel = {
-        User: {
-
-            name: $('#u_name').val(),
-            email: $('#u_email').val(),
-        },
-        admin_Doctor: {
-
-            phone: $('#u_phone').val(),
-            specialist: $('#u_specialist').val(),
-            gender: $('#u_gender').val(),
-            qualification: $('#u_qualification').val(),
-            DateOfBirth: $('#u_DateOfBirth').val(),
-            address: $('#u_address').val(),
-        }
-    };
-
-    debugger;
-
-    var formData = new FormData();
-    formData.append("Id", ID.id);
-    formData.append("model", JSON.stringify(updatedModel));
-    formData.append("file", $('#u_imageFile')[0].files[0]);
-
-    $.ajax({
-        type: "POST",
-        url: "/Admin_DoctorPage/UpdateDoctor",
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function (data) {
-            $('#UpdateDoctorModal').modal('hide');
-            Swal.fire({
-                title: "Good job!",
-                text: "Doctor update successfully!",
-                icon: "success",
-                button: "Ok",
-            });
-            $('#cardContainer').empty();
-            getDoctorList();
-        },
-        error: function () {
-            Swal.fire({
-                title: "Error while updating!",
-                text: "close",
-                icon: "error"
-            });
-        }
-    });
-
 }
 
 function Viewdata(id) {

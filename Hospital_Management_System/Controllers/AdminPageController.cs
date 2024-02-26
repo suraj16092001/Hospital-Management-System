@@ -6,6 +6,7 @@ using Hospital_Management_System.Models;
 using Microsoft.AspNetCore.Mvc;
 using MySqlX.XDevAPI.Common;
 using Newtonsoft.Json;
+using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 namespace Hospital_Management_System.Controllers
 {
@@ -58,8 +59,14 @@ namespace Hospital_Management_System.Controllers
         [HttpPost]
         public IActionResult UpdateAdmin([FromBody] AdminAllDataViewModel model)
         {
-            _IAdminPageBAL.UpdateAdmin(model);
-            return Json("AdminList");
+            var result = _IAdminPageBAL.UpdateAdmin(model);
+            if (result == "exists")
+            {
+                return Json(new { status = "warning", message = "Email Id Already Exists!" });
+            }
+            return Json(new { status = "success", message = "Admin Update successfully!" });
+
+            
         }
     }
 }

@@ -3,6 +3,7 @@ using Hospital_Management_System.HospitalDataManager.DAL;
 using Hospital_Management_System.HospitalDataManager.IDAL;
 using Hospital_Management_System.Models;
 using Microsoft.AspNetCore.Mvc;
+using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 namespace Hospital_Management_System.HospitalBussinessManager.BAL
 {
@@ -27,7 +28,7 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
 
         public string AddPatient(PatientAllDataViewModel oModel)
         {
-            bool emailExists = _ILoginDAL.CheckEmailExistence(oModel.User.email);
+            bool emailExists = _ILoginDAL.CheckEmailExistence(oModel.User.email, oModel.User.id);
 
             if (emailExists)
             {
@@ -43,9 +44,16 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
             return _IAdmin_PatientPageDAL.GetPatientByID(id);
         }
 
-        public PatientAllDataViewModel UpdatePatient(PatientAllDataViewModel model)
+        public string UpdatePatient(PatientAllDataViewModel model)
         {
-            return _IAdmin_PatientPageDAL.UpdatePatient(model); ;
+            bool emailExists = _ILoginDAL.CheckEmailExistence(model.User.email, model.User.id);
+
+            if (emailExists)
+            {
+                return "exists";
+            }
+             _IAdmin_PatientPageDAL.UpdatePatient(model);
+            return "success";
         }
 
         public void DeletePatient(int id)

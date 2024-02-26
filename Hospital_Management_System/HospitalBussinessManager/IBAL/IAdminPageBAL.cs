@@ -8,6 +8,6 @@ namespace Hospital_Management_System.HospitalBussinessManager.IBAL
         public string AddAdmin(AdminAllDataViewModel model);
          public void DeleteAdmin(int id);
 		public AdminAllDataViewModel GetAdminByID(int id);
-		public AdminAllDataViewModel UpdateAdmin(AdminAllDataViewModel model);
+        public string UpdateAdmin(AdminAllDataViewModel model);
     }
 }

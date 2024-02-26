@@ -10,7 +10,7 @@ namespace Hospital_Management_System.HospitalDataManager.IDAL
 
         public string Login(string email);
 
-        public bool CheckEmailExistence(string email);
+        public bool CheckEmailExistence(string email, int id);
         public string verifiedPassword(string password);
         public string getRole(string email);
         public int getID(string email);

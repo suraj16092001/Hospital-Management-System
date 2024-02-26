@@ -56,10 +56,11 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             return user;
         }
         //check email from datatbase is same as input email or not and return bool value
-        public bool CheckEmailExistence(string email)
+        public bool CheckEmailExistence(string email,int id)
         {
             _dBManager.InitDbCommand("CheckEmailExist")
-                .AddCMDParam("@p_email",email);
+                .AddCMDParam("@p_email",email)
+                .AddCMDParam("@p_id", id);
 
             var result = _dBManager.ExecuteScalar();
 

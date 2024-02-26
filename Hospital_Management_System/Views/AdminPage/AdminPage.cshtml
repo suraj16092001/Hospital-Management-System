@@ -1,5 +1,6 @@
-﻿@model IEnumerable<Hospital_Management_System.Models.Admin_PatientPageModel>
-
+﻿@* @model IEnumerable<Hospital_Management_System.Models.Admin_PatientPageModel>
+ *@
+ @model AdminAllDataViewModel;
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h2>Admin Details</h2>
@@ -21,14 +22,16 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Name : </label>
-                                <input id="name" type="text" name="name" class="form-control" />
+                                <input id="name" type="text" asp-for="User.name" class="form-control" />
                             </div>
+                             <span asp-validation-for="User.name" class="text-danger"></span>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email Id : </label>
-                                <input id="email" type="email" name="email" class="form-control" />
+                                <input id="email" type="email" asp-for="User.email" class="form-control" />
                             </div>
+                            <span asp-validation-for="User.email" class="text-danger"></span>
                         </div>
                     </div>
 
@@ -37,15 +40,17 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password : </label>
-                                <input id="password" type="password" name="password" class="form-control" />
+                                <input id="password" type="password" asp-for="User.password" class="form-control" />
                             </div>
+                            <span asp-validation-for="User.password" class="text-danger"></span>
                         </div>
 
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="phone" class="form-label">Phone Number : </label>
-                                <input id="phone" type="text" name="phone" class="form-control" />
+                                <input id="phone" type="text" asp-for="AdminPage.phone" class="form-control" maxlength="10"/>
                             </div>
+                             <span asp-validation-for="AdminPage.phone" class="text-danger"></span>
                         </div>
                     </div>
 
@@ -53,26 +58,29 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="DOB" class="form-label">Date of Birth :</label>
-                                <input id="DOB" type="date" name="DOB" class="form-control" />
+                                <input id="DOB" type="date" asp-for="AdminPage.DateOfBirth" class="form-control" />
                             </div>
+                            <span asp-validation-for="AdminPage.DateOfBirth" class="text-danger"></span>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="gender" class="form-label">Gender:</label>
-                                <select id="gender" name="gender" class="form-control">
+                                <select id="gender" asp-for="AdminPage.gender" class="form-control">
                                     <option value="">Please select one…</option>
                                     <option value="female">Female</option>
                                     <option value="male">Male</option>
                                     <option value="other">Other</option>
                                 </select>
                             </div>
+                             <span asp-validation-for="AdminPage.gender" class="text-danger"></span>
                         </div>
                     </div>
 
                     <div class="mb-3">
                         <label for="address" class="form-label">Address : </label>
-                        <input id="address" type="text" name="address" class="form-control" />
+                        <input id="address" type="text" asp-for="AdminPage.address" class="form-control" />
                     </div>
+                     <span asp-validation-for="AdminPage.address" class="text-danger"></span>
 
                     <div class="modal-footer">
                         <button type="button" onclick="AddAdmin()" class="btn btn-primary">Save changes</button>
@@ -95,38 +103,42 @@
 
             <div class="modal-body">
 
-                <form>
+                <form id="updateForm">
                     <input hidden id="u_id" />
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Name : </label>
-                                <input id="u_name" type="text" name="name" class="form-control" />
+                                <input id="u_name" type="text" asp-for="User.name" class="form-control" />
                             </div>
+                            <span asp-validation-for="User.name" class="text-danger"></span>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email Id : </label>
-                                <input id="u_email" type="email" name="email" class="form-control" />
+                                <input id="u_email" type="email" asp-for="User.email" class="form-control" />
                             </div>
+                            <span asp-validation-for="User.email" class="text-danger"></span>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6">
                             <label for="gender" class="form-label">Gender:</label>
-                            <select id="u_gender" name="gender" class="form-control">
+                            <select id="u_gender" asp-for="AdminPage.gender" class="form-control">
                                 <option value="">Please select one…</option>
                                 <option value="female">Female</option>
                                 <option value="male">Male</option>
                                 <option value="other">Other</option>
                             </select>
+                            <span asp-validation-for="AdminPage.gender" class="text-danger"></span>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="phone" class="form-label">Phone Number : </label>
-                                <input id="u_phone" type="text" name="phone" class="form-control" />
+                                <input id="u_phone" type="text" asp-for="AdminPage.phone" class="form-control" maxlength="10" />
                             </div>
+                            <span asp-validation-for="AdminPage.phone" class="text-danger"></span>
                         </div>
                     </div>
 
@@ -134,14 +146,16 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="DOB" class="form-label">Date of Birth :</label>
-                                <input id="u_DOB" type="date" name="DOB" class="form-control" />
+                                <input id="u_DOB" type="date" asp-for="AdminPage.DateOfBirth" class="form-control" />
                             </div>
+                            <span asp-validation-for="AdminPage.DateOfBirth" class="text-danger"></span>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="address" class="form-label">Address : </label>
-                                <input id="u_address" type="text" name="address" class="form-control" />
+                                <input id="u_address" type="text" asp-for="AdminPage.address" class="form-control" />
                             </div>
+                            <span asp-validation-for="AdminPage.address" class="text-danger"></span>
                         </div>
                     </div>
 

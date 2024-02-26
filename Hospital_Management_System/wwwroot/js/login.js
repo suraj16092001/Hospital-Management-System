@@ -8,6 +8,7 @@ function Login() {
         var passData = {
             password: $("#password").val()
         };
+
         debugger;
         console.log(emailData);
         console.log(passData);

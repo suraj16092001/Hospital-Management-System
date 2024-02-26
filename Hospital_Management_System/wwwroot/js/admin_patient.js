@@ -41,7 +41,7 @@ function get() {
             Success = false;
         }
     });
-} 
+}
 
 function FetchDoctors(department) {
     debugger;
@@ -230,7 +230,7 @@ function DeletePatient(id) {
 
 function popupdatedataforBooking(id) {
     debugger;
-   /* $('#ViewModal').modal('hide');*/
+    /* $('#ViewModal').modal('hide');*/
     $.ajax({
         type: "POST",
         url: "/Admin_PatientPage/GetPatientByID/" + id,
@@ -264,51 +264,51 @@ function popupdatedata(id) {
 
 function updatePatient() {
     debugger;
+    if ($("#updateform").valid()) {
+        var updatedModel = {
 
-    var updatedModel = {
+            User: {
+                id: $('#update_id').val(),
+                name: $('#u_name').val(),
+                email: $('#u_email').val(),
+            },
+            Admin_PatientPage: {
 
-        User: {
-            id: $('#update_id').val(),
-            name: $('#u_name').val(),
-            email: $('#u_email').val(),
-        },
-        Admin_PatientPage: {
-            
-            phone: $('#u_phone').val(),
-            DateOfBirth: $('#u_DOB').val(),
-            address: $('#u_address').val(),
-            gender: $('#u_gender').val()
-        }
-    };
-    debugger;
+                phone: $('#u_phone').val(),
+                DateOfBirth: $('#u_DOB').val(),
+                address: $('#u_address').val(),
+                gender: $('#u_gender').val()
+            }
+        };
+        debugger;
 
-    $.ajax({
-        type: "POST",
-        url: "/Admin_PatientPage/UpdatePatient",
-        data: JSON.stringify(updatedModel),
-        contentType: 'application/json',  // Set the content type to application/json
-        cache: false,
-        success: function (data) {
-            $('#updatemodal').modal('hide');
-            Swal.fire({
-                title: "Good job!",
-                text: "Patient update successfully!",
-                icon: "success",
-                button: "Ok",
-            });
+        $.ajax({
+            type: "POST",
+            url: "/Admin_PatientPage/UpdatePatient",
+            data: JSON.stringify(updatedModel),
+            contentType: 'application/json',  // Set the content type to application/json
+            cache: false,
+            success: function (data) {
+                $('#updatemodal').modal('hide');
+                if (data.status === "success") {
+                    alert(data.message);
+                }
+                else if (data.status === "warning") {
+                    alert(data.message);
+                }
+                // datatable.destroy();
+                get();
+            },
+            error: function () {
+                Swal.fire({
+                    title: "Error while updating!",
+                    text: "close",
+                    icon: "error"
+                });
+            }
+        });
 
-            // datatable.destroy();
-            get();
-        },
-        error: function () {
-            Swal.fire({
-                title: "Error while updating!",
-                text: "close",
-                icon: "error"
-            });
-        }
-    });
-
+    }
 }
 
 function ViewModal(id) {

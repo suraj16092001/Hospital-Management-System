@@ -25,7 +25,7 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
 
         public string AddDoctor(DoctorAllDataViewModel model, IFormFile file)
         {
-            bool emailExists = _ILoginDAL.CheckEmailExistence(model.User.email);
+            bool emailExists = _ILoginDAL.CheckEmailExistence(model.User.email, model.User.id);
 
             if (emailExists)
             {
@@ -89,12 +89,19 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
             return _IAdmin_DoctorPageDAL.GetDoctorByID(id);
         }
 
-        public DoctorAllDataViewModel UpdateDoctor(DoctorAllDataViewModel model, int Id,IFormFile file)
+        public string UpdateDoctor(DoctorAllDataViewModel model, int Id,IFormFile file)
         {
             model.User.id=Id;
             model.admin_Doctor.imageFile = file;
+            bool emailExists = _ILoginDAL.CheckEmailExistence(model.User.email, model.User.id);
+
+            if (emailExists)
+            {
+                return "exists";
+            }
             string existingImage = _IAdmin_DoctorPageDAL.GetDBImagebyID(Id);
-            if(model.admin_Doctor.imageFile != null)
+            
+            if (model.admin_Doctor.imageFile != null)
             {
                 if (!string.IsNullOrEmpty(existingImage))
                 {
@@ -110,7 +117,8 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
             {
                 model.admin_Doctor.profileImage = existingImage;
             }
-            return _IAdmin_DoctorPageDAL.UpdateDoctor(model);
+            _IAdmin_DoctorPageDAL.UpdateDoctor(model);
+            return "success";
         }
     }
 }

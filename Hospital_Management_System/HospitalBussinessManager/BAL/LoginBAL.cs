@@ -19,7 +19,7 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
 
         public string SignUp(UserModel user)
         {
-            bool emailExists = _ILoginDAL.CheckEmailExistence(user.email);
+            bool emailExists = _ILoginDAL.CheckEmailExistence(user.email, user.id);
 
             if (emailExists)
             {
@@ -36,11 +36,11 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
             return _ILoginDAL.UserList();
         }
 
-        public LoginModel LoginPost(string email, string password)
+        public LoginModel LoginPost(string email, string password,int id)
         {
             LoginModel login= new LoginModel();
 
-          login.EmailExists = _ILoginDAL.CheckEmailExistence(email);
+          login.EmailExists = _ILoginDAL.CheckEmailExistence(email,id);
 
           login.GetPassword = _ILoginDAL.verifiedPassword(password);
 

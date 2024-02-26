@@ -161,51 +161,52 @@ function popupdatedata(id) {
 
 function UpdateAdmin() {
     debugger;
+    if ($("#updateForm").valid()) {
+        var updatedModel = {
+            User: {
+                id: $('#u_id').val(),
+                name: $('#u_name').val(),
+                email: $('#u_email').val(),
+            },
+            AdminPage: {
 
-    var updatedModel = {
-        User: {
-            id: $('#u_id').val(),
-            name: $('#u_name').val(),
-            email: $('#u_email').val(),
-        },
-        AdminPage: {
-           
-            gender: $('#u_gender').val(),
-            phone: $('#u_phone').val(),
-            DateOfBirth: $('#u_DOB').val(),
-            address: $('#u_address').val()
-        }
-    };
+                gender: $('#u_gender').val(),
+                phone: $('#u_phone').val(),
+                DateOfBirth: $('#u_DOB').val(),
+                address: $('#u_address').val()
+            }
+        };
 
-    console.log(updatedModel);
-    debugger;
-    $.ajax({
-        type: "POST",
-        url: "/AdminPage/UpdateAdmin",
-        data: JSON.stringify(updatedModel),
-        contentType: 'application/json',  // Set the content type to application/json
-        cache: false,
-        success: function (data) {
-            $('#updatemodal').modal('hide');
-            Swal.fire({
-                title: "Good job!",
-                text: "Admin update successfully!",
-                icon: "success",
-                button: "Ok",
-            });
-
-            // datatable.destroy();
-            get();
-        },
-        error: function () {
-            Swal.fire({
-                title: "Error while updating!",
-                text: "close",
-                icon: "error"
-            });
-        }
-    });
+        console.log(updatedModel);
+        debugger;
+        $.ajax({
+            type: "POST",
+            url: "/AdminPage/UpdateAdmin",
+            data: JSON.stringify(updatedModel),
+            contentType: 'application/json',  // Set the content type to application/json
+            cache: false,
+            success: function (data) {
+                $('#updatemodal').modal('hide');
+                if (data.status === "success") {
+                    alert(data.message);
+                }
+                else if (data.status === "warning") {
+                    alert(data.message);
+                }
+                // datatable.destroy();
+                get();
+            },
+            error: function () {
+                Swal.fire({
+                    title: "Error while updating!",
+                    text: "close",
+                    icon: "error"
+                });
+            }
+        });
+    }
 }
+
 
 
 function ViewAdmin(id) {
