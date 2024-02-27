@@ -1,0 +1,165 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model DoctorAllDataViewModel;
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+
+            <div class="my-2">
+                <h3>My Profile</h3>
+                <hr>
+            </div>
+
+            <form class="file-upload" id="DoctorProfile">
+                <div class="row mb-2 gx-2">
+
+                    <div class="col-xxl-8 mb-2 mb-xxl-0">
+                        <div class="bg-secondary-soft px-4 py-5 rounded">
+                            <div class="row g-3">
+                                <h4 class="mb-3 mt-0">Contact detail</h4>
+
+                                <input hidden id="u_Id" name="Id" />
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div>
+                                            <label class="form-label">Full Name *</label>
+                                            <input id="name" asp-for="User.name" type="text" class="form-control" placeholder="Enter Name..." aria-label="First name" required />
+                                        </div>
+                                        <span asp-validation-for="User.name" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div>
+                                            <label for="inputEmail4" class="form-label">Email *</label>
+                                            <input id="email" asp-for="User.email" type="email" class="form-control" placeholder="Email" aria-label="Email" required />
+                                        </div>
+                                        <span asp-validation-for="User.email" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div>
+                                            <label class="form-label">Mobile number *</label>
+                                            <input id="contact" asp-for="admin_Doctor.phone" type="text" class="form-control" placeholder="Phone Number..." required />
+                                        </div>
+                                        <span asp-validation-for="admin_Doctor.phone" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div>
+                                            <label class="form-label">Gender *</label>
+                                            <select id="gender" asp-for="admin_Doctor.gender" type="text" class="form-control" placeholder="Select Gender..." required>
+                                                <option value=" ">Select Gender...</option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                                <option value="other">Other</option>
+
+                                            </select>
+                                        </div>
+                                        <span asp-validation-for="admin_Doctor.gender" class="text-danger"></span>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div>
+                                            <label class="form-label">Date Of Birth *</label>
+                                            <input id="DOB" asp-for="admin_Doctor.DateOfBirth" type="date" class="form-control" placeholder="Enter Date Of Birth..." required />
+                                        </div>
+                                        <span asp-validation-for="admin_Doctor.DateOfBirth" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div>
+                                            <label class="form-label">Qualification *</label>
+                                            <input id="qualification" asp-for="admin_Doctor.qualification" type="text" class="form-control" placeholder="Enter Qualification..." required />
+                                        </div>
+                                        <span asp-validation-for="admin_Doctor.qualification" class="text-danger"></span>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div>
+                                            <label class="form-label">Specialist *</label>
+                                            <select id="specialist" asp-for="admin_Doctor.specialist" type="text" class="form-control" placeholder="Enter Your Department..." required >
+                                                <option value="">Select one…</option>
+                                                <option value="Dentist">Dentist</option>
+                                                <option value="Heart Specialist">Heart Specialist</option>
+                                                <option value="Diabetes">Diabetes</option>
+                                                <option value="Oncology(Cancer)">Oncology(Cancer)</option>
+                                                <option value="General Physician">General Physician</option>
+                                                <option value="Orthopedic">Orthopedic</option>
+                                                <option value="Neurology">Neurology</option>
+                                                <option value="Radiology">Radiology</option>
+                                                <option value="Surgery">Surgery</option>
+                                                <option value="Skin Specialist">Skin Specialist</option>
+                                                <option value="Emergency Department">Emergency Department</option>
+                                            </select>
+                                        </div>
+                                        <span asp-validation-for="admin_Doctor.specialist" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div>
+                                            <label class="form-label">Address *</label>
+                                            <input id="address" asp-for="admin_Doctor.address" type="text" class="form-control" placeholder="Enter Address..." required />
+                                        </div>
+                                        <span asp-validation-for="admin_Doctor.address" class="text-danger"></span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4">
+                        <div class="bg-secondary-soft px-2 py-3 rounded">
+                            <div class="row g-3">
+                                <h4 class="mb-4 mt-0">Upload your profile photo</h4>
+                                <div class="text-center mt-5">
+
+                                    <div class="square position-relative display-2 mb-3">
+                                        <img id="ProfileUpdate" class="fas fa-fw fa-user position-absolute top-50 start-50 translate-middle text-secondary" style="max-width: 50%; max-height: 150px; margin-top: 10px; margin-bottom: 20px; display: none;">
+                                    </div>
+
+                                    <label class="btn btn-success-soft btn-block" for="customFile">Upload</label>
+
+                                    <input class="my" id="u_ProfileFile" type="file" name="file" onchange="previewProfile(this)" style="margin-top: 20px;">
+                                    <p class="text-muted mt-3 mb-0">
+                                        <span class="me-1">Note:</span>Minimum size
+                                        300px x 300px
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+
+                <div class="gap-3 d-md-flex justify-content-md-end text-center">
+                    <button type="button" class="btn btn-primary btn-lg" onclick="UpdateDoctor()">Update profile</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/doctor_profile.js"></script>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -12,5 +12,6 @@ namespace Hospital_Management_System.HospitalBussinessManager.IBAL
 
         public DoctorAllDataViewModel GetDoctorByID(int id);
         public string UpdateDoctor(DoctorAllDataViewModel model, int Id, IFormFile file);
+        string UploadImage(IFormFile imageFile);
     }
 }

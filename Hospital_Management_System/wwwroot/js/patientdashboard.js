@@ -27,41 +27,43 @@ function FetchDoctors(department) {
 
 // Requested_appointments
 function BookAppointment() {
-    var oModel = {
-        name: $('#name').val(),
-        email: $('#email').val(),
-        appointment_date: $('#appointment_date').val(),
-        appointment_time: $('#appointment_time').val(),
-        department: $('#department').val(),
-        description: $('#message').val(),
-        doctor_id: $('#doctor').val(),
-    }
-
-    debugger;
-
-    $.ajax({
-        type: "POST",
-        url: "/PatientDashBoard/RequestedAppointment",
-        contentType: "application/json",
-        data: JSON.stringify(oModel),
-        dataType: 'json',
-        cache: false,
-        async: false,
-        success: function (data) {
-
-            if (data.status === "success") {
-                alert(data.message);
-            }
-            else if (data.status === "warning") {
-                alert(data.message);
-            }
-            ClearForm();
-        },
-        error: function (error) {
-            console.log("Error saving employee:", error);
-            Swal.fire("Oops", "An error occurred while saving your request, Please try again later.", "error");
+    if ($("#patientdashboard").valid()) {
+        var oModel = {
+            name: $('#name').val(),
+            email: $('#email').val(),
+            appointment_date: $('#appointment_date').val(),
+            appointment_time: $('#appointment_time').val(),
+            department: $('#department').val(),
+            description: $('#message').val(),
+            doctor_id: $('#doctor').val(),
         }
-    })
+
+        debugger;
+
+        $.ajax({
+            type: "POST",
+            url: "/PatientDashBoard/RequestedAppointment",
+            contentType: "application/json",
+            data: JSON.stringify(oModel),
+            dataType: 'json',
+            cache: false,
+            async: false,
+            success: function (data) {
+
+                if (data.status === "success") {
+                    alert(data.message);
+                }
+                else if (data.status === "warning") {
+                    alert(data.message);
+                }
+                ClearForm();
+            },
+            error: function (error) {
+                console.log("Error saving employee:", error);
+                Swal.fire("Oops", "An error occurred while saving your request, Please try again later.", "error");
+            }
+        })
+    }
 }
 
 function ClearForm() {

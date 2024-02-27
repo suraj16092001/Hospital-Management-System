@@ -2,6 +2,7 @@
 
     Layout = "_PatientLayout";
 }
+@model Requested_AppointmentModel;
 <section class="home" id="home">
     <div class="content">
         <h3>stay healthy, be fit</h3>
@@ -20,6 +21,8 @@
 
     </div>
 </section>
+
+@* //request appointmet form  *@
 <section class="contact" id="contact">
     <h1 class="heading"><span>contact</span> us</h1>
 
@@ -28,12 +31,16 @@
             <img src="~/images/img3.png" alt="">
         </div>
 
-        <form action="">
+        <form action="" id="patientdashboard">
 
             <h3>Request appointment</h3>
-            <input id="name" type="text" name="name" class="box" placeholder="Enter Name.." required/>
-            <input id="email" type="email" name="email" class="box" placeholder="Enter Email.." required />
-            <select id="department" name="department" class="box" onchange="FetchDoctors(this.value)" required>
+            <input id="name" type="text" asp-for="name" class="box" placeholder="Enter Name.." required/>
+            <span asp-validation-for="name" class="text-danger fs-4"></span>
+
+            <input id="email" type="email" asp-for="email" class="box" placeholder="Enter Email.." required />
+            <span asp-validation-for="email" class="text-danger fs-4"></span>
+
+            <select id="department" asp-for="department" class="box" onchange="FetchDoctors(this.value)" required>
                 <option value="">Select One...</option>
                 <option value="Dentist">Dentist</option>
                 <option value="Heart Specialist">Heart Specialist</option>
@@ -47,18 +54,28 @@
                 <option value="Skin Specialist">Skin Specialist</option>
                 <option value="Emergency Department">Emergency Department</option>
             </select>
+            <span asp-validation-for="department" class="text-danger fs-4"></span>
             
-            <select id="doctor" name="doctor" class="box" required>
+            <select id="doctor" asp-for="doctor_id" class="box" required>
                 <option value="">Loading Available Doctors...</option>
             </select>
+            <span asp-validation-for="doctor_id" class="text-danger fs-4"></span>
+
             @* <input id="appointment_time" type="time" name="appointment_time" class="box" /> *@
-            <select id="appointment_time" name="appointment_time" class="box" size="5" style="max-height: 5em; overflow-y: auto;" required>
+            <select id="appointment_time" asp-for="appointment_time" class="box" size="5" style="max-height: 5em; overflow-y: auto;" required>
                 <option value="">Select Appointment Time</option>
                 <!-- Options will be dynamically populated here -->
             </select>
+            <span asp-validation-for="appointment_time" class="text-danger fs-4"></span>
 
-            <input id="appointment_date" type="date" name="appointment_date" class="box datepicker" required />
-            <textarea class="box" id="message" placeholder="Write a message...." rows="3" required></textarea>
+            <input id="appointment_date" type="date" asp-for="appointment_date" class="box datepicker" required />
+            <span asp-validation-for="appointment_date" class="text-danger fs-4"></span>
+            <div>
+                <textarea class="box" id="message" placeholder="Write a message...." asp-for="description" rows="3" required></textarea>
+                <span asp-validation-for="description" class="text-danger fs-4"></span>
+            </div>
+           
+
             <button type="button" onclick="BookAppointment()" class="btn btn-primary text-white">Request Appointment</button>
         </form>
     </div>
@@ -66,4 +83,8 @@
 
 <script src="~/js/patientdashboard.js"></script>
 
-
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
