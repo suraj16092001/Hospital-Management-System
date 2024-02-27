@@ -19,7 +19,14 @@
         <nav class="navbar">
             <a href="#home">home</a>
             <a href="#contact">Request Appointment</a>
-            <a href="#Profile">Profile</a>
+            @* <a href="#Profile">Profile</a> *@
+           @*  <button class="btn btn-primary text-white btn-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="
+        border: none;
+        text-decoration: underline;">
+                Profile
+            </button> *@
+            <a href="#staticBackdrop" data-bs-toggle="modal" role="button">Profile</a>
+
             <a asp-controller="Login" asp-action="Login" >LogOut</a>
 
         </nav>
