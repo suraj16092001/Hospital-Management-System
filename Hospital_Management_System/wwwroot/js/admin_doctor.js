@@ -33,6 +33,8 @@ function getDoctorList() {
     });
 }
 
+
+
 function AddDoctor() {
     if ($("#AddDoctor").valid()) {
         var oModel = {
@@ -67,6 +69,7 @@ function AddDoctor() {
                 } else if (data.status === "warning") {
                     alert(data.message);
                 }
+                ClearAddDoctorForm();
                 $('#AddDoctorModal').modal('hide');
                 $('#cardContainer').empty();
                 getDoctorList();
@@ -82,6 +85,8 @@ function AddDoctor() {
 
 function DeleteDoctor(id) {
     // var ans = confirm("Are you sure you want to delete this Record?");
+
+    $('#ViewDoctorModal').modal('hide'); 
     Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -238,6 +243,8 @@ function Viewdata(id) {
             $('#v_address').val(data.admin_Doctor.address);
             var imagePreview = "/DoctorImages/" + data.admin_Doctor.profileImage;
             $('#imagePreviewView').attr('src', imagePreview).show();
+
+           
         }
 
     });

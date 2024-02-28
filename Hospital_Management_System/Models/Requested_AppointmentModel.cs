@@ -19,6 +19,7 @@ namespace Hospital_Management_System.Models
         public int doctor_id { get; set; }
         public int patient_id { get; set;}
 
+        public Admin_PatientPageModel Admin_Patient { get; set; }
         public Appointment_StatusModel statusModel { get; set;}
 
        public UserModel User { get; set;}

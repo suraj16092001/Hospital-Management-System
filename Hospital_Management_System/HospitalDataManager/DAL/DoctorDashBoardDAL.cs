@@ -14,17 +14,23 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
 
         public AdminAllDataViewModel PopulateCount(AdminAllDataViewModel oModel)
         {
-            _dBManager.InitDbCommand("sp_hospital_doctorDashbord_Count");
-            _dBManager.AddCMDParam("@p_id", oModel.id);
-            
-            _dBManager.AddCMDOutParam("@Ongoing_Appointments", DbType.Int32, 0);
-            _dBManager.AddCMDOutParam("@Completed_Appointments", DbType.Int32, 0);
+            try
+            {
+                _dBManager.InitDbCommand("sp_hospital_doctorDashbord_Count");
+                _dBManager.AddCMDParam("@p_id", oModel.id);
 
-            _dBManager.ExecuteNonQuery();
+                _dBManager.AddCMDOutParam("@Ongoing_Appointments", DbType.Int32, 0);
+                _dBManager.AddCMDOutParam("@Completed_Appointments", DbType.Int32, 0);
 
-            
-            oModel.Ongoing_Appointments = _dBManager.GetOutParam<Int32>("@Ongoing_Appointments");
-            oModel.Completed_Appointments = _dBManager.GetOutParam<Int32>("@Completed_Appointments");
+                _dBManager.ExecuteNonQuery();
+
+
+                oModel.Ongoing_Appointments = _dBManager.GetOutParam<Int32>("@Ongoing_Appointments");
+                oModel.Completed_Appointments = _dBManager.GetOutParam<Int32>("@Completed_Appointments");
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
 
             return oModel;
 

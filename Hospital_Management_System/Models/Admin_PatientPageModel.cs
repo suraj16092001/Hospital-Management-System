@@ -17,7 +17,6 @@ namespace Hospital_Management_System.Models
         public string? DateOfBirth { get; set; }
         [Required]
         public string? address { get; set; }
-        [Required]
         public int register_id { get; set; }
 
 

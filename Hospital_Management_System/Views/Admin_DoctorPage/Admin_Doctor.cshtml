@@ -107,7 +107,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="phone" class="form-label">Phone Number : </label>
-                                <input id="phone" type="text" asp-for="admin_Doctor.phone" class="form-control" required />
+                                <input id="phone" type="text" asp-for="admin_Doctor.phone" class="form-control" maxlength="10" required />
                             </div>
                             <span asp-validation-for="admin_Doctor.phone" class="text-danger"></span>
                         </div>
@@ -268,7 +268,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ViewDoctorModalLabel">Edit Details</h5>
+                <h5 class="modal-title" id="ViewDoctorModalLabel">View Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="ClearViewDoctorForm()"></button>
             </div>
 

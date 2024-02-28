@@ -3,6 +3,7 @@ using Hospital_Management_System.CommonCode;
 using Hospital_Management_System.HospitalDataManager.IDAL;
 using Hospital_Management_System.Models;
 using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Common;
 using System.Data;
 
 namespace Hospital_Management_System.HospitalDataManager.DAL
@@ -15,57 +16,78 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             _dBManager = dBManager;
         }
 
-        public List<UserModel> UserList() { 
-            
+        public List<UserModel> UserList()
+        {
+
             List<UserModel> userList = new List<UserModel>();
 
-            _dBManager.InitDbCommand("GetAllUser");
-
-            DataSet ds = _dBManager.ExecuteDataSet();
-
-            foreach(DataRow item in ds.Tables[0].Rows)
+            try
             {
-                UserModel userModel = new UserModel();
+                _dBManager.InitDbCommand("GetAllUser");
 
-                userModel.id = item["id"].ConvertDBNullToInt();
-                userModel.name = item["name"].ConvertDBNullToString();
-                userModel.email = item["email"].ConvertDBNullToString();
-                userModel.password = item["pass"].ConvertDBNullToString();
+                DataSet ds = _dBManager.ExecuteDataSet();
 
-                userList.Add(userModel);
+                foreach (DataRow item in ds.Tables[0].Rows)
+                {
+                    UserModel userModel = new UserModel();
 
+                    userModel.id = item["id"].ConvertDBNullToInt();
+                    userModel.name = item["name"].ConvertDBNullToString();
+                    userModel.email = item["email"].ConvertDBNullToString();
+                    userModel.password = item["pass"].ConvertDBNullToString();
+
+                    userList.Add(userModel);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
             }
 
             return userList;
 
         }
 
-        public UserModel SignUp(UserModel user )
+        public UserModel SignUp(UserModel user)
         {
-            user.password = user.password + _dBManager.GetSalt();
+            try
+            {
+                user.password = user.password + _dBManager.GetSalt();
 
-            _dBManager.InitDbCommand("InsertUser");
-            _dBManager.AddCMDParam("@p_name", user.name);
-            _dBManager.AddCMDParam("@p_email", user.email);
-            _dBManager.AddCMDParam("@p_pass", user.password);
-            _dBManager.AddCMDParam("@p_role_id", user.role);
+                _dBManager.InitDbCommand("InsertUser");
+                _dBManager.AddCMDParam("@p_name", user.name);
+                _dBManager.AddCMDParam("@p_email", user.email);
+                _dBManager.AddCMDParam("@p_pass", user.password);
+                _dBManager.AddCMDParam("@p_role_id", user.role);
 
 
-            _dBManager.ExecuteNonQuery();
+                _dBManager.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
 
             return user;
         }
         //check email from datatbase is same as input email or not and return bool value
-        public bool CheckEmailExistence(string email,int id)
+        public bool CheckEmailExistence(string email, int id)
         {
-            _dBManager.InitDbCommand("CheckEmailExist")
-                .AddCMDParam("@p_email",email)
-                .AddCMDParam("@p_id", id);
-
-            var result = _dBManager.ExecuteScalar();
-
-            bool emailExists = Convert.ToBoolean(result);
-
+            bool emailExists=false;
+            try
+            {
+                _dBManager.InitDbCommand("CheckEmailExist")
+               .AddCMDParam("@p_email", email)
+               .AddCMDParam("@p_id", id);
+                var result = _dBManager.ExecuteScalar();
+                emailExists = Convert.ToBoolean(result);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+         
             return emailExists;
         }
 
@@ -74,27 +96,42 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
         //retrieve role by emailID from database
         public string getRole(string email)
         {
-            _dBManager.InitDbCommand("getRole")
-                .AddCMDParam("@p_email", email);
-            var result = _dBManager.ExecuteScalar();
+            string role = "";
+            try
+            {
+                _dBManager.InitDbCommand("getRole")
+               .AddCMDParam("@p_email", email);
+                var result = _dBManager.ExecuteScalar();
 
-            string role= Convert.ToString(result);
+                role = Convert.ToString(result);
+            }
+            catch( Exception ex)
+            {
+                Console.WriteLine (ex.ToString());
+            }
+            
             return role;
         }
 
         public string Login(string email)
         {
-            string existingPass = null;
+            string existingPass = "";
             //Retrive password from database by emailID
-            _dBManager.InitDbCommand("getUserPassword")
+            try
+            {
+                _dBManager.InitDbCommand("getUserPassword")
                 .AddCMDParam("@p_email", email);
 
-            DataSet ds = _dBManager.ExecuteDataSet();
+                DataSet ds = _dBManager.ExecuteDataSet();
 
-            foreach (DataRow item in ds.Tables[0].Rows)
+                foreach (DataRow item in ds.Tables[0].Rows)
+                {
+                    existingPass = item["pass"].ConvertDBNullToString();
+
+                }
+            }catch(Exception ex)
             {
-                existingPass = item["pass"].ConvertDBNullToString();
-
+                Console.WriteLine(ex.ToString());
             }
             return existingPass;
 
@@ -103,24 +140,39 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
         // use to adding salt key and then convet into hash return hash value to bal
         public string verifiedPassword(string password)
         {
-            password = password + _dBManager.GetSalt();
-            _dBManager.InitDbCommand("verifiedPasswordUsingMD5")
-                .AddCMDParam ("p_password", password);
+            string passwordExixts = "";
+            try
+            {
+                password = password + _dBManager.GetSalt();
+                _dBManager.InitDbCommand("verifiedPasswordUsingMD5")
+                    .AddCMDParam("p_password", password);
 
-            var result = _dBManager.ExecuteScalar();
+                var result = _dBManager.ExecuteScalar();
 
-            string passwordExixts = Convert.ToString(result);
+                passwordExixts = Convert.ToString(result);
+            }
+            catch( Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
 
             return passwordExixts;
         }
 
         public int getID(string email)
         {
-            _dBManager.InitDbCommand("getID")
+            int id = 0;
+            try
+            {
+                _dBManager.InitDbCommand("getID")
                 .AddCMDParam("@p_email", email);
-            var result = _dBManager.ExecuteScalar();
+                var result = _dBManager.ExecuteScalar();
 
-            int id = Convert.ToInt32(result);
+                id = Convert.ToInt32(result);
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
             return id;
         }
 

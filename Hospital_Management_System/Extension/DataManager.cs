@@ -25,6 +25,7 @@ namespace Hospital_Management_System.Extension
             services.AddScoped<IDoctorDashBoardBAL, DoctorDashBoardBAL>();
             services.AddScoped<IAdminProfileBAL, AdminProfileBAL>();
             services.AddScoped<IDoctorProfileBAL, DoctorProfileBAL>();
+            services.AddScoped<IPatientProfileBAL, PatientProfileBAL>();
             services.AddTransient<IEmailSenderBAL, EmailSenderBAL>();
 
             return services;

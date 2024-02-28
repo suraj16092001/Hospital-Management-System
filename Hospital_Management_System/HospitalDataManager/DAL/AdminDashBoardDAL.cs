@@ -16,20 +16,26 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
         public AdminAllDataViewModel PopulateCount()
         {
             AdminAllDataViewModel oModel = new AdminAllDataViewModel();
-            _dBManager.InitDbCommand("sp_hospital_adminDashbord_Count");
+            try
+            {
+                _dBManager.InitDbCommand("sp_hospital_adminDashbord_Count");
 
-            _dBManager.AddCMDOutParam("@Total_Patient", DbType.Int32,0);
-            _dBManager.AddCMDOutParam("@Total_Doctor", DbType.Int32, 0);
-            _dBManager.AddCMDOutParam("@Ongoing_Appointments", DbType.Int32,0);
-            _dBManager.AddCMDOutParam("@Completed_Appointments", DbType.Int32, 0);
+                _dBManager.AddCMDOutParam("@Total_Patient", DbType.Int32, 0);
+                _dBManager.AddCMDOutParam("@Total_Doctor", DbType.Int32, 0);
+                _dBManager.AddCMDOutParam("@Ongoing_Appointments", DbType.Int32, 0);
+                _dBManager.AddCMDOutParam("@Completed_Appointments", DbType.Int32, 0);
 
-            _dBManager.ExecuteNonQuery();
+                _dBManager.ExecuteNonQuery();
 
-            oModel.Total_Patient = _dBManager.GetOutParam<Int32>("@Total_Patient");
-            oModel.Total_Doctor = _dBManager.GetOutParam<Int32>("@Total_Doctor");
-            oModel.Ongoing_Appointments = _dBManager.GetOutParam<Int32>("@Ongoing_Appointments");
-            oModel.Completed_Appointments = _dBManager.GetOutParam<Int32>("@Completed_Appointments");
-
+                oModel.Total_Patient = _dBManager.GetOutParam<Int32>("@Total_Patient");
+                oModel.Total_Doctor = _dBManager.GetOutParam<Int32>("@Total_Doctor");
+                oModel.Ongoing_Appointments = _dBManager.GetOutParam<Int32>("@Ongoing_Appointments");
+                oModel.Completed_Appointments = _dBManager.GetOutParam<Int32>("@Completed_Appointments");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
             return oModel;
 
         }

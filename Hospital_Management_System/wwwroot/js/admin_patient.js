@@ -107,6 +107,16 @@ function populateTimeIntervals() {
 //};
 
 // Requested_appointmentsModel
+function ClearBookingForm() {
+    $('#a_id').val('');
+    $('#a_name').val('');
+    $('#a_email').val('');
+    $('#a_appointment_date').val('');
+    $('#a_appointment_time').val('');
+    $('#a_department').val('');
+    $('#a_Description').val('');
+    $('#a_doctor').val('');
+}
 function BookAppointment() {
     var oModel = {
         patient_id: $('#a_id').val(),
@@ -367,12 +377,3 @@ function ClearViewPatientForm() {
 
 }
 
-function ClearBookingForm() {
-    $('#name').val('');
-    $('#email').val('');
-    $('#appointment_date').val('');
-    $('#appointment_time').val('');
-    $('#department').val('');
-    $('#message').val('');
-    $('#doctor').val('');
-}
