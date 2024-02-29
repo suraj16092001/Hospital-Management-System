@@ -154,6 +154,7 @@ function popupdatedata(id) {
             var date = moment(data.AdminPage.DateOfBirth);
             $('#u_DOB').val(date.format('YYYY-MM-DD'));
             $('#u_address').val(data.AdminPage.address);
+
         }
     });
 }
@@ -224,6 +225,10 @@ function ViewAdmin(id) {
             $('#v_DOB').val(date.format('YYYY-MM-DD'));
             $('#v_address').val(data.AdminPage.address);
             $('#v_gender').val(data.AdminPage.gender);
+            $('#v_created_at').val(data.User.created_at);
+            $('#v_created_by').val(data.User.created_by);
+            $('#v_updated_at').val(data.User.updated_at);
+            $('#v_updated_by').val(data.User.updated_by);
 
             $('#Viewmodal').modal('show');
         }

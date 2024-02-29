@@ -55,6 +55,10 @@ namespace Hospital_Management_System.Controllers
         public IActionResult AddPatientDetails([FromBody] PatientAllDataViewModel oModel)
         {
 
+            int? test = HttpContext.Session.GetInt32("id");
+            oModel.User.created_by = test.Value;
+
+            oModel.User.created_at = DateTime.Now;
             var result = _IAdmin_PatientPageBAL.AddPatient(oModel);
             if (result == "exists")
             {
@@ -78,12 +82,15 @@ namespace Hospital_Management_System.Controllers
         [HttpPost]
         public IActionResult UpdatePatient([FromBody] PatientAllDataViewModel model)
         {
+            int? test = HttpContext.Session.GetInt32("id");
+            model.User.updated_by = test.Value;
+
+            model.User.updated_at = DateTime.Now;
             var result = _IAdmin_PatientPageBAL.UpdatePatient(model);
             if (result == "exists")
             {
                 return Json(new { status = "warning", message = "Email Id Already Exists!" });
             }
-
 
             return Json(new { status = "success", message = "Patient Update successfully!" });
 
@@ -102,7 +109,10 @@ namespace Hospital_Management_System.Controllers
         [HttpPost]
         public IActionResult AdminSidePatientAppointment([FromBody] Requested_AppointmentModel oModel)
         {
-
+            int? test = HttpContext.Session.GetInt32("id");
+            oModel.User = new UserModel();
+            oModel.User.created_by = test.Value;
+            oModel.User.created_at = DateTime.Now;
             DateTime appointmentDate = DateTime.ParseExact(oModel.appointment_date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
             // Parse the time of day string into a DateTime object

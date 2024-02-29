@@ -98,6 +98,8 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 _dBManager.AddCMDParam("@p_department", model.department);
                 _dBManager.AddCMDParam("@p_description", model.description);
                 _dBManager.AddCMDParam("@p_status_id", model.status_id);
+                _dBManager.AddCMDParam("@p_updated_by", model.User.updated_by);
+                _dBManager.AddCMDParam("@p_updated_at", model.User.updated_at);
 
                 _dBManager.ExecuteNonQuery();
             }catch(Exception ex)
@@ -143,7 +145,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 {
                     oModel = new Requested_AppointmentModel();
 
-                    oModel.id = item["id"].ConvertDBNullToInt();
+                    oModel.User.id = item["id"].ConvertDBNullToInt();
                     oModel.name = item["name"].ConvertDBNullToString();
                     oModel.email = item["email"].ConvertDBNullToString();
 

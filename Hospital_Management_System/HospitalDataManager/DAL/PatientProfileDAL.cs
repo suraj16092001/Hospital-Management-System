@@ -61,6 +61,8 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 _dBManager.AddCMDParam("@p_DateOfBirth", patient.Admin_PatientPage.DateOfBirth);
                 _dBManager.AddCMDParam("@p_phone", patient.Admin_PatientPage.phone);
                 _dBManager.AddCMDParam("@p_address", patient.Admin_PatientPage.address);
+                _dBManager.AddCMDParam("@p_updated_by", patient.User.updated_by);
+                _dBManager.AddCMDParam("@p_updated_at", patient.User.updated_at);
 
                 _dBManager.ExecuteNonQuery();
             }

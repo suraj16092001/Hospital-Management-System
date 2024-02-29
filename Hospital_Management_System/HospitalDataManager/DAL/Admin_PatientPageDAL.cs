@@ -57,6 +57,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
         {
             try
             {
+                int isDeleted = 0;
                 oModel.User.password = oModel.User.password + _dBManager.GetSalt();
                 _dBManager.InitDbCommand("insertData");
 
@@ -68,6 +69,9 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 _dBManager.AddCMDParam("@p_gender", oModel.Admin_PatientPage.gender);
                 _dBManager.AddCMDParam("@p_DateOfBirth", oModel.Admin_PatientPage.DateOfBirth);
                 _dBManager.AddCMDParam("@p_address", oModel.Admin_PatientPage.address);
+                _dBManager.AddCMDParam("@p_created_by", oModel.User.created_by);
+                _dBManager.AddCMDParam("@p_created_at", oModel.User.created_at);
+                _dBManager.AddCMDParam("@p_isDeleted", isDeleted);
 
                 _dBManager.ExecuteNonQuery();
             }
@@ -83,9 +87,10 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
         {
             try
             {
+                int isDeleted = 1;
                 _dBManager.InitDbCommand("DeletePatientData");
                 _dBManager.AddCMDParam("p_id", id);
-
+                _dBManager.AddCMDParam("@p_isDeleted", isDeleted);
                 _dBManager.ExecuteNonQuery();
             }catch(Exception ex)
             {
@@ -137,8 +142,11 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 _dBManager.AddCMDParam("@p_DateOfBirth", patient.Admin_PatientPage.DateOfBirth);
                 _dBManager.AddCMDParam("@p_phone", patient.Admin_PatientPage.phone);
                 _dBManager.AddCMDParam("@p_address", patient.Admin_PatientPage.address);
+                _dBManager.AddCMDParam("@p_updated_by", patient.User.updated_by);
+                _dBManager.AddCMDParam("@p_updated_at", patient.User.updated_at);
 
                 _dBManager.ExecuteNonQuery();
+
             }catch(Exception ex)
             {
                 Console.WriteLine(ex.ToString());

@@ -53,6 +53,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
         {
             try
             {
+                int isDeleted = 0;
                 user.password = user.password + _dBManager.GetSalt();
 
                 _dBManager.InitDbCommand("InsertUser");
@@ -60,6 +61,8 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 _dBManager.AddCMDParam("@p_email", user.email);
                 _dBManager.AddCMDParam("@p_pass", user.password);
                 _dBManager.AddCMDParam("@p_role_id", user.role);
+                _dBManager.AddCMDParam("@p_created_at", user.created_at);
+                _dBManager.AddCMDParam("@p_isDeleted", isDeleted);
 
 
                 _dBManager.ExecuteNonQuery();

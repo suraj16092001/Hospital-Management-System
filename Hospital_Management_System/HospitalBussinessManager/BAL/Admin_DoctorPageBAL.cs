@@ -25,6 +25,7 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
 
         public string AddDoctor(DoctorAllDataViewModel model, IFormFile file)
         {
+            
             bool emailExists = _ILoginDAL.CheckEmailExistence(model.User.email, model.User.id);
 
             if (emailExists)
@@ -81,6 +82,7 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
         }
         public void DeleteDoctor(int id)
         {
+
             _IAdmin_DoctorPageDAL.DeleteDoctor(id);
         }
 

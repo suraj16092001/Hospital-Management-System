@@ -37,6 +37,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                     model.AdminPage.phone = item["phone"].ConvertDBNullToString();
                     model.AdminPage.address = item["address"].ConvertDBNullToString();
 
+
                 }
             }catch(Exception ex)
             {
@@ -57,6 +58,8 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 _dBManager.AddCMDParam("@p_gender", admin.AdminPage.gender);
                 _dBManager.AddCMDParam("@p_phone", admin.AdminPage.phone);
                 _dBManager.AddCMDParam("@p_address", admin.AdminPage.address);
+                _dBManager.AddCMDParam("@p_updated_by", admin.User.updated_by);
+                _dBManager.AddCMDParam("@p_updated_at", admin.User.updated_at);
 
                 _dBManager.ExecuteNonQuery();
             }catch(Exception ex)

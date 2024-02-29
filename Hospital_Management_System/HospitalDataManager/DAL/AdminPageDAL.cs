@@ -52,6 +52,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
         {
             try
             {
+                int isDeleted = 0;
                 admin.User.password = admin.User.password + _dBManager.GetSalt();
                 _dBManager.InitDbCommand("InsertAdminData");
                 _dBManager.AddCMDParam("@p_name", admin.User.name);
@@ -62,6 +63,9 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 _dBManager.AddCMDParam("@p_DOB", admin.AdminPage.DateOfBirth);
                 _dBManager.AddCMDParam("@p_gender", admin.AdminPage.gender);
                 _dBManager.AddCMDParam("@p_address", admin.AdminPage.address);
+                _dBManager.AddCMDParam("@p_created_by", admin.User.created_by);
+                _dBManager.AddCMDParam("@p_created_at", admin.User.created_at);
+                _dBManager.AddCMDParam("@p_isDeleted", isDeleted);
 
                 _dBManager.ExecuteNonQuery();
             }
@@ -77,9 +81,10 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
         {
             try
             {
+                int isDeleted = 1;
                 _dBManager.InitDbCommand("DeleteAdminByID");
                 _dBManager.AddCMDParam("p_id", id);
-
+                _dBManager.AddCMDParam("@p_isDeleted", isDeleted);
                 _dBManager.ExecuteNonQuery();
             }catch(Exception ex)
             {
@@ -111,6 +116,10 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                     model.AdminPage.gender = item["gender"].ConvertDBNullToString();
                     model.AdminPage.phone = item["phone"].ConvertDBNullToString();
                     model.AdminPage.address = item["address"].ConvertDBNullToString();
+                    model.User.created_at = item["created_at"].ConvertDBNullToDate();
+                    model.User.created_by = item["created_by"].ConvertDBNullToInt();
+                    model.User.updated_at = item["updated_at"].ConvertDBNullToDate();
+                    model.User.updated_by = item["updated_by"].ConvertDBNullToInt();
 
                 }
             }catch(Exception ex)
@@ -133,6 +142,8 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 _dBManager.AddCMDParam("@p_gender", admin.AdminPage.gender);
                 _dBManager.AddCMDParam("@p_phone", admin.AdminPage.phone);
                 _dBManager.AddCMDParam("@p_address", admin.AdminPage.address);
+                _dBManager.AddCMDParam("@p_updated_by", admin.User.updated_by);
+                _dBManager.AddCMDParam("@p_updated_at", admin.User.updated_at);
 
                 _dBManager.ExecuteNonQuery();
             }catch(Exception ex)

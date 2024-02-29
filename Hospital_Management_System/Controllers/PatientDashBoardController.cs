@@ -3,6 +3,7 @@ using Hospital_Management_System.Models;
 using Microsoft.AspNetCore.Mvc;
 using MySqlX.XDevAPI.Common;
 using System.Globalization;
+using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 namespace Hospital_Management_System.Controllers
 {
@@ -22,8 +23,13 @@ namespace Hospital_Management_System.Controllers
         [HttpPost]
         public IActionResult RequestedAppointment([FromBody] Requested_AppointmentModel oModel)
         {
+            oModel.User = new UserModel();
             int? test = HttpContext.Session.GetInt32("id");
             oModel.patient_id = test.Value;
+
+            oModel.User.created_at = DateTime.Now;
+            oModel.User.created_by = test.Value;
+
             DateTime appointmentDate = DateTime.ParseExact(oModel.appointment_date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
             // Parse the time of day string into a DateTime object
@@ -45,6 +51,13 @@ namespace Hospital_Management_System.Controllers
                 return Json(new { status = "warning", message = "Please select another slot!" });
             }
             return Json(new { status = "success", message = "Your appointment request has been sent we will contact you soon" });
+        }
+
+        public IActionResult PopulateEmailandName(int id)
+        {
+            int? test = HttpContext.Session.GetInt32("id");
+            id = test.Value;
+            return Json(_IPatientDashBoardBAL.PopulateEmailandName(id));
         }
 
     }

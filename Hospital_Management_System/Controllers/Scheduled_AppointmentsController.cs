@@ -44,7 +44,12 @@ namespace Hospital_Management_System.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateStatusByEmailFromDoctor([FromBody] Requested_AppointmentModel oModel)
         {
-           
+            int? test = HttpContext.Session.GetInt32("id");
+            oModel.User = new UserModel();
+            oModel.User.updated_by = test.Value;
+
+            oModel.User.updated_at = DateTime.Now;
+
             if (oModel.status_id == 1)
             {
                 await _EmailSender.EmailSendAsync(oModel.email, "Appointment Requested", "Appointment Is requested,we will contact You soon");

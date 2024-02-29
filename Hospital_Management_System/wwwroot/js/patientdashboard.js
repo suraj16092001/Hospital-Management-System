@@ -109,10 +109,23 @@ function populateTimeIntervals() {
     }
 }
 
-
+function popupdatedataforBooking() {
+    debugger;
+    /* $('#ViewModal').modal('hide');*/
+    $.ajax({
+        type: "POST",
+        url: "/PatientDashBoard/PopulateEmailandName",
+        success: function (data) {
+           /* $('#id').val(data.User.id);*/
+            $('#name').val(data.User.name);
+            $('#email').val(data.User.email);
+        }
+    });
+}
 
 
  // Call the function to populate time intervals when the page loads
  window.onload = function () {
      populateTimeIntervals();
+     popupdatedataforBooking();
  };

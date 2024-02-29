@@ -35,6 +35,9 @@ namespace Hospital_Management_System.Controllers
         [HttpPost]
         public IActionResult AddAdmin([FromBody] AdminAllDataViewModel oModel)
         {
+            int? test = HttpContext.Session.GetInt32("id");
+            oModel.User.created_by = test.Value;
+            oModel.User.created_at = DateTime.Now;
             var result = _IAdminPageBAL.AddAdmin(oModel);
             if (result == "exists")
             {
@@ -59,14 +62,16 @@ namespace Hospital_Management_System.Controllers
         [HttpPost]
         public IActionResult UpdateAdmin([FromBody] AdminAllDataViewModel model)
         {
+            int? test = HttpContext.Session.GetInt32("id");
+            model.User.updated_by = test.Value;
+
+            model.User.updated_at = DateTime.Now;
             var result = _IAdminPageBAL.UpdateAdmin(model);
             if (result == "exists")
             {
                 return Json(new { status = "warning", message = "Email Id Already Exists!" });
             }
             return Json(new { status = "success", message = "Admin Update successfully!" });
-
-            
         }
     }
 }

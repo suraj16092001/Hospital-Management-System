@@ -56,9 +56,11 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
 
         public DoctorAllDataViewModel AddDoctor(DoctorAllDataViewModel model)
         {
+           
             model.User.password = model.User.password + _dBManager.GetSalt();
             try
             {
+                int isDeleted = 0;
                 _dBManager.InitDbCommand("InsertDoctorData");
                 _dBManager.AddCMDParam("@p_name", model.User.name);
                 _dBManager.AddCMDParam("@p_password", model.User.password);
@@ -71,6 +73,9 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 _dBManager.AddCMDParam("@p_DOB", model.admin_Doctor.DateOfBirth);
                 _dBManager.AddCMDParam("@p_address", model.admin_Doctor.address);
                 _dBManager.AddCMDParam("@p_Image", model.admin_Doctor.profileImage);
+                _dBManager.AddCMDParam("@p_created_by", model.User.created_by);
+                _dBManager.AddCMDParam("@p_created_at", model.User.created_at);
+                _dBManager.AddCMDParam("@p_isDeleted", isDeleted);
 
                 _dBManager.ExecuteNonQuery();
             }
@@ -85,10 +90,13 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
 
         public void DeleteDoctor(int id)
         {
+           
             try
             {
+                int isDeleted = 1;
                 _dBManager.InitDbCommand("DeleteDoctorByID");
                 _dBManager.AddCMDParam("@p_id", id);
+                _dBManager.AddCMDParam("@p_isDeleted", isDeleted);
                 _dBManager.ExecuteNonQuery();
             }
             catch(Exception ex)
@@ -125,6 +133,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                     oModel.admin_Doctor.DateOfBirth = item["DOB"].ConvertDBNullToString();
                     oModel.admin_Doctor.address = item["address"].ConvertDBNullToString();
                     oModel.admin_Doctor.profileImage = item["image"].ConvertDBNullToString();
+
 
                 }
             }
@@ -175,6 +184,8 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 _dBManager.AddCMDParam("@p_DOB", model.admin_Doctor.DateOfBirth);
                 _dBManager.AddCMDParam("@p_address", model.admin_Doctor.address);
                 _dBManager.AddCMDParam("@p_image", model.admin_Doctor.profileImage);
+                _dBManager.AddCMDParam("@p_updated_by", model.User.updated_by);
+                _dBManager.AddCMDParam("@p_updated_at", model.User.updated_at);
 
                 _dBManager.ExecuteNonQuery();
             }catch(Exception ex)

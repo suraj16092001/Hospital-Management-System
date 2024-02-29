@@ -11,7 +11,7 @@ namespace Hospital_Management_System.Controllers
 
         public Admin_DoctorPageController(IAdmin_DoctorPageBAL admin_DoctorPageBAL)
         {
-            _IAdmin_DoctorPageBAL= admin_DoctorPageBAL;
+            _IAdmin_DoctorPageBAL = admin_DoctorPageBAL;
         }
         public IActionResult Admin_Doctor()
         {
@@ -31,38 +31,44 @@ namespace Hospital_Management_System.Controllers
         [HttpPost]
         public IActionResult AddDoctor(string model, IFormFile file)
         {
+            DoctorAllDataViewModel doctor = JsonSerializer.Deserialize<DoctorAllDataViewModel>(model)!;
+            int? test = HttpContext.Session.GetInt32("id");
+            doctor.User.created_by = test.Value;
 
-           
-                DoctorAllDataViewModel doctor = JsonSerializer.Deserialize<DoctorAllDataViewModel>(model)!;
-                var result = _IAdmin_DoctorPageBAL.AddDoctor(doctor, file);
+            doctor.User.created_at = DateTime.Now;
+            var result = _IAdmin_DoctorPageBAL.AddDoctor(doctor, file);
 
-                if (result == "exists")
-                {
-                    return Json(new { status = "warning", message = "Email Id Already Exists!" });
-                }
+            if (result == "exists")
+            {
+                return Json(new { status = "warning", message = "Email Id Already Exists!" });
+            }
 
-                return Json(new { status = "success", message = "Doctor add successfully!" });
-            
+            return Json(new { status = "success", message = "Doctor add successfully!" });
+
         }
 
         public IActionResult DeleteDoctor(int id)
         {
-             _IAdmin_DoctorPageBAL.DeleteDoctor(id);
+            _IAdmin_DoctorPageBAL.DeleteDoctor(id);
             return RedirectToAction("DoctorList");
         }
 
-        public  IActionResult GetDoctorByID(int id)
+        public IActionResult GetDoctorByID(int id)
         {
             return Json(_IAdmin_DoctorPageBAL.GetDoctorByID(id));
-           
+
         }
 
         [HttpPost]
         public IActionResult UpdateDoctor(string model, int Id, IFormFile file)
         {
-            
+
             DoctorAllDataViewModel doctor = JsonSerializer.Deserialize<DoctorAllDataViewModel>(model)!;
-               
+            int? test = HttpContext.Session.GetInt32("id");
+            doctor.User.updated_by = test.Value;
+
+            doctor.User.updated_at = DateTime.Now;
+
             var result = _IAdmin_DoctorPageBAL.UpdateDoctor(doctor, Id, file);
 
 

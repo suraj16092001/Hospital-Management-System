@@ -11,10 +11,12 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
         IPatientDashBoardDAL _IPatientDashBoardDAL;
         IAdmin_PatientPageDAL _IAdmin_PatientPageDAL;
         IEmailSenderBAL _EmailSender;
+        
         public PatientDashBoardBAL(IDBManager dBManager, IEmailSenderBAL emailSender)
         {
             _IPatientDashBoardDAL = new PatientDashBoardDAL(dBManager);
             _IAdmin_PatientPageDAL = new Admin_PatientPageDAL(dBManager);
+           
             _EmailSender = emailSender;
         }
 
@@ -33,6 +35,10 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
             }
             _IPatientDashBoardDAL.RequestedPatientAppointment(model);
             return "success";
+        }
+        public Requested_AppointmentModel PopulateEmailandName(int id)
+        {
+            return _IPatientDashBoardDAL.PopulateEmailandName(id);
         }
     }
 }

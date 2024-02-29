@@ -30,7 +30,8 @@ namespace Hospital_Management_System.Controllers
             int? test = HttpContext.Session.GetInt32("id");
             Id = test.Value;
             DoctorAllDataViewModel doctor = JsonSerializer.Deserialize<DoctorAllDataViewModel>(model)!;
-
+            doctor.User.updated_by = test.Value;
+            doctor.User.updated_at = DateTime.Now;
             var result = _IDoctorProfileBAL.UpdateDoctor(doctor, Id, file);
 
 

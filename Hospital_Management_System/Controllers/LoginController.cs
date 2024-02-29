@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json;
+using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 namespace Hospital_Management_System.Controllers
 {
@@ -74,8 +75,12 @@ namespace Hospital_Management_System.Controllers
         [HttpPost]
         public IActionResult SignUpPost(string model)
         {
+            
             //UserModel user = JsonSerializer.Deserialize<UserModel>(model)!;
             UserModel user = JsonConvert.DeserializeObject<UserModel>(model)!;
+
+            user.created_at = DateTime.Now;
+
             if (ModelState.IsValid)
             {
                 var result = _ILoginBAL.SignUp(user);

@@ -1,5 +1,7 @@
-﻿using Hospital_Management_System.HospitalDataManager.IDAL;
+﻿using CRUDoperation.CommonCode;
+using Hospital_Management_System.HospitalDataManager.IDAL;
 using Hospital_Management_System.Models;
+using System.Data;
 using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 namespace Hospital_Management_System.HospitalDataManager.DAL
@@ -27,6 +29,8 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 _dBManager.AddCMDParam("@p_description", model.description);
                 _dBManager.AddCMDParam("@p_doctor", model.doctor_id);
                 _dBManager.AddCMDParam("@p_patient_id", model.patient_id);
+                _dBManager.AddCMDParam("@p_created_by", model.User.created_by);
+                _dBManager.AddCMDParam("@p_created_at", model.User.created_at);
 
 
                 _dBManager.ExecuteNonQuery();
@@ -38,7 +42,34 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
 
         }
 
+
+        public Requested_AppointmentModel PopulateEmailandName(int id)
+        {
+            Requested_AppointmentModel oModel = null;
+            try
+            {
+                _dBManager.InitDbCommand("PopulatePatientData");
+                _dBManager.AddCMDParam("@p_id", id);
+                DataSet ds = _dBManager.ExecuteDataSet();
+
+                foreach (DataRow item in ds.Tables[0].Rows)
+                {
+                    oModel = new Requested_AppointmentModel();
+                    oModel.User = new UserModel();
+                    
+                    oModel.User.id = item["id"].ConvertDBNullToInt();
+                    oModel.User.name = item["name"].ConvertDBNullToString();
+                    oModel.User.email = item["email"].ConvertDBNullToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return oModel;
+        }
+
     }
-       
-  
+
+
 }

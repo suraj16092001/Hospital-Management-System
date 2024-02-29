@@ -30,6 +30,8 @@ namespace Hospital_Management_System.Controllers
         {
             int? test = HttpContext.Session.GetInt32("id");
              model.User.id = test.Value;
+            model.User.updated_by = test.Value;
+            model.User.updated_at= DateTime.Now;
 
             var result = _IAdminProfileBAL.UpdateAdmin(model);
             if (result == "exists")
