@@ -56,9 +56,9 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
             return "success";
         }
 
-        public void DeletePatient(int id)
+        public void DeletePatient(UserModel model, int id)
         {
-            _IAdmin_PatientPageDAL.DeletePatient(id);
+            _IAdmin_PatientPageDAL.DeletePatient(model,id);
 
         }
 

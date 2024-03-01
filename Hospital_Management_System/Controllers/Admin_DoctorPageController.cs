@@ -1,6 +1,8 @@
 ﻿using Hospital_Management_System.HospitalBussinessManager.IBAL;
 using Hospital_Management_System.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Numerics;
 using System.Text.Json;
 
 namespace Hospital_Management_System.Controllers
@@ -31,7 +33,7 @@ namespace Hospital_Management_System.Controllers
         [HttpPost]
         public IActionResult AddDoctor(string model, IFormFile file)
         {
-            DoctorAllDataViewModel doctor = JsonSerializer.Deserialize<DoctorAllDataViewModel>(model)!;
+            DoctorAllDataViewModel doctor = System.Text.Json.JsonSerializer.Deserialize<DoctorAllDataViewModel>(model)!;
             int? test = HttpContext.Session.GetInt32("id");
             doctor.User.created_by = test.Value;
 
@@ -49,7 +51,12 @@ namespace Hospital_Management_System.Controllers
 
         public IActionResult DeleteDoctor(int id)
         {
-            _IAdmin_DoctorPageBAL.DeleteDoctor(id);
+           UserModel model = new UserModel();
+            model.deleted_at = DateTime.Now;
+            int? test = HttpContext.Session.GetInt32("id");
+            model.deleted_by = test.Value;
+
+            _IAdmin_DoctorPageBAL.DeleteDoctor(model,id);
             return RedirectToAction("DoctorList");
         }
 
@@ -63,7 +70,7 @@ namespace Hospital_Management_System.Controllers
         public IActionResult UpdateDoctor(string model, int Id, IFormFile file)
         {
 
-            DoctorAllDataViewModel doctor = JsonSerializer.Deserialize<DoctorAllDataViewModel>(model)!;
+            DoctorAllDataViewModel doctor = System.Text.Json.JsonSerializer.Deserialize<DoctorAllDataViewModel>(model)!;
             int? test = HttpContext.Session.GetInt32("id");
             doctor.User.updated_by = test.Value;
 

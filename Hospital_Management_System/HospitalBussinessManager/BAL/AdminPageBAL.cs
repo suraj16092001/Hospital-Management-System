@@ -34,9 +34,9 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
             return "success";
         }
 
-        public void DeleteAdmin(int id)
+        public void DeleteAdmin(UserModel model, int id)
         {
-            _IAdminPageDAL.DeleteAdmin(id);
+            _IAdminPageDAL.DeleteAdmin(model,id);
 
         }
         public AdminAllDataViewModel GetAdminByID(int id)

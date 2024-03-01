@@ -121,10 +121,14 @@
 
                     <div class="mb-3">
                         <label for="imageFile" class="form-label">Photo : </label>
-                        <input id="imageFile" asp-for="admin_Doctor.imageFile" type="file" class="form-control" required>
+                        <input id="imageFile" asp-for="admin_Doctor.imageFile" type="file" class="form-control" onchange="previewImage(this)" required>
                     </div>
                     <span asp-validation-for="admin_Doctor.imageFile" class="text-danger"></span>
-
+                    <div class="col-md-6">
+                        <div class="mb-3" style="display: flex; flex-direction: column;">
+                            <img id="a_imagePreviewUpdate" src="~/images/img1.png" alt="Image Preview" style="max-width: 30%; max-height: 150px; margin-top: 10px; display: none;">
+                        </div>
+                    </div>
                     <div class="modal-footer">
                         <button type="button" onclick="AddDoctor()" class="btn btn-primary">Save</button>
                     </div>
@@ -243,18 +247,19 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="image" class="form-label">Photo : </label>
-                                <input id="u_imageFile" name="u_imageFile" type="file" class="form-control" onchange="previewImage(this)">
+                                <input id="u_imageFile" name="u_imageFile" type="file" class="form-control" onchange="previewImageUpdate(this)">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3" style="display: flex; flex-direction: column;">
-                                <img id="imagePreviewUpdate" src="#" alt="Image Preview" style="max-width: 30%; max-height: 150px; margin-top: 10px; display: none;">
+                                <img id="imagePreviewUpdate" src="~/images/img1.png" alt="Image Preview" style="max-width: 30%; max-height: 150px; margin-top: 10px; display: none;">
                             </div>
                         </div>
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" onclick="UpdateDoctor()" class="btn btn-primary">Update</button>
+                        <button type="button" onclick="DeleteDoctor($('#u_id').val())" class="btn btn-primary">Delete</button>
                     </div>
 
                 </form>

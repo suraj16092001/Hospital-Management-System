@@ -19,7 +19,6 @@ function getDoctorList() {
                                 <h5 class="card-title fw-bold">${item.User.name}</h5>
                                 <p class="card-text">specialist: ${item.admin_Doctor.specialist}</p>
                                 <a class="btn btn-primary" onclick="popupdatedata(${item.User.id})" data-bs-toggle="modal" data-bs-target="#UpdateDoctorModal">Edit</a>
-                                <a class="btn btn-primary" onclick="DeleteDoctor(${item.User.id})">Delete</a>
                                 </div>
                         </div>
                     </div>`
@@ -50,6 +49,7 @@ function AddDoctor() {
                 phone: $('#phone').val(),
                 DateOfBirth: $('#DateOfBirth').val(),
                 address: $('#address').val(),
+
             }
         };
 
@@ -102,7 +102,7 @@ function DeleteDoctor(id) {
                 type: "POST",
                 url: "/Admin_DoctorPage/DeleteDoctor/" + id,
                 success: function (data) {
-
+                    $('#UpdateDoctorModal').modal('hide');
                     swal.fire("Doctor deleted successfully!", {
                         icon: "success",
                     }).then(() => {
@@ -132,11 +132,13 @@ function previewImage(input) {
         reader.onload = function (e) {
             $('#imagePreviewUpdate').attr('src', e.target.result).show();
         };
+       
 
         reader.readAsDataURL(file);
     } else {
         // Clear the image preview if no file is selected
         $('#imagePreviewUpdate').attr('src', '').hide();
+     
     }
 }
 function popupdatedata(id) {

@@ -6,7 +6,7 @@
             email: $('#email').val(),
             password: $('#password').val(),
             confirm_password: $('#confirm_password').val(),
-            role: $('#role').val(),
+           /* role: $('#role').val(),*/
         };
 
         console.log(RegisterData);

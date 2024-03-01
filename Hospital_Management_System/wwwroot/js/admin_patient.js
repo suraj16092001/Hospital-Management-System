@@ -26,7 +26,7 @@ function get() {
                     {
                         data: null,
                         render: function (data, type, row) {
-                            return `<button type="button" onclick="popupdatedata(` + row.User.id + `); event.stopPropagation();" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square"></i></button>|<button type="button" onclick="DeletePatient(` + row.User.id + `); event.stopPropagation();" class="btn btn-danger" ><i class="fa-solid fa-trash-can-arrow-up"></i></button>|<button type="button" onclick="popupdatedataforBooking(` + row.User.id + `); event.stopPropagation();" class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#appointmentModal"><i class="fa-solid fa-clipboard-list"></i></button>`;
+                            return `<button type="button" onclick="popupdatedata(` + row.User.id + `); event.stopPropagation();" class="btn" data-bs-toggle="modal" data-bs-target="#updatemodal"><i class="fa-solid fa-pen-to-square fa-lg" style="color: #63E6BE;"></i></button>|<button type="button" onclick="DeletePatient(` + row.User.id + `); event.stopPropagation();" class="btn" ><i class="fa-solid fa-trash-arrow-up fa-lg" style="color: #ec3649;"></i></button>|<button type="button" onclick="popupdatedataforBooking(` + row.User.id + `); event.stopPropagation();" class="btn"  data-bs-toggle="modal" data-bs-target="#appointmentModal"><i class="fa-solid fa-clipboard-list fa-xl" style="color: #FFD43B;"></i></button>`;
                         }
                     }
                 ],
@@ -189,6 +189,7 @@ function AddPatient() {
                 else if (data.status === "warning") {
                     alert(data.message);
                 }
+                ClearAddPatientForm();
                 $('#exampleModal').modal('hide');
                 get();
             },

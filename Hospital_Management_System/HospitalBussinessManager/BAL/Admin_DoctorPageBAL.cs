@@ -80,10 +80,10 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
             }
 
         }
-        public void DeleteDoctor(int id)
+        public void DeleteDoctor(UserModel model,int id)
         {
 
-            _IAdmin_DoctorPageDAL.DeleteDoctor(id);
+            _IAdmin_DoctorPageDAL.DeleteDoctor(model,id);
         }
 
         public DoctorAllDataViewModel GetDoctorByID(int id)

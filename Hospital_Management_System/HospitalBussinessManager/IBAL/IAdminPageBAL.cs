@@ -6,7 +6,7 @@ namespace Hospital_Management_System.HospitalBussinessManager.IBAL
     {
 		List<AdminAllDataViewModel> GetAdminList();
         public string AddAdmin(AdminAllDataViewModel model);
-         public void DeleteAdmin(int id);
+        public void DeleteAdmin(UserModel model, int id);
 		public AdminAllDataViewModel GetAdminByID(int id);
         public string UpdateAdmin(AdminAllDataViewModel model);
     }

@@ -70,7 +70,11 @@ namespace Hospital_Management_System.Controllers
 
         public IActionResult DeletePatient(int id)
         {
-            _IAdmin_PatientPageBAL.DeletePatient(id);
+            UserModel model = new UserModel();
+            model.deleted_at = DateTime.Now;
+            int? test = HttpContext.Session.GetInt32("id");
+            model.deleted_by = test.Value;
+            _IAdmin_PatientPageBAL.DeletePatient(model,id);
             return Json("PatientList");
         }
 

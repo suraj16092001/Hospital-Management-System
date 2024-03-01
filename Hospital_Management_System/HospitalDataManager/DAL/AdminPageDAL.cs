@@ -77,7 +77,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
             return admin;
 
         }
-        public void DeleteAdmin(int id)
+        public void DeleteAdmin(UserModel model, int id)
         {
             try
             {
@@ -85,6 +85,8 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 _dBManager.InitDbCommand("DeleteAdminByID");
                 _dBManager.AddCMDParam("p_id", id);
                 _dBManager.AddCMDParam("@p_isDeleted", isDeleted);
+                _dBManager.AddCMDParam("@p_deleted_by", model.deleted_by);
+                _dBManager.AddCMDParam("@p_deleted_at", model.deleted_at);
                 _dBManager.ExecuteNonQuery();
             }catch(Exception ex)
             {

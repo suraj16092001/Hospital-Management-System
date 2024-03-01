@@ -19,6 +19,7 @@ namespace Hospital_Management_System.HospitalBussinessManager.BAL
 
         public string SignUp(UserModel user)
         {
+            user.role = 2;
             bool emailExists = _ILoginDAL.CheckEmailExistence(user.email, user.id);
 
             if (emailExists)

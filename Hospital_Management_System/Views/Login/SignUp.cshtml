@@ -36,14 +36,14 @@
                     </div>
                     <span asp-validation-for="confirm_password" class="text-danger"></span>
 
-                    <div class="txt_field">
+                  @*   <div class="txt_field d-none">
                         @Html.DropDownListFor(model => model.role, new SelectList(new List<object>() { 
                         new { value = 1 , text = "Admin" },
                         new { value = 2 , text = "Patient"  },
                         new { value = 3 , text = "Doctor"  } },"value","text"),
                         "Select Role", new { @class = "input-field w-100 border-0" })
                     </div>
-                    <span asp-validation-for="role" class="text-danger"></span>
+                    <span asp-validation-for="role" class="text-danger"></span> *@
 
 
                     <div><button type="button" class="submit_button" onclick="Register()">Sign Up</button></div>

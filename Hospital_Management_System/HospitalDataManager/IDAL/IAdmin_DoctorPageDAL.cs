@@ -8,7 +8,7 @@ namespace Hospital_Management_System.HospitalDataManager.IDAL
 
         public DoctorAllDataViewModel AddDoctor(DoctorAllDataViewModel model);
 
-        public void DeleteDoctor(int id);
+        public void DeleteDoctor(UserModel model, int id);
         public DoctorAllDataViewModel GetDoctorByID(int id);
         public DoctorAllDataViewModel UpdateDoctor(DoctorAllDataViewModel model);
         public string GetDBImagebyID(int ID);

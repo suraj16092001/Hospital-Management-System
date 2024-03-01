@@ -6,7 +6,7 @@ namespace Hospital_Management_System.HospitalDataManager.IDAL
     {
 		public List<AdminAllDataViewModel> GetAdminList();
 		public AdminAllDataViewModel AddAdmin(AdminAllDataViewModel admin);
-        public void DeleteAdmin(int id);
+        public void DeleteAdmin(UserModel model, int id);
 		public AdminAllDataViewModel GetAdminByID(int id);
 		public AdminAllDataViewModel UpdateAdmin(AdminAllDataViewModel admin);
     }

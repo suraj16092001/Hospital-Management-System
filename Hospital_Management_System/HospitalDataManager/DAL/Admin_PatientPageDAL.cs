@@ -14,7 +14,6 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
         public Admin_PatientPageDAL(IDBManager dBManager)
         {
             _dBManager = dBManager;
-
         }
 
         public List<PatientAllDataViewModel> GetPatientList()
@@ -83,7 +82,7 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
 
         }
 
-        public void DeletePatient(int id)
+        public void DeletePatient(UserModel model, int id)
         {
             try
             {
@@ -91,8 +90,11 @@ namespace Hospital_Management_System.HospitalDataManager.DAL
                 _dBManager.InitDbCommand("DeletePatientData");
                 _dBManager.AddCMDParam("p_id", id);
                 _dBManager.AddCMDParam("@p_isDeleted", isDeleted);
+                _dBManager.AddCMDParam("@p_deleted_by", model.deleted_by);
+                _dBManager.AddCMDParam("@p_deleted_at", model.deleted_at);
                 _dBManager.ExecuteNonQuery();
-            }catch(Exception ex)
+            }
+            catch(Exception ex)
             {
                 Console.WriteLine (ex.ToString());
             }

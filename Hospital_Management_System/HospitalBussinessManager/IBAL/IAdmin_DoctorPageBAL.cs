@@ -8,7 +8,7 @@ namespace Hospital_Management_System.HospitalBussinessManager.IBAL
     {
         public List<DoctorAllDataViewModel> GetDoctorList();
         public string AddDoctor(DoctorAllDataViewModel model, IFormFile file);
-        public void DeleteDoctor(int id);
+        public void DeleteDoctor(UserModel model, int id);
 
         public DoctorAllDataViewModel GetDoctorByID(int id);
         public string UpdateDoctor(DoctorAllDataViewModel model, int Id, IFormFile file);

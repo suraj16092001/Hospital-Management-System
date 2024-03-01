@@ -49,7 +49,11 @@ namespace Hospital_Management_System.Controllers
 
         public IActionResult DeleteAdmin(int id)
         {
-            _IAdminPageBAL.DeleteAdmin(id);
+            UserModel model = new UserModel();
+            model.deleted_at = DateTime.Now;
+            int? test = HttpContext.Session.GetInt32("id");
+            model.deleted_by = test.Value;
+            _IAdminPageBAL.DeleteAdmin(model,id);
             return RedirectToAction("AdminList");
         }
 
