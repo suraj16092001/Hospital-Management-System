@@ -146,6 +146,7 @@ function BookAppointment() {
             else if (data.status === "warning") {
                 alert(data.message);
             }
+            ClearBookingForm();
             $('#appointmentModal').modal('hide');
             get();
         },

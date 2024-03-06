@@ -3,7 +3,6 @@
     get();
 });
 
-
 function get() {
     debugger;
     // Destroy the existing DataTable
